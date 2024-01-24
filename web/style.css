@@ -8,8 +8,8 @@
 --nav-accent:#fff;
 --nav-bg:#222;
 --nav-color:#999;
---space-bg:#e1e1e1;
---shade:#0001
+--shade:#0001;
+--space-bg:#e1e1e1
 }
 
 body {
@@ -157,9 +157,9 @@ width:100%
 textarea.txt {
 font-family:monospace;
 line-height:1.1rem;
-width:calc(100% - 2rem);
 margin:.5rem 1rem;
-min-height:6rem
+min-height:6rem;
+width:calc(100% - 2rem)
 }
 
 textarea {
@@ -181,9 +181,9 @@ width:100%
 align-items:center;
 background:transparent;
 display:flex;
-padding:.125rem 0;
 justify-content:space-between;
-margin-bottom:.125rem
+margin-bottom:.125rem;
+padding:.125rem 0
 }
 
 section nav button {
@@ -198,17 +198,17 @@ margin-right:.5rem
 main nav button.wtext {
 align-items:center;
 display:flex;
+font-size:.9rem;
 justify-content:center;
 text-transform:capitalize;
-width:auto;
-font-size:.9rem
+width:auto
 }
 
 main nav button svg {
 height:20px;
 margin-right:.25rem;
-width:20px;
-stroke-width:1
+stroke-width:1;
+width:20px
 }
 
 #spaces section nav button.title b {
@@ -271,7 +271,12 @@ flex-wrap:wrap;
 padding:1rem
 }
 
-div#stock {display:flex;flex-wrap:wrap;padding:.5rem;min-height: 7rem;}
+div#stock {
+display:flex;
+flex-wrap:wrap;
+min-height:7rem;
+padding:.5rem
+}
 
 div.stack {
 border:2px solid var(--ca-border);
@@ -286,11 +291,13 @@ font-size:.8rem
 }
 
 #smp nav.slant {
-border-bottom:1px solid #999;
-background:var(--shade)
+background:var(--shade);
+border-bottom:1px solid #999
 }
 
-nav.horizontal span { display: inline-flex; }
+nav.horizontal span {
+display:inline-flex
+}
 
 nav.horizontal,#set nav {
 align-items:center;
@@ -331,51 +338,59 @@ display:inline
 }
 
 #collection {
-padding:.5rem;
+align-content:flex-start;
+align-items:flex-start;
 display:flex;
 flex-direction:row;
 flex-wrap:wrap;
 justify-content:flex-start;
-align-items:flex-start;
-align-content:flex-start
+padding:.5rem
 }
 
 div.note {
+border:1px solid var(--ca-border);
 display:block;
-width:300px;
-position:relative;
 margin:0 1rem 1rem 0;
-border:1px solid var(--ca-border)
+position:relative;
+width:300px
 }
 
 div.note .txt {
-font-size:.9rem;
-font-family:monospace;
-line-height:1rem;
 background:#fff9;
+font-family:monospace;
+font-size:.9rem;
+line-height:1rem;
 margin:0;
 padding:0;
 width:100%
 }
 
 div.note button {
-position:absolute;
-left:3px;
-bottom:3px;
-width:22px;
-height:22px;
-padding:2px;
+background:transparent;
 border:none;
-background:transparent
+bottom:3px;
+height:22px;
+left:3px;
+padding:2px;
+position:absolute;
+width:22px
 }
 
 div.note button svg {
-width:16px;
-height:16px
+height:16px;
+width:16px
 }
 
 #info div {
-padding:1rem;
 border:1px solid var(--ca-border);
-display:block
+display:block;
+padding: 0 1rem 1rem 1rem;
+margin:1rem;
+line-height:1.6rem;
 }
+
+.works button[title='workspaces'] svg { color: var(--nav-accent)}
+.clip button[title='saved prompt'] svg { color: var(--nav-accent)}
+.set button[title='manage workspaces'] svg { color: var(--nav-accent)}
+.data button[title='prompt data'] svg { color: var(--nav-accent)}
+.info button[title='credits'] svg { color: var(--nav-accent)}
