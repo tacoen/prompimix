@@ -1,0 +1,87 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+	<link rel='stylesheet' href='css/normalize.css' type='text/css' media='all' />
+	<link rel='stylesheet' href='style.css' type='text/css' media='all' />
+	<script src="js/feather.min.js"></script>
+	<script src="js/ta.js"></script>
+	<script src="script.js"></script>
+	<title>Promptcrafter</title>
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+</head>
+<body id="smp" class="works">
+
+<nav class="fix vertical" id="vnav">
+	<span class='top'>
+		<button title='workspaces' onclick="sw('works')"><i class='' data-feather='maximize'></i></button>
+		<button title='saved prompt' onclick="sw('clip')"><i class='' data-feather='clipboard'></i></button>
+	</span>
+	<span>
+		<button title='manage workspaces' onclick="sw('set')"><i class='' data-feather='settings'></i></button>
+		<button title='prompt data' onclick="sw('data')"><i class='' data-feather='database'></i></button>
+		<button title='credits' onclick="sw('info')"><i class='' data-feather='info'></i></button>
+	</span>
+</nav>
+
+
+<main id='works'>
+	<div id="spaces"></div>
+	<div id="console">
+		<nav class='horizontal slant'>
+			<span><button onclick="tp_copy(this)" class='wtext'><i data-feather="copy"></i>Copy</button></span>
+			<span><button onclick="tp_saveprompt(this)" class='wtext'><i data-feather="clipboard"></i>Clip</button></span>
+		</nav>
+		<textarea class='txt' id="output"></textarea>
+	</div>
+</main>
+
+<main id='data'>
+	<nav class='horizontal slant'>
+		<span><button onclick="tp_copy(this)" class='wtext'><i data-feather="x-square"></i>Clear</button></span>
+		<span><button onclick="tp_jsondownload()" class='wtext'><i data-feather="download"></i>Download</button></span>
+	</nav>
+
+	<textarea id='promptdata' class='txt full'></textarea>
+
+</main>
+
+<main id='set'>
+	<nav class='horizontal slant'>
+		<span id='stackcount'></span>
+		<span>
+		<button onclick="tp_stack_save(this)" class='wtext'><i data-feather="save"></i>Save</button>
+		<button onclick="tp_addprompt()" class='wtext'><i data-feather="plus"></i>Add Prompt</button>
+		</span>
+	</nav>
+	<div class="area"></div>
+	<textarea id="newspaces" class='txt'></textarea>
+</main>
+
+<main id='clip'>
+	<nav class='horizontal slant'>
+		<span id='notecount'></span>
+		<span></span>
+	</nav>
+	<div id='collection'></div>
+</main>
+
+<main id='info'>
+<div>
+<h1>PromptCrafter</h1>
+<p>PromptCrafter(tp-cooker) is an innovative software application developed using JavaScript, CSS, and HTML, designed to streamline the process of creating text-to-image prompts. This intuitive web-based tool empowers users to effortlessly generate captivating visual prompts for a variety of applications.</p>
+<p><a href='https://github.com/tacoen/tp-cooker'>https://github.com/tacoen/tp-cooker</a></p>
+
+<h2>Credits</h2>
+
+<li><a href='https://feathericons.com/'>feathericons</a>, Simply beautiful open source icons.</a></li>
+
+</div>
+</main>
+
+<script>
+exec();
+</script>
+
+</body>
+</html>
