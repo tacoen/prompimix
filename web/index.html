@@ -5,8 +5,10 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
 	<link rel="stylesheet" href="css/normalize.css" type="text/css" media="all">
 	<link rel="stylesheet" href="style.css" type="text/css" media="all">
+	<link rel="stylesheet" href="autocomp.css" type="text/css" media="all">
 	<script src="js/feather.min.js"></script>
 	<script src="js/ta.js"></script>
+	<script src="autocomp.js"></script>
 	<script src="script.js"></script>
 	<title>Promptcrafter</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -26,7 +28,7 @@
 		<textarea id="promptdata" class="txt full"></textarea>
 	</main>
 	<main id="set">
-		<nav class="horizontal slant"><span id="stackcount"></span> <span><button onclick="tp_stack_save(this)" class="wtext"><i data-feather="save"></i>Save</button> <button onclick="tp_addprompt()" class="wtext"><i data-feather="plus"></i>Add Prompt</button></span></nav>
+		<nav class="horizontal slant"><span id="stackcount"></span> <span><button onclick="tp_stack_save(this)" class="wtext"><i data-feather="save"></i>Save</button> <button onclick="tp_addprompt()" class="wtext"><i data-feather="plus"></i>Add Element</button></span></nav>
 		<div class="area"></div>
 		<textarea id="newspaces" class="txt"></textarea>
 	</main>

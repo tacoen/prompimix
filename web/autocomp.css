@@ -1,0 +1,55 @@
+/* ---- */
+
+.container {
+    position: relative;
+	padding:1rem;
+}
+.container__textarea {
+	position: relative;
+}
+
+.cme { display: none; }
+
+.cme {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    color: transparent;
+}
+.csg {
+    border: 1px solid rgb(203 213 225);
+    background: #fff;
+    border-radius: 0.5rem;
+    display: none;
+    position: absolute;
+}
+.cg {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    height: 2rem;
+    padding: 0 0.5rem;
+}
+
+.cg:not(:first-child) {
+    border-top: 1px solid rgb(203 213 225);
+}
+.cg--focused {
+    background: rgb(226 232 240);
+}
+
+/* ---- */
+
+
+
+[data-key].cg::after {
+	color: #666;
+	right: 3px;
+	position: absolute;
+	font-size: .8rem;
+	align-content:left;
+	content: attr(data-key);
+}

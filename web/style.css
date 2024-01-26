@@ -325,9 +325,28 @@ border:2px dashed var(--ca-border);
 margin:.5rem
 }
 
-section div.select,section.on_input div.input {
+section div.select {
 display:flex
 }
+
+section.on_input div.input {
+	display: block;
+}
+
+section div.input {
+	position: relative;	
+	display: none
+}
+
+section {
+	z-index:0;
+}
+
+section.on_input.active {
+	z-index: 100;
+}
+
+
 
 section div.input,section.on_input div.select,section.on_input svg.feather-toggle-left,section svg.feather-toggle-right,main,div.stack input.data-order {
 display:none

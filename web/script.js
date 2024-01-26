@@ -151,7 +151,14 @@ function create_spaces(spaces,prompts) {
 		
 		var input = document.createElement('div');
 		input.setAttribute('class','input')
-		input.innerHTML = "<textarea onchange='tp_input(this)' name='"+w+"_input'></textarea>";
+		
+		var textarea = document.createElement('textarea')
+		textarea.setAttribute('class','container__textarea')
+		textarea.setAttribute('onclick','autocomp(this)')
+		textarea.setAttribute('onblur','autocomp_deactive(this)')
+		textarea.setAttribute('name',w+'_input')
+		
+		input.append(textarea);
 		
 		var nav = document.createElement('nav');
 		nav.innerHTML = "<button class='wtext' onclick='tp_toggle(this)'><i data-feather='toggle-left'></i><i data-feather='toggle-right'></i>"+ 
