@@ -156,6 +156,7 @@ function create_spaces(spaces,prompts) {
 		textarea.setAttribute('class','container__textarea')
 		textarea.setAttribute('onclick','autocomp(this)')
 		textarea.setAttribute('onblur','autocomp_deactive(this)')
+		textarea.setAttribute('onchange','tp_input(this)')
 		textarea.setAttribute('name',w+'_input')
 		
 		input.append(textarea);
