@@ -8,32 +8,79 @@
 	<link rel="stylesheet" href="autocomp.css" type="text/css" media="all">
 	<script src="js/feather.min.js"></script>
 	<script src="js/ta.js"></script>
+	<script src="tp.js"></script>
 	<script src="autocomp.js"></script>
 	<script src="script.js"></script>
 	<title>Promptcrafter</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 </head>
 
-<body id="smp" class="works">
-	<nav class="fix vertical" id="vnav"><span class="top"><button title="workspaces" onclick="sw(&quot;works&quot;)"><i data-feather="maximize"></i></button> <button title="saved prompt" onclick="sw(&quot;clip&quot;)"><i data-feather="clipboard"></i></button></span> <span><button title="manage workspaces" onclick="sw(&quot;set&quot;)"><i data-feather="settings"></i></button> <button title="prompt data" onclick="sw(&quot;data&quot;)"><i data-feather="database"></i></button> <button title="credits" onclick="sw(&quot;info&quot;)"><i data-feather="info"></i></button></span></nav>
+<body id="smp" class="form">
+	<nav class="fix vertical" id="vnav">
+	<span class="top">
+	<button title="write" onclick="sw('form')"><i data-feather="edit-3"></i></button>	
+	<button title="workspaces" onclick="sw('works')"><i data-feather="maximize"></i></button> 
+	<button title="saved prompt" onclick="sw('clip')"><i data-feather="clipboard"></i></button>
+	</span> 
+	<span><button title="manage workspaces" onclick="sw('set')"><i data-feather="settings"></i></button> <button title="prompt data" onclick="sw('data')"><i data-feather="database"></i></button> <button title="credits" onclick="sw('info')"><i data-feather="info"></i></button></span></nav>
+	<main id="form">
+	<div>
+			<nav class="horizontal slant">
+			<span><button onclick="tp_copy_ff(this)" class="wtext"><i data-feather="copy"></i>Copy</button></span>
+			<span><button onclick="tp_saveprompt_ff(this)" class="wtext"><i data-feather="clipboard"></i>Clip</button></span>
+			</nav>
+			<div>
+		<section id='freeform' class='on_input'>
+		<div class='input'>
+		<textarea tabindex=0 class="container__textarea" onclick="autocomp(this)" onblur="autocomp_deactive(this)" name="type_input"></textarea>
+		</div>
+		</div>
+		</section>
+	</div>
+	</main>
 	<main id="works">
 		<div id="spaces"></div>
 		<div id="console">
-			<nav class="horizontal slant"><span><button onclick="tp_copy(this)" class="wtext"><i data-feather="copy"></i>Copy</button></span> <span><button onclick="tp_saveprompt(this)" class="wtext"><i data-feather="clipboard"></i>Clip</button></span></nav>
+			<nav class="horizontal slant">
+			<span><button onclick="tp_copy(this)" class="wtext"><i data-feather="copy"></i>Copy</button></span>
+			<span><button onclick="tp_saveprompt(this)" class="wtext"><i data-feather="clipboard"></i>Clip</button></span>
+			</nav>
 			<textarea class="txt" id="output"></textarea>
 		</div>
 	</main>
 	<main id="data">
-		<nav class="horizontal slant"><span><button onclick="tp_copy(this)" class="wtext"><i data-feather="x-square"></i>Clear</button></span> <span><button onclick="tp_jsondownload()" class="wtext"><i data-feather="download"></i>Download</button></span></nav>
-		<textarea id="promptdata" class="txt full"></textarea>
+		<nav class="horizontal slant">
+		<span>
+		<button onclick="tp_list2Json()" class="wtext"><i data-feather="target"></i>build</button>
+		</span> 
+		<span><button onclick="tp_jsonDownload('prompts')" class="wtext"><i data-feather="download"></i>Download</button>
+		</span></nav>
+		<textarea id="promptdata" class="txt"></textarea>
+		<h4>Sorted and only unique: <small>(click unwanted item to remove)</small></h4>
+		<div class='list'>
+		</div>
 	</main>
 	<main id="set">
-		<nav class="horizontal slant"><span id="stackcount"></span> <span><button onclick="tp_stack_save(this)" class="wtext"><i data-feather="save"></i>Save</button> <button onclick="tp_addprompt()" class="wtext"><i data-feather="plus"></i>Add Element</button></span></nav>
+		<nav class="horizontal slant">
+		<span>
+		<button onclick="tp_addprompt()" class="wtext"><i data-feather="plus"></i>Add Element</button>
+		<button onclick="tp_stack_save(this)" class="wtext"><i data-feather="save"></i>Save</button>
+		<span id="stackcount"></span> 
+		</span>
+
+		<span>
+		<button onclick="tp_jsonDownload('spaces')" class="wtext"><i data-feather="download"></i>Download</button>
+		</span>
+		</nav>
 		<div class="area"></div>
 		<textarea id="newspaces" class="txt"></textarea>
 	</main>
 	<main id="clip">
-		<nav class="horizontal slant"><span id="notecount"></span> <span></span></nav>
+		<nav class="horizontal slant"><span id="clipcount"></span> 
+		<span>
+		<button onclick="tp_jsonDownload('clip')" class="wtext"><i data-feather="download"></i>Download</button>
+		</span>
+		</nav>
 		<div id="collection"></div>
 	</main>
 	<main id="info">
@@ -43,12 +90,28 @@
 			<a href="https://hits.sh/tacoen.github.io/promptcrafter/web/"><img alt="Hits" src="https://hits.sh/tacoen.github.io/promptcrafter/web.svg"/></a>
 			
 			<p>PromptCrafter(tp-cooker) is an innovative software application developed using JavaScript, CSS, and HTML, designed to streamline the process of creating text-to-image prompts. This intuitive web-based tool empowers users to effortlessly generate captivating visual prompts for a variety of applications.</p>
-			<p><a href="https://github.com/tacoen/tp-cooker">https://github.com/tacoen/tp-cooker</a></p>
-			<h2>Credits</h2>
+			<p>Made with <span style="color:#f33">&#10084;</span> by <a href="https://tacoen.github.io">tacoen</a></p>
+
+			<h2>Features:</h2>
+			<ul>
+			<li>Working using browser localstorage. </li>
+			<li>Unlimited, Suit You, design your own workspaces, collect your own favorite prompt and mix.</li>
+			<li>The prompts-data is JSON. Can be shared among others.</li>
+			<li>Auto complete shall make you easily remix your prompt.</li>
+			<li>Use suffix and prefix to make your prompting easier.</li>
+			</ul>
+			<h2>Credits:</h2>
 			<ul>
 				<li><a href="https://feathericons.com/">Feathericons</a>, Simply beautiful open source icons.</li>
 				<li><a href="https://github.com/necolas/normalize.css">normalize.css</a> v8.0.1, MIT License</li>
+				<li><a href='https://github.com/phuocng/mirror-a-text-area'>Mirror a textarea</a>, Phước Nguyễn</li>
 			</ul>
+
+			<p class='softwarn'>
+				<span>Erase LocalStorage - Reset your promptCrafter to latest JSON</span>
+				<button onclick='tp__reset()' class='reset'>reset</button>
+			</p>
+			
 		</div>
 	</main>
 	<script>

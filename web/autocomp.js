@@ -21,6 +21,15 @@ let getSiblings = function (e) {
 function autocomp_deactive(obj) {
 	var p = obj.closest('section');
 	var k = p.id
+	var allcme = p.querySelectorAll('div.cme')
+	allcme.forEach( 
+		function(e) { 
+			//console.log(e,1);
+			if (typeof e !== 'undefined') { e.remove(); } 
+	});
+	
+//	obj.removeEventListener('scroll');
+//	obj.removeEventListener('input');
 }
 
 	
@@ -28,6 +37,8 @@ function autocomp(obj) {
 
 	var p = obj.closest('section');
 	var k = p.id
+	
+	//console.log(k);
 
 	let ta = new ta_jsfunc();
 	let prompts = ta.ls_get('prompts');
@@ -39,8 +50,23 @@ function autocomp(obj) {
 	})
 
 		var suggestions = [];
-		
 		var its={}
+
+
+	if (k === 'freeform') {
+
+		Object.keys(prompts).forEach( function(k,i) {
+			var array = JSON.parse(prompts[k]);
+			array.forEach( function(w) {
+				its[w] = k
+				suggestions.push(w);
+			})
+		})
+	
+
+	} else {
+
+		if (typeof prompts[k] !== "undefined") {
 
 			var array = JSON.parse(prompts[k]);
 			array.forEach( function(w) {
@@ -48,7 +74,13 @@ function autocomp(obj) {
 				suggestions.push(w);
 			})
 
-		// console.log(suggestions);
+		} 
+
+	}
+	
+	suggestions = uniquesort(suggestions)
+	
+	// console.log(suggestions);
 		
 		p.classList.add('active')
 		
@@ -165,15 +197,18 @@ function autocomp(obj) {
 			var oldz = suggestionsEle.style['z-index'];
 
 			suggestionsEle.style.width = textarea.offsetWidth +"px";
-			suggestionsEle.setAttribute('coba','22')
 			suggestionsEle.style['z-index'] = oldz + 1;
+			
+			var n = 0;
 			
 			suggestionsEle.innerHTML = '';
 			matches.forEach((match) => {
+				n = n+1;
 				const option = document.createElement('div');
 				option.innerText = match;
 				option.setAttribute('data-key', its[match]);
 				option.classList.add('cg');
+				option.setAttribute('tabindex',n)
 				option.addEventListener('click', function() {
 					replaceCurrentWord(this.innerText);
 					suggestionsEle.style.display = 'none';
@@ -183,11 +218,13 @@ function autocomp(obj) {
 			suggestionsEle.style.display = 'block';
 		});
 		
+		var ct = 0;
+					
 		const clamp = (min, value, max) => Math.min(Math.max(min, value), max);
 	
 		let currentSuggestionIndex = -1;
 		textarea.addEventListener('keydown', (e) => {
-			if (!['ArrowDown', 'ArrowUp', 'Enter', 'Escape'].includes(e.key)) {
+			if (!['ArrowDown', 'ArrowUp', 'Enter', 'Escape','Tab'].includes(e.key)) {
 				return;
 			}
 	
@@ -197,6 +234,9 @@ function autocomp(obj) {
 				return;
 			}
 			e.preventDefault();
+			
+
+			
 			switch (e.key) {
 				case 'ArrowDown':
 					suggestions[
@@ -216,6 +256,18 @@ function autocomp(obj) {
 					replaceCurrentWord(suggestions[currentSuggestionIndex].innerText);
 					suggestionsEle.style.display = 'none';
 					break;
+				case 'Tab':
+					if (ct == 1) {
+						replaceCurrentWord(suggestions[currentSuggestionIndex].innerText);
+						suggestionsEle.style.display = 'none';
+						ct = 0;
+					} else {
+						currentSuggestionIndex = clamp(0, currentSuggestionIndex - 1, numSuggestions - 1);
+						suggestions[currentSuggestionIndex].classList.add('cg--focused');
+						ct = 1;
+					}
+
+					break;					
 				case 'Escape':
 					suggestionsEle.style.display = 'none';
 					break;

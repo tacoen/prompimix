@@ -9,7 +9,8 @@
 --nav-bg:#222;
 --nav-color:#999;
 --shade:#0001;
---space-bg:#e1e1e1
+--space-bg:#e1e1e1;
+--highlighted: #ffee33cc;
 }
 
 body {
@@ -257,7 +258,10 @@ main button:active *,main button:focus * {
 color:var(--accent2)
 }
 
-body.data #data,body.info #info,body.clip #clip,body.set #set,body.works #works {
+body.data #data,
+body.form #form,
+body.info #info,
+body.clip #clip,body.set #set,body.works #works {
 display:flex;
 flex-direction:column;
 overflow-y:auto
@@ -309,13 +313,11 @@ justify-content:space-between;
 padding:0 1rem
 }
 
-#notecount,#stackcount {
-color:var(--nav-color);
-display:inline-block;
-font-weight:600
+#clipcount,#stackcount {
+	color:var(--nav-color);display:inline-block;font-weight:600;line-height: 40px;font-size: .8rem;padding-left: 1rem;
 }
 
-#notecount::before,#stackcount::before {
+#clipcount::before,#stackcount::before {
 content:"Count: ";
 font-weight:500
 }
@@ -366,13 +368,7 @@ justify-content:flex-start;
 padding:.5rem
 }
 
-div.note {
-border:1px solid var(--ca-border);
-display:block;
-margin:0 1rem 1rem 0;
-position:relative;
-width:300px
-}
+div.note {border:1px solid var(--ca-border);display:block;margin: 0 2.2rem 1rem 0;position:relative;width:300px}
 
 div.note .txt {
 background:#fff9;
@@ -384,16 +380,7 @@ padding:0;
 width:100%
 }
 
-div.note button {
-background:transparent;
-border:none;
-bottom:3px;
-height:22px;
-left:3px;
-padding:2px;
-position:absolute;
-width:22px
-}
+div.note button {background:transparent;border:none;/* bottom:3px; */height:22px;right: -1.5rem;padding:2px;position:absolute;width:22px}
 
 div.note button svg {
 height:16px;
@@ -413,3 +400,73 @@ line-height:1.6rem;
 .set button[title='manage workspaces'] svg { color: var(--nav-accent)}
 .data button[title='prompt data'] svg { color: var(--nav-accent)}
 .info button[title='credits'] svg { color: var(--nav-accent)}
+.form button[title='write'] svg { color: var(--nav-accent)}
+
+.softwarn {
+	display: flex;
+	font-size:.9rem;
+	background:#fff9;
+	padding: .5rem;
+	justify-content: space-between;
+}
+
+#form > div  {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	overflow-y: scroll;
+	height: 100%;
+	justify-content: flex-start;
+	overflow-x: hidden;
+}
+
+#form > div > div {
+		padding: 1rem;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		height: auto;
+}
+
+#form nav {
+	display: flex;
+	width: calc(100% - 2rem);
+	flex-direction: row;
+}
+
+#freeform textarea {
+	width: 60vw;
+	height: 20vh;
+}
+
+#data > div {
+	font-size: .9rem;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#data  > div > div {
+	padding: 0 1rem;
+}
+
+#data  > div > div > b {
+	 padding: 0 .25rem;
+}
+
+#data  ul { 
+	border-left: 1px dashed #ccc; 
+	display: block; margin: 0 0 3rem 0 ; padding: 0 .25rem; list-style-type: none; 
+	border-top: 3px solid #ccc; }
+
+#data  ul li { 
+	border-bottom: 1px dashed #ccc; 
+	line-height: 1.2rem; 
+	cursor:pointer;
+}
+
+#data  ul li:hover {
+	background-color:var(--highlighted);
+	
+}
+
+#data h4 { padding: 0 1rem; margin: 1rem 0}

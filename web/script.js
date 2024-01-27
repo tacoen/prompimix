@@ -1,7 +1,6 @@
 const debug = false;
 const arv = [ 'data-order','title','class','data-prefix','data-suffix' ]
 
-
 function sw(w) {
     document.getElementById('smp').className=w;
 }
@@ -72,23 +71,6 @@ function reorder(cn) {
   document.getElementById('newspaces').value = JSON.stringify(newspaces).trim();
 }
 
-function tp_stack_save(obj) {
-
-  reorder(document.getElementById('stack').querySelectorAll('div.stack'));
-  console.log('spaces update!')
-  let ta = new ta_jsfunc();
-  ta.ls_save('spaces', document.getElementById('newspaces').value )
-
-  window.location.reload();
-  
-}
-
-function tp_arcopy(obj) {
-	var copytext = obj.closest('div.note').querySelector('.txt');
-	console.log(copytext);
-    copytext.select();
-    document.execCommand("copy");
-}
 
 function create_cliplist() {
 
@@ -113,25 +95,11 @@ function create_cliplist() {
 
 	}
 
-	document.getElementById('notecount').innerHTML =c;
+	document.getElementById('clipcount').innerHTML =c;
 	document.getElementById('collection').innerHTML = nts
 }
 
-function tp_saveprompt(obj) {
 
-  let ta = new ta_jsfunc();
-  let notes = ta.ls_get('clip');
-
-  if (typeof notes === 'undefined') { notes = [] }
-  
-  notes.push ( document.getElementById('output').value.trim() )
-
-  console.log(notes);
-  
-  ta.ls_save('clip', JSON.stringify ( notes ) )
-	
-	
-}
 
 function create_spaces(spaces,prompts) {
 	
@@ -366,9 +334,11 @@ async function exec(forceInit) {
 	
 	create_dnd_stack(spaces,prompts);
 	
-	document.getElementById('promptdata').value = JSON.stringify(prompts);
 
+	
 	create_cliplist();
+
+	json_dive(prompts);
 	
 	feather.replace();
 
@@ -376,13 +346,65 @@ async function exec(forceInit) {
 	
 }
 
-function tp_jsondownload() {
-    var lsdata = JSON.stringify(document.getElementById('promptdata').value);
-    const link = document.createElement("a");
-    let dt= new Date().toLocaleString();
-    const file = new Blob([lsdata], { type: 'text/plain' });
-    link.href = URL.createObjectURL(file);
-    link.download = dt+"-data.json";
-    link.click();
-    URL.revokeObjectURL(link.href);
+
+function json_dive(prompts) {
+	
+	var rdat = new Object();
+	
+	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {	
+
+		var div = document.createElement('div');
+		div.id = k+"_list"
+		rdat[k] = new Array();
+		div.classList.add('topic')
+		div.innerHTML = "<b>"+k+"</b>"
+		var array = uniquesort ( JSON.parse(prompts[k]) );
+	
+		var list = document.createElement('ul');
+		
+		array.forEach( function(w) {
+			var li = document.createElement('li')
+			li.innerHTML = w
+			li.setAttribute('onclick','this.remove()')
+
+			list.append(li);
+			rdat[k].push(w);
+		})
+		
+		rdat[k] = JSON.stringify(rdat[k]);
+		
+		div.append(list)
+		
+		document.querySelector('#data > div').append(div);
+		
+		
+
+	});
+	// var rdata = JSON.stringify(rdat).toLowerCase();
+
+	document.getElementById('promptdata').value = JSON.stringify(rdat).toLowerCase();
 }
+
+function tp_list2Json() {
+	
+	var kA = document.querySelectorAll('#data .list >div')
+	var rdat = new Object();
+	
+	kA.forEach( function(k) {
+		var list = []
+		var key = k.children[0].innerText
+		k.children[1].querySelectorAll('li').forEach ( function(li) {
+			list.push(li.innerText);
+		});
+		//console.log(key,list)
+		rdat[key] = JSON.stringify(list);
+
+	})
+
+	document.getElementById('promptdata').value = JSON.stringify(rdat).toLowerCase();
+
+
+  let ta = new ta_jsfunc();
+  ta.ls_save('prompts', JSON.stringify ( rdat ) )	
+}
+	
