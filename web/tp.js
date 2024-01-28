@@ -1,3 +1,69 @@
+
+function tp_addprompt() {
+
+	var stock = document.getElementById('stock')	
+	var div = document.createElement('div')
+
+	var w = prompt('prompt name','custome');
+	var c = Math.floor(Math.random() * (Math.pow(10,2)));
+	
+	
+	if (( w !== null ) || (w !== "")) {
+	
+		w = w.trim().toLowerCase();
+		
+		div.id = w+"_stack";
+		div.setAttribute('class','stack');
+		div.setAttribute('name',w);
+		div.setAttribute('data-order',c);	
+		div.setAttribute('draggable',true);
+		div.setAttribute('ondragstart',"dragstart(event)");
+		div.setAttribute('ondragend',"dragend(event)");
+		
+		var txt = "<b>"+w+"</b>"
+		
+		val = [];
+		
+		arv.forEach( function (a) {
+			
+			if(a == 'title') { val[a] = w; }
+			else if (a == 'data-order') { val[a] = c; }
+			else { val[a] = '' }
+			
+			txt = txt + "<input type='text' class='"+a+"' name='"+a+"' value='"+val[a]+"'>";		
+		
+		});
+
+		div.innerHTML = txt;
+		stock.appendChild(div);
+	
+	}
+}
+
+function tp_list2Json() {
+	
+	var kA = document.querySelectorAll('#data .list >div')
+	var rdat = new Object();
+	
+	kA.forEach( function(k) {
+		var list = []
+		var key = k.children[0].innerText
+		k.children[1].querySelectorAll('li').forEach ( function(li) {
+			list.push(li.innerText);
+		});
+		//console.log(key,list)
+		rdat[key] = JSON.stringify(list);
+
+	})
+
+	document.getElementById('promptdata').value = JSON.stringify(rdat).toLowerCase();
+
+  let ta = new ta_jsfunc();
+  ta.ls_save('prompts', JSON.stringify ( rdat ) )	
+
+
+}
+
 function tp__reset() {
 	var p = confirm('Are you sure?')
 	if (p == true) {

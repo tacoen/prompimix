@@ -1,8 +1,32 @@
 const debug = false;
 const arv = [ 'data-order','title','class','data-prefix','data-suffix' ]
 
+var tips = [
+  "Be specific: Provide clear and specific instructions in your text prompt.",
+  "Include important details: Think about the key elements you want to see in the image and include them in your prompt.",
+  "Use descriptive language: Paint a vivid picture with your words to guide the artist.",
+  "Consider emotions and atmosphere: Describe the mood, lighting, and any other relevant factors that contribute to the desired emotional tone.",
+  "Provide references if available: Include reference images or examples that align with your vision as a guide for the artist.",
+  "Keep it concise: Provide enough detail while keeping your prompt concise and to the point.",
+  "Experiment and iterate: Refine your prompt, adjust the details, or try a different approach until you get the desired outcome.",
+  "Think about composition: Consider the arrangement and placement of elements within the image to create a visually appealing composition.",
+  "Use metaphors or symbols: If there's a deeper meaning or concept you want to convey, consider using metaphors or symbolic elements in your prompt.",
+  "Consider perspective and angles: Specify the perspective or angles you want the image to be drawn from to achieve the desired effect.",
+  "Think about lighting and shadows: Describe the lighting conditions and how they interact with the objects in the image.",
+  "Include dynamic elements: If you want movement or action in the image, describe the specific actions or poses you want the subjects to have.",
+  "Give creative freedom: While providing specific instructions, also allow room for the artist's creative interpretation to bring their unique style and ideas to the image.",
+  "Provide feedback: If the initial results are not what you expected, provide constructive feedback to help the artist refine the image.",
+  "Be appreciative: Remember to show gratitude and appreciation for the artist's efforts and the final image they create."
+];
+
+function newtips(tips) {
+	// var randomNumber = Math.floor(Math.random() * (tips.length)); 
+	document.querySelector('#form .tips').innerHTML = tips[ Math.floor(Math.random() * (tips.length)) ]
+}
+
 function sw(w) {
     document.getElementById('smp').className=w;
+	newtips(tips);
 }
 
 function allowDrop(ev) {
@@ -227,47 +251,6 @@ function stock(prompts,spaces) {
 	return stocks;	
 }
 
-function tp_addprompt() {
-
-	var stock = document.getElementById('stock')	
-	var div = document.createElement('div')
-
-	var w = prompt('prompt name','custome');
-	var c = Math.floor(Math.random() * (Math.pow(10,2)));
-	
-	
-	if (( w !== null ) || (w !== "")) {
-	
-		w = w.trim().toLowerCase();
-		
-		div.id = w+"_stack";
-		div.setAttribute('class','stack');
-		div.setAttribute('name',w);
-		div.setAttribute('data-order',c);	
-		div.setAttribute('draggable',true);
-		div.setAttribute('ondragstart',"dragstart(event)");
-		div.setAttribute('ondragend',"dragend(event)");
-		
-		var txt = "<b>"+w+"</b>"
-		
-		val = [];
-		
-		arv.forEach( function (a) {
-			
-			if(a == 'title') { val[a] = w; }
-			else if (a == 'data-order') { val[a] = c; }
-			else { val[a] = '' }
-			
-			txt = txt + "<input type='text' class='"+a+"' name='"+a+"' value='"+val[a]+"'>";		
-		
-		});
-
-		div.innerHTML = txt;
-		stock.appendChild(div);
-	
-	}
-}
-
 function create_dnd_stack(spaces,prompts) {
 
 	let ta = new ta_jsfunc();
@@ -289,6 +272,45 @@ function create_dnd_stack(spaces,prompts) {
 		}, stock(prompts,spaces)
 	)		
 
+}
+
+
+function json_dive(prompts) {
+	
+	var rdat = new Object();
+	
+	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {	
+
+		var div = document.createElement('div');
+		div.id = k+"_list"
+		rdat[k] = new Array();
+		div.classList.add('topic')
+		div.innerHTML = "<b>"+k+"</b>"
+		var array = uniquesort ( JSON.parse(prompts[k]) );
+	
+		var list = document.createElement('ul');
+		
+		array.forEach( function(w) {
+			var li = document.createElement('li')
+			li.innerHTML = w
+			li.setAttribute('onclick','this.remove()')
+
+			list.append(li);
+			rdat[k].push(w);
+		})
+		
+		rdat[k] = JSON.stringify(rdat[k]);
+		
+		div.append(list)
+		
+		document.querySelector('#data > div').append(div);
+		
+		
+
+	});
+	// var rdata = JSON.stringify(rdat).toLowerCase();
+
+	document.getElementById('promptdata').value = JSON.stringify(rdat).toLowerCase();
 }
 
 
@@ -333,78 +355,19 @@ async function exec(forceInit) {
 	create_spaces(spaces,prompts);
 	
 	create_dnd_stack(spaces,prompts);
-	
 
-	
 	create_cliplist();
 
 	json_dive(prompts);
 	
 	feather.replace();
 
-
+	tips.push("We got "+Object.keys(prompts).length+ " prompts keys.")
 	
-}
-
-
-function json_dive(prompts) {
-	
-	var rdat = new Object();
-	
-	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {	
-
-		var div = document.createElement('div');
-		div.id = k+"_list"
-		rdat[k] = new Array();
-		div.classList.add('topic')
-		div.innerHTML = "<b>"+k+"</b>"
-		var array = uniquesort ( JSON.parse(prompts[k]) );
-	
-		var list = document.createElement('ul');
-		
-		array.forEach( function(w) {
-			var li = document.createElement('li')
-			li.innerHTML = w
-			li.setAttribute('onclick','this.remove()')
-
-			list.append(li);
-			rdat[k].push(w);
-		})
-		
-		rdat[k] = JSON.stringify(rdat[k]);
-		
-		div.append(list)
-		
-		document.querySelector('#data > div').append(div);
-		
-		
-
-	});
-	// var rdata = JSON.stringify(rdat).toLowerCase();
-
-	document.getElementById('promptdata').value = JSON.stringify(rdat).toLowerCase();
-}
-
-function tp_list2Json() {
-	
-	var kA = document.querySelectorAll('#data .list >div')
-	var rdat = new Object();
-	
-	kA.forEach( function(k) {
-		var list = []
-		var key = k.children[0].innerText
-		k.children[1].querySelectorAll('li').forEach ( function(li) {
-			list.push(li.innerText);
-		});
-		//console.log(key,list)
-		rdat[key] = JSON.stringify(list);
-
+	Object.keys(prompts).forEach( function(t) {
+		tips.push("We had "+ JSON.parse(prompts[t]).length + " prompts under " + t )
 	})
 
-	document.getElementById('promptdata').value = JSON.stringify(rdat).toLowerCase();
-
-
-  let ta = new ta_jsfunc();
-  ta.ls_save('prompts', JSON.stringify ( rdat ) )	
-}
+	newtips(tips); 
 	
+}
