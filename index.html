@@ -1,37 +1,125 @@
-<!DOCTYPE html>
-<html lang="en-US">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<link rel='stylesheet' href='style.css' type='text/css' media='all' />
-<script src="script.js"></script>
-<title>Prompt Crafter</title>
-<link rel="icon" type="image/png" sizes="32x32" href="web/favicon-32x32.png">
-<meta name="description" content="Prompt Crafter is a powerful tool that simplifies the creation of text-to-image prompts. Streamline the process and unleash your creativity with this user-friendly platform. Craft engaging prompts effortlessly and inspire stunning visual creations. Explore the Demo and get started with the code. Enhance your text-to-image projects with Prompt Crafter today!">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+	<link rel="stylesheet" href="css/normalize.css" type="text/css" media="all">
+	<link rel="stylesheet" href="style.css" type="text/css" media="all">
+	<link rel="stylesheet" href="autocomp.css" type="text/css" media="all">
+	<script src="js/feather.min.js"></script>
+	<script src="js/ta.js"></script>
+	<script src="tp.js"></script>
+	<script src="autocomp.js"></script>
+	<script src="script.js"></script>
+	<title>Promptcrafter</title>
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 </head>
-<body>
 
-<div class='tease'><div></div></div>
+<body id="smp" class="form">
+	<nav class="fix vertical" id="vnav">
+	<span class="top">
+	<button title="write" onclick="sw('form')"><i data-feather="edit-3"></i></button>	
+	<button title="workspaces" onclick="sw('works')"><i data-feather="maximize"></i></button> 
+	<button title="saved prompt" onclick="sw('clip')"><i data-feather="clipboard"></i></button>
+	</span> 
+	<span><button title="manage workspaces" onclick="sw('set')"><i data-feather="settings"></i></button> <button title="prompt data" onclick="sw('data')"><i data-feather="database"></i></button> <button title="credits" onclick="sw('info')"><i data-feather="info"></i></button></span></nav>
+	<main id="form">
+	<div>
+			<nav class="horizontal slant">
+			<span><button onclick="tp_copy_ff(this)" class="wtext"><i data-feather="copy"></i>Copy</button></span>
+			<span><button onclick="tp_saveprompt_ff(this)" class="wtext"><i data-feather="clipboard"></i>Clip</button></span>
+			</nav>
+		<div>
+		<h4 id='greet'>Type your prompt here:</h4>
+		<section id='freeform' class='on_input'>
+		<div class='input'>
+		<textarea tabindex=0 class="container__textarea" onclick="autocomp(this)" onblur="autocomp_deactive(this)" name="type_input"></textarea>
+		</div>
+				<p><small><b>Tips:</b> <span class='tips'></span></small></p>
+		</div>
 
-<div class='mate'>
+		</section>
+	</div>
+	</main>
+	<main id="works">
+		<div id="spaces"></div>
+		<div id="console">
+			<nav class="horizontal slant">
+			<span><button onclick="tp_copy(this)" class="wtext"><i data-feather="copy"></i>Copy</button></span>
+			<span><button onclick="tp_saveprompt(this)" class="wtext"><i data-feather="clipboard"></i>Clip</button></span>
+			</nav>
+			<textarea class="txt" id="output"></textarea>
+		</div>
+	</main>
+	<main id="data">
+		<nav class="horizontal slant">
+		<span>
+		<button onclick="tp_list2Json()" class="wtext"><i data-feather="target"></i>build</button>
+		</span> 
+		<span><button onclick="tp_jsonDownload('prompts')" class="wtext"><i data-feather="download"></i>Download</button>
+		</span></nav>
+		<textarea id="promptdata" class="txt"></textarea>
+		<h4>Sorted and only unique: <small>(click unwanted item to remove)</small></h4>
+		<div class='list'>
+		</div>
+	</main>
+	<main id="set">
+		<nav class="horizontal slant">
+		<span>
+		<button onclick="tp_addprompt()" class="wtext"><i data-feather="plus"></i>Add Element</button>
+		<button onclick="tp_stack_save(this)" class="wtext"><i data-feather="save"></i>Save</button>
+		<span id="stackcount"></span> 
+		</span>
 
-<div>
-<h1>Prompt Crafter</h1>
-<p>Let's streamline the process of creating text-to-image prompts.</p>
-<div>
-<button class='button' onclick='fbutton(this)' href='https://tacoen.github.io/promptcrafter/web/'>Demo</button>
-<button class='button' onclick='fbutton(this)' href='https://github.com/tacoen/promptcrafter'>Code</button>
-</div>
-</div>
+		<span>
+		<button onclick="tp_jsonDownload('spaces')" class="wtext"><i data-feather="download"></i>Download</button>
+		</span>
+		</nav>
+		<div class="area"></div>
+		<textarea id="newspaces" class="txt"></textarea>
+	</main>
+	<main id="clip">
+		<nav class="horizontal slant"><span id="clipcount"></span> 
+		<span>
+		<button onclick="tp_jsonDownload('clip')" class="wtext"><i data-feather="download"></i>Download</button>
+		</span>
+		</nav>
+		<div id="collection"></div>
+	</main>
+	<main id="info">
+		<div>
+			<h1>PromptCrafter</h1>
+			
+			<a href="https://hits.sh/tacoen.github.io/promptcrafter/web/"><img alt="Hits" src="https://hits.sh/tacoen.github.io/promptcrafter/web.svg"/></a>
+			
+			<p>PromptCrafter(tp-cooker) is an innovative software application developed using JavaScript, CSS, and HTML, designed to streamline the process of creating text-to-image prompts. This intuitive web-based tool empowers users to effortlessly generate captivating visual prompts for a variety of applications.</p>
+			<p>Made with <span style="color:#f33">&#10084;</span> by <a href="https://tacoen.github.io">tacoen</a></p>
 
-</div>
+			<h2>Features:</h2>
+			<ul>
+			<li>Working using browser localstorage. </li>
+			<li>Unlimited, Suit You, design your own workspaces, collect your own favorite prompt and mix.</li>
+			<li>The prompts-data is JSON. Can be shared among others.</li>
+			<li>Auto complete shall make you easily remix your prompt.</li>
+			<li>Use suffix and prefix to make your prompting easier.</li>
+			</ul>
+			<h2>Credits:</h2>
+			<ul>
+				<li><a href="https://feathericons.com/">Feathericons</a>, Simply beautiful open source icons.</li>
+				<li><a href="https://github.com/necolas/normalize.css">normalize.css</a> v8.0.1, MIT License</li>
+				<li><a href='https://github.com/phuocng/mirror-a-text-area'>Mirror a textarea</a>, Phước Nguyễn</li>
+			</ul>
 
+			<p class='softwarn'>
+				<span>Erase LocalStorage - Reset your promptCrafter to latest JSON</span>
+				<button onclick='tp__reset()' class='reset'>reset</button>
+			</p>
+			
+		</div>
+	</main>
+	<script>
+	exec();
+	</script>
 </body>
-<script>
-
-
-randommate();
-
-</script>
 
 </html>
