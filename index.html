@@ -1,1 +1,61 @@
-<a href='/promptcrafter/web/'>Prompt Crafter</a>
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+		<link rel='stylesheet' href='css/normalize.css' type='text/css' media='all' />
+		<link rel='stylesheet' href='style.css' type='text/css' media='all' />
+		<script src="js/feather.min.js"></script>
+		<script src="script.js"></script>
+		<title>Prompt Crafter</title>
+		<link rel="icon" type="image/png" sizes="32x32" href="web/favicon-32x32.png">
+	</head>
+<body>
+
+<div class='tease'><div></div></div>
+
+<div class='mate'>
+
+<div>
+<h1>Prompt Crafter</h1>
+<p>Let's streamline the process of creating text-to-image prompts</p>
+<div>
+<button class='button' onclick='fbutton(this)' href='https://tacoen.github.io/promptcrafter/web/'>Demo</button>
+<button class='button' onclick='fbutton(this)' href='https://github.com/tacoen/promptcrafter'>Code</button>
+</div>
+</div>
+
+</div>
+
+</body>
+<script>
+
+function fbutton(obj) {
+	var url = obj.getAttribute('href');
+	window.location.href = url;
+}
+
+const pic = [
+	['pic/1.jpg','batik, playful pose, strong facial expression, pirate ship, beautiful morning sunlight, day glo, intense emotional atmosphere, canon ef 16-35mm f/2.8l iii usm lens','leonardo.ai'],
+	['pic/2.jpg','3d render, a girl wearing animal-costume, serene pose in amusement park, style of akira toriyama','leonardo.ai'],
+	['pic/3.jpg','photo, medium shot, a pretty girl wearing wide sleeveless animal-costume, serene pose in amusement park, side view, posing with one-arm raised, photo by ellen von unwerth, glimmering light effects','leonardo.ai'],
+	['pic/4.jpg','photo, medium shot, male in red mobile-suit, serene pose in outer space, front view, action pose, foreboding emotional tone, photo photo by steve mccurry','leonardo.ai'],
+	['pic/5.jpg','anime with insane details, a pretty girl wearing wide-sleeveless animal-costume, serene pose in amusement park, side view, posing with one-arm raised, photo by ellen von unwerth, glimmering light effects','leonardo.ai'],
+	['pic/6.jpg','medium shot, afrofuturism, ross tran style, girl wearing batik, playful pose, strong facial expression, pirate ship, beautiful morning sunlight, day glo, intense emotional atmosphere, canon ef 16-35mm f/2.8l iii usm lens','leonardo.ai'],
+]
+
+var img = document.createElement('img')
+
+var pick = Math.floor(Math.random() * (pic.length))
+img.setAttribute('src', pic[pick][0]);
+
+var div =  document.createElement('div');
+div.innerHTML = pic[pick][1];
+div.classList.add('prompt');
+
+document.querySelector('.tease > div').append(img)
+document.querySelector('.tease > div').append(div)
+
+</script>
+
+</html>

@@ -1,0 +1,46 @@
+* { margin:0; padding: 0 }
+body { font-family: sans-serif; background: #111; color: #cccc; }
+
+
+
+.mate,
+.tease,
+body {
+     display: flex;
+     flex-wrap: wrap;
+     align-content: center;
+     align-items: center;
+     overflow:hidden;
+     justify-content: space-evenly;
+     }
+
+.tease {display: flex; width: 50%; height: 100vh; }
+.tease >div { position: relative; margin: 1rem; }
+.tease >div .prompt {
+     background: #000c;
+     padding: .5rem;
+     position: absolute;
+     bottom: calc(8px + .5rem); 
+     left: 8px;
+     font-size: .8rem;
+     color: #ccc;
+     width: calc(100% - 16px - 1rem); 
+}
+.tease >div .prompt::before {
+     content: 'prompt:';
+     display: block;
+     color: #0c0;
+     font-size: .6rem;
+}
+
+.mate {  display: flex; width: 50%; font-size:20px; }
+
+.mate h1 { font-size: 40px; margin-bottom 0; color: #fc3; }
+.mate p { margin-bottom: 2rem; }
+
+button {
+     font-size: 24px;
+     padding: .5rem 1rem;
+     font-weight: 200;
+	 margin-right: 1rem;
+}
