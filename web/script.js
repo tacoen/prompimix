@@ -26,7 +26,25 @@ function newtips(tips) {
 
 function sw(w) {
     document.getElementById('smp').className=w;
-	newtips(tips);
+	
+	switch(w) {
+		case 'data':
+			json_dive();
+			break;
+		case 'clip':
+			create_cliplist();
+			break;
+		case 'works':
+			create_spaces();
+			break;
+		case 'set':
+			create_dnd_stack();
+			break;			
+		default:
+			newtips(tips);
+	}
+	
+	feather.replace();
 }
 
 function allowDrop(ev) {
@@ -125,10 +143,14 @@ function create_cliplist() {
 
 
 
-function create_spaces(spaces,prompts) {
+function create_spaces() {
 	
-	let ta = new ta_jsfunc();
-		
+	let ta = new ta_jsfunc();	
+	var spaces = ta.ls_get('spaces');	
+	var prompts = ta.ls_get('prompts');
+
+	document.querySelector('#spaces').innerHTML = '';
+	
 	Object.keys(spaces).forEach( function(w,i) {
 	
 		if (Object.keys(prompts).includes(w)) { 
@@ -251,10 +273,14 @@ function stock(prompts,spaces) {
 	return stocks;	
 }
 
-function create_dnd_stack(spaces,prompts) {
+function create_dnd_stack() {
 
 	let ta = new ta_jsfunc();
-  
+	var spaces = ta.ls_get('spaces');	
+	var prompts = ta.ls_get('prompts');	
+  	
+	//document.querySelector('#set').innerHTML = '';
+	
 	ta.create ('#set div.area','div',{
 		'id':'stack',
 		'class': 'dnd-area',
@@ -275,9 +301,13 @@ function create_dnd_stack(spaces,prompts) {
 }
 
 
-function json_dive(prompts) {
+function json_dive() {
 	
+	let ta = new ta_jsfunc();
+	let prompts = ta.ls_get('prompts');	
 	var rdat = new Object();
+	
+	document.querySelector('#data >div').innerHTML = '';
 	
 	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {	
 
@@ -352,13 +382,12 @@ async function exec(forceInit) {
 	let spaces = ta.ls_get('spaces');
 	let prompts = ta.ls_get('prompts');
 	
-	create_spaces(spaces,prompts);
-	
-	create_dnd_stack(spaces,prompts);
 
-	create_cliplist();
 
-	json_dive(prompts);
+
+
+
+
 	
 	feather.replace();
 

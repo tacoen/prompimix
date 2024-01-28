@@ -27,9 +27,10 @@ function autocomp_deactive(obj) {
 			//console.log(e,1);
 			if (typeof e !== 'undefined') { e.remove(); } 
 	});
-	
+
 //	obj.removeEventListener('scroll');
 //	obj.removeEventListener('input');
+
 }
 
 	
