@@ -1,37 +1,3 @@
-function onlyUnique(value, index, self) {
-	return self.indexOf(value) === index;
-}
-
-function uniquesort(retArray) {
-	retArray.sort((b, a) => b.localeCompare(a));
-	return retArray.filter(onlyUnique);
-}
-
-function cleantp(text) {
-    text = text.replace(/^\,|\,$/gi, "");
-    text = text.replace(/\s\s+/gi, " ");
-    text = text.replace(/\s,/gi, ",").replace(/\:\s+/gi, ":");
-    text = text.replace(/\(\s+/gi, "(").replace(/\s+\)/gi, ")").replace(/\{\s+/gi, "{").replace(/\s+\}/gi, "}");
-
-	//    text = text.replace(" ,",", ");
-//    text = text.replace(",,", ",");
-//    text = text.replace(", ,", ",");
-    text = text.replace(/,,/gi, ",");
-	return text;
-}
-
-async function load_json(w) {
-	try {
-		console.log('load json: '+w);
-		var ls = await fetch(w)
-		var lsdata = await ls.json();
-		return lsdata;
-	} catch (error) {
-        console.log('Error fetching and parsing data', error);
-    }
-
-}
-
 
 function ta_jsfunc() {
 
@@ -64,6 +30,12 @@ function ta_jsfunc() {
 			console.warn(error);
 		});
 	},
+	
+	this.ls_reset = function () {
+		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+		localStorage.removeItem(host);
+		console.log("ls_reset",host);
+	}
 	
 	this.ls_init = function(data={},forced=false) {
 		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
@@ -121,5 +93,31 @@ function ta_jsfunc() {
 		return selectList;
 
 	}
+
+}
+
+
+function onlyUnique(value, index, self) {
+	return self.indexOf(value) === index;
+}
+
+function uniquesort(retArray) {
+	retArray.sort((b, a) => b.localeCompare(a));
+	return retArray.filter(onlyUnique);
+}
+
+function safename(k) {
+	return k.replace(' ',"_").replace(/\W/g,"");
+}
+
+async function load_json(w) {
+	try {
+		console.log('load json: '+w);
+		var ls = await fetch(w)
+		var lsdata = await ls.json();
+		return lsdata;
+	} catch (error) {
+        console.log('Error fetching and parsing data', error);
+    }
 
 }

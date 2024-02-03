@@ -1,526 +1,595 @@
 :root {
-    --accent1: #060;
-    --accent2: #006;
-    --accent2: #600;
-    --ca-border: #b1b1b1;
-    --ca-border1: #616161;
-    --console-bg: #d1d1d1;
-    --nav-accent: #fff;
-    --nav-bg: #222;
-    --nav-color: #999;
-    --shade: #0001;
-    --space-bg: #e1e1e1;
-    --highlighted: #ffee33cc;
+     --main-width:100%;
+     --nav-mini-h: 42px;
+     --nav-v-w:42px;
+     --ta-h:15vh;
+
+     --nav-bg:#cccccc;
+     --nav-color:#111;
+
+     --bg: #dddddd;
+	 --bg2: #ffffff;
+     --fg: #222;
+	 
+     --bor1: #fff;
+	 
+     --bor2: #0003;
+     --bor3: #0006;
+	 
+     --bor4: #000c;
+	 --nav-mini-hover:#000;
+     --d-found-1:#fff2;
+     --d-found:#fff;
+     --d-field:#fff6;
+     --d-field-1:#fff9;
+     --d-field-hover:#f2d232;
+     --nav-v-bg:#222;
+     --nav-v-color:#ddd;
+     --nav-v-hover:#fff;
 }
 
-body {
-    font-family: sans-serif;
-    overflow: hidden
+[data-theme='dark'] {
+     --bg:#333;
+	 --bg2: #6669;
+     --fg: #ddd;
+     --bor1: #fff1;
+     --bor2: #6663;
+     --bor3: #fff4;
+     --bor4: #000;	
+     --nav-bg:#222;
+     --nav-color:#ddd;
+     --nav-mini-hover:#fff;
+     --d-found-1:#0004;
+     --d-found:#111;
+     --d-field:#1116;
+     --d-field-1:#0008;
+     --d-field-hover:#0c06;
+     --nav-v-bg:#111;
+     --nav-v-color:#ddd;
+     --nav-v-hover:#fff;
 }
 
-nav.vertical {
-    background-color: var(--nav-bg);
-    color: var(--nav-color);
-    display: flex
+[data-theme='dark'] a {
+	color: var(--nav-color);
 }
 
-nav button {
-    background-color: transparent;
-    border: 1px solid transparent;
-    height: 40px;
-    width: 40px
+#data,#toc,#info {
+ scrollbar-color: var(--bor3) var(--bor2);
+ scrollbar-width: thin;
 }
 
-#smp nav .logo,#smp nav.vertical button {
-    color: var(--nav-color);
-    margin-bottom: 1rem
-}
-
-#smp nav.vertical button:hover {
-    border: 1px solid var(--ca-border1);
-    color: var(--nav-accent)
-}
-
-#smp nav.fix,#smp nav.fix.left {
-    left: 0;
-    position: fixed;
-    top: 0
-}
-
-#smp nav.vertical {
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: space-between;
-    width: 48px
-}
-
-#smp nav.vertical span {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2rem;
-    width: 48px
-}
-
-#smp main {
-    background: var(--space-bg);
-    height: 100vh;
-    margin-left: 48px;
-    overflow-y: hidden
-}
-
-#spaces {
-    align-content: flex-start;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    height: 80vh;
-    justify-content: space-between;
-    overflow-y: scroll;
-    padding: 1rem
-}
-
-#spaces section {
-    border: 1px solid var(--ca-border);
-    display: flex;
-    flex-direction: column;
-    margin: 1px;
-    padding: .25rem
-}
-
-#spaces section.third {
-    width: calc(100% / 3 - 2px - .75rem)
-}
-
-#spaces section.half {
-    width: calc(100% / 2 - 2px - .75rem)
-}
-
-#spaces section.quater {
-    width: calc(100% / 4 - 2px - .75rem)
-}
-
-#spaces section.full {
-    width: calc(100% - 2px - .5rem)
-}
-
-[data-order='0'] {
-    order: 0
-}
-
-[data-order='1'] {
-    order: 1
-}
-
-[data-order='2'] {
-    order: 2
-}
-
-[data-order='3'] {
-    order: 3
-}
-
-[data-order='4'] {
-    order: 4
-}
-
-[data-order='5'] {
-    order: 5
-}
-
-[data-order='6'] {
-    order: 6
-}
-
-[data-order='7'] {
-    order: 7
-}
-
-[data-order='8'] {
-    order: 8
-}
-
-[data-order='9'] {
-    order: 9
-}
-
-[data-order='10'] {
-    order: 10
-}
-
-section>div {
+button.theme .feather-moon {
     display: none;
-    width: 100%
+}
+button.theme .feather-sun {
+    display: inline-flex;
+    fill: yellow !important;
 }
 
-textarea.txt {
-    font-family: monospace;
-    line-height: 1.1rem;
-    margin: .5rem 1rem;
-    min-height: 6rem;
-    width: calc(100% - 2rem)
+[data-theme='dark'] button.theme .feather-sun{
+    display: none;
+	
 }
-
-textarea {
-    outline: none
+[data-theme='dark'] button.theme .feather-moon {
+    display: inline-flex;
 }
-
-textarea.txt.full {
-    height: calc(100% - 1rem)
+* {
+    box-sizing:border-box 
 }
-
-section div select,section div textarea {
-    font-family: monospace;
-    height: 2rem;
-    line-height: 1.6rem;
-    width: 100%
+.hide {
+    display:none 
 }
-
-#spaces section nav {
-    align-items: center;
-    background: transparent;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: .125rem;
-    padding: .125rem 0
+.show {
+    display:block 
 }
-
-section nav button {
-    height: 20px;
-    width: 20px
+.rel {
+    position:relative 
 }
-
-section nav span button {
-    margin-right: .5rem
+.tui {
+    font-family:sans-serif;
+    font-size:14px 
 }
-
-main nav button.wtext {
-    align-items: center;
-    display: flex;
+.tui nav .feather {
+    fill:none;
+    height:20px;
+    stroke:currentColor;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-width:1;
+    width:20px;
+}
+body {
+    background-color:var(--bg);
+    color: var(--fg);
+    margin:0;
+    overflow:hidden;
+    padding:0 
+}
+[readonly] {
+    opacity:.6 
+}
+.tui nav {
+    align-items:center;
+    background:var(--nav-bg);
+    color:var(--nav-color);
+    display:flex;
+    justify-content:space-between 
+}
+.tui nav button {
+    background:transparent;
+    border:1px solid transparent;
+    color:inherit;
+    height:32px;
+    justify-content:center;
+    margin:0 .5rem;
+    outline:none;
+    width:32px 
+}
+.tui button {
+    align-items:center;
+    cursor:pointer;
+    display:inline-flex;
+    color: var(--fg);
+}
+.tui nav.mini {
+    height:var(--nav-mini-h) 
+}
+.tui nav.mini > div > span.mix {
+    margin:0 1rem 
+}
+.tui button.wtext {
+    font-size:1rem;
+    text-transform:capitalize;
+    width:auto 
+}
+.tui button.wtext svg {
+    margin-right:.5rem 
+}
+.tui nav.mini button:hover {
+    color:var(--nav-mini-hover) 
+}
+.tui nav.mini span,.tui nav.mini div {
+    align-items:center;
+    display:flex;
+    text-align:center 
+}
+.tui nav.mini input[type=text] {
+    background:transparent;
+    border:none;
+    border-bottom:1px dotted var(--nav-color);
+    color:var(--nav-color);
+    font-size:.9rem;
+    height:22px;
+    outline:none;
+    text-align:center;
+    width:24px 
+}
+.tui nav.mini input[type=text]:active,.tui nav.mini input[type=text]:hover {
+    background:var(--d-found);
+}
+main {
+    width:calc(var(--main-width) - var(--nav-v-w)) 
+}
+.show-flex,body.wside {
+    display:flex 
+}
+.fit,.tui nav.horizontal {
+    width:100% 
+}
+.tui nav button:hover .feather,.tui nav.mini button:hover .feather {
+    stroke-width:2 
+}
+@media only screen and (max-width: 769px) {
+    main {
+        width:100% 
+    }
+    #toc,#data {
+        width:50% 
+    }
+}
+#ped > div {
+    height:var(--ta-h);
+    width:100%;
+    background: var(--bg2);
+}
+#ped textarea {
+   border:.5rem solid var(--nav-bg);
+   resize: none;
+   border-top:none;
+   height:100%;
+   outline:none;
+   width:100%;
+   background: transparent;
+   line-height: 1.5rem;
+   color: var(--fg);
+   padding: .5rem;
+}
+div#filter div {
+    align-items:center;
+    background: var(--bg2);
+    display:flex;
+    justify-content:space-around;
+    width:100%;
     font-size: .9rem;
-    justify-content: center;
-    text-transform: capitalize;
-    width: auto
+}
+div#filter input {
+    background:transparent;
+    border:none;
+    height:2rem;
+    line-height:2rem;
+    outline:none;
+    width:calc(100% - 3rem);
+    color:var(--bor-3);
+    font-size: .9rem;
+}
+div#filter .feather {
+    color:var(--bor-3);
+    height:20px;
+    stroke-width:1;
+    width:20px 
+}
+nav.vertical {
+    align-items:center;
+    background:var(--nav-v-bg);
+    color:var(--nav-v-color);
+    display:flex;
+    flex-direction:column;
+    flex-wrap:nowrap;
+    height:100vh;
+    justify-content:space-between;
+    width:var(--nav-v-w) 
+}
+nav.vertical div {
+    align-items:center;
+    display:flex;
+    flex-direction:column;
+    width:var(--nav-v-w) 
+}
+nav.vertical button {
+    margin:1rem 0;
+    width:var(--nav-v-w) 
+}
+div.data {
+    border:.5rem solid var(--nav-bg);
+    border-top:none;
+    display:flex;
+    flex-direction:row;
+    height:calc(100vh - var(--ta-h) - var(--nav-mini-h));
+    width:calc(100vw - var(--nav-v-w));
 }
 
-main nav button svg {
-    height: 20px;
-    margin-right: .25rem;
-    stroke-width: 1;
-    width: 20px
+div#toc {
+    overflow-y:overlay;
+    width:20% 
+}
+div#toc,div#data,div.ddform {
+    height:100%;
+    padding:1rem .5rem 
+}
+div.ddform {
+    padding:1rem .5rem 1rem 0 
+}
+div#data {
+    overflow-y:overlay;
+    padding:0 1rem 1rem;
+    width:80% 
+}
+#data h4 {
+    margin:0;
+    margin-bottom:1rem 
+}
+#data div.topic {
+    padding:1rem 0 
+}
+#data div.topic span {
+   background: var(--d-field);
+   border: 1px inset var(--bor3);
+   display:inline-block;
+   margin:0 2px 2px 0;
+   padding:4px
+}
+#data div.topic span:hover {
+   background:var(--d-field-hover);
+   border: 1px inset var(--bor3);
+   cursor:pointer;
+}
+#toc li.found,#data div.topic span.found {
+    background-color: var(--d-found);
+}
+#toc {
+    padding:.25rem 
+}
+#toc ul {
+    margin:0;
+    padding:0 
+}
+#toc ul li {
+   border-bottom: 1px solid var(--bor4);
+   border-top: 1px solid var(--bor1);
+   list-style-type:none;
+   padding:.25rem 0
+}
+#toc ul li:first-child {
+    border-top:none 
+}
+#toc ul li span,#toc ul li a {
+    display:block;
+    padding:.25rem;
+    text-decoration:none 
+}
+#toc li a,#data h4 {
+    color: var(--fg);
+    text-transform:capitalize 
+}
+textarea,input,select {
+    color: var(--fg);
+    font-family:monospace;
+    background: var(--bg2);
+}
+#toc li {
+    position:relative 
+}
+#toc li button {
+   background:transparent;
+   border:none;
+   height:18px;
+   outline:0;
+   padding:0;
+   position:absolute;
+   right:.25rem;
+   top:.5rem;
+   width:18px;
+   color: var(--fg);
+}
+#toc li button svg.feather {
+    stroke-width:1 
+}
+#toc li button:hover svg.feather {
+    stroke-width:2 
+}
+.ddform textarea {
+    height:70%;
+    margin-bottom:.5rem;
+    outline:none;
+    width:100% 
+}
+.f2col,.flex {
+    display:flex 
+}
+.flex.end {
+    justify-content:flex-end 
+}
+.flex.row {
+    flex-direction:row 
+}
+.flex.row.reverse {
+    flex-direction:row-reverse 
+}
+.flex.col {
+    flex-direction:column 
+}
+.cards {
+    flex-direction:row;
+    justify-content:flex-start;
+    width:100% 
 }
 
-#spaces section nav button.title b {
-    line-height: 24px;
-    margin-left: .5rem;
-    text-transform: capitalize
+button.card {
+    align-items:center;
+    border: 1px solid var(--bor3);
+    border-radius:.5rem;
+    display:inline-flex;
+    flex-direction:column;
+    justify-content:center;
+    margin:1rem;
+    font-size: .9rem;
+    width: 120px;
+    height: 120px;
+    background: var(--d-field);
 }
 
-#console {
-    background: var(--console-bg);
-    height: 20vh;
-    overflow: hidden
+main button:hover {
+	color: var(--fg);
+	border: 1px outset var(--bor4);
 }
 
-#console nav {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 .5rem
+main nav button:hover {
+	border: 1px solid transparent
 }
 
-#console nav button b {
-    margin-left: .5rem
+button.card .feather {
+    height:40%;
+    margin:.5rem;
+    stroke-width:1;
+    width:40% 
+}
+button:hover.card {
+    background: var(--d-field) 
 }
 
-#console nav span {
-    align-items: center;
-    display: flex;
-    justify-content: center
+p.warn {
+    align-items:center;
+    background: var(--d-field);
+    display:flex;
+    justify-content:space-between;
+    margin:1rem;
+    padding: .5rem .5rem
 }
 
-#console textarea {
-    font-family: monospace;
-    height: calc(100% - 2.7rem - 4px);
-    margin: 2px;
-    overflow-y: scroll;
-    width: calc(100% - 4px)
+.ddform p.warn {
+	margin:0
 }
 
-main button:hover * {
-    color: var(--accent1)
+p.warn button {
+    border:none;
+    height:auto;
+    padding: .25rem 1rem;
+    width:auto 
+}
+.f2col > div {
+    margin-bottom:.5rem;
+    width:50% 
+}
+.f2col {
+    flex-direction:row;
+    flex-wrap:wrap 
+}
+.f2col > div label {
+    display:inline-block;
+    font-weight:500;
+    width:40% 
+}
+.f2col > div input {
+    width:60% 
+}
+.f2col > div:nth-child(odd) {
+    margin-right:1rem;
+    width:calc(50% - 1rem) 
+}
+.med {
+    align-items:center;
+    background:var(--d-field);
+    justify-content:space-between;
+    padding:.5rem 
+}
+.med button {
+    padding:.25rem 1rem .25rem .5rem 
+}
+.med button svg {
+    height:24px;
+    padding:.25rem 
 }
 
-main button:active *,main button:focus * {
-    color: var(--accent2)
+button.blue {
+    background:#11C;
+    border-color:#009;
+    border-left-color:#00d;
+    border-top-color:#00d;
+    color:#fffc
+}
+button:hover.red,
+button:hover.blue {
+	color:#fff;
 }
 
-body.data #data,
-body.form #form,
-body.info #info,
-body.clip #clip,body.set #set,body.works #works {
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto
+button.red {
+    background:#c11;
+    border-color:#900;
+    border-left-color:#d00;
+    border-top-color:#d00;
+    color:#fffc
 }
-
-div#stack {
-    background: var(--console-bg);
-    box-shadow: inset 0 -3px 6px #6669;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 1rem
+.deck .button {
+    width:3rem 
 }
-
-div#stock {
-    display: flex;
-    flex-wrap: wrap;
-    min-height: 7rem;
-    padding: .5rem
+.deck button {
+    background:transparent;
+    border:none;
+    display:flex;
+    margin-bottom:.5rem;
+    width:100% 
 }
-
-div.stack {
-    border: 2px solid var(--ca-border);
-    display: flex;
-    flex-direction: column;
-    margin: .25rem;
-    padding: .25rem
+.deck button svg {
+    height:20px 
 }
-
-div.stack input {
-    font-size: .8rem
+main h1 {
+    margin:1rem 
 }
-
-#smp nav.slant {
-    background: var(--shade);
-    border-bottom: 1px solid #999
+.ddform button.page {
+    background:transparent;
+    border:none 
 }
-
-nav.horizontal span {
-    display: inline-flex
+.ddform h3 {
+    margin:.25rem 0 1rem 
 }
-
-nav.horizontal,#set nav {
-    align-items: center;
-    background: var(--space-bg);
-    display: flex;
-    flex-direction: row-reverse;
-    height: 32px;
-    justify-content: space-between;
-    padding: 0 1rem
+#data .rel a {
+    height:20px;
+    position:absolute;
+    right:0;
+    top:0;
+    width:20px;
+    color: var(--fg) !important;
 }
-
-#clipcount,#stackcount {
-    color: var(--nav-color);
-    display: inline-block;
-    font-weight: 600;
-    line-height: 40px;
-    font-size: .8rem;
-    padding-left: 1rem;
+#data .rel a .feather {
+    height:18px;
+    width:18px
 }
-
-#clipcount::before,#stackcount::before {
-    content: "Count: ";
-    font-weight: 500
+div#filter {
+    padding-top:1rem 
 }
-
-#stock.dnd-area {
-    border: 2px dashed var(--ca-border);
-    margin: .5rem
-}
-
-section div.select {
-    display: flex
-}
-
-section.on_input div.input {
-    display: block;
-}
-
-section div.input {
-    position: relative;
-    display: none
-}
-
-section {
-    z-index: 0;
-}
-
-section.on_input.active {
-    z-index: 100;
-}
-
-section div.input,section.on_input div.select,section.on_input svg.feather-toggle-left,section svg.feather-toggle-right,main,div.stack input.data-order {
-    display: none
-}
-
-section.on_input svg.feather-toggle-right,section svg.feather-toggle-left {
-    display: inline
-}
-
 #collection {
-    align-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding: .5rem
+   align-content:flex-start;
+   display:flex;
+   flex-direction:row;
+   flex-wrap:wrap;
+   justify-content: flex-start;
+   padding: 0 1rem;
+   width:100%
+}
+#collection .note {
+   height: 27vh;
+   margin:0 1rem 1rem 0;
+   position:relative;
+   width:calc(33% - 1rem);
+   font-size: .9rem;
+   background: var(--d-field-1);
+}
+#collection .note textarea {
+   height:100%;
+   padding: .5rem .5rem .5rem 3rem;
+   width:100%;
+   outline: 0;
+   border: none;
+   resize: vertical;
+}
+#collection .note button:hover {
+   color: var(--fg);
 }
 
-div.note {
-    border: 1px solid var(--ca-border);
-    display: block;
-    margin: 0 2.2rem 1rem 0;
-    position: relative;
-    width: 300px
+#collection .note button {
+   color: var(--bor3);
+   height:30px;
+   left:6px;
+   position:absolute;
+   top:4px;
+   width:30px;
+   background: transparent;
+   outline: none;
+   border: none;
+}
+#toc.filter ul li[found='1'] {
+    background:var(--d-found);
+    display:block 
+}
+#data.filter div[found='1'].topic {
+    display:block 
+}
+#toc li a:hover,#data .rel a:hover .feather {
+    color:var(--fg) 
+}
+.ddform,.deck .f2col {
+    width:100% 
+}
+#toc.filter ul li,#data.filter div.topic {
+    display:none 
 }
 
-div.note .txt {
-    background: #fff9;
-    font-family: monospace;
-    font-size: .9rem;
-    line-height: 1rem;
-    margin: 0;
-    padding: 0;
-    width: 100%
-}
-
-div.note button {
-    background: transparent;
-    border: none;
-/* bottom:3px; */
-    height: 22px;
-    right: -1.5rem;
-    padding: 2px;
-    position: absolute;
-    width: 22px
-}
-
-div.note button svg {
-    height: 16px;
-    width: 16px
+#info, #json, #clip {
+	overflow-y: auto;
+	height: 100vh;
 }
 
 #info div {
-    border: 1px solid var(--ca-border);
-    display: block;
-    padding: 0 1rem 1rem 1rem;
-    margin: 1rem;
-    line-height: 1.6rem;
-}
-
-.works button[title='workspaces'] svg {
-    color: var(--nav-accent)
-}
-
-.clip button[title='saved prompt'] svg {
-    color: var(--nav-accent)
-}
-
-.set button[title='manage workspaces'] svg {
-    color: var(--nav-accent)
-}
-
-.data button[title='prompt data'] svg {
-    color: var(--nav-accent)
-}
-
-.info button[title='credits'] svg {
-    color: var(--nav-accent)
-}
-
-.form button[title='write'] svg {
-    color: var(--nav-accent)
-}
-
-.softwarn {
-    display: flex;
-    font-size: .9rem;
-    background: #fff9;
-    padding: .5rem;
-    justify-content: space-between;
-}
-
-#form > div {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    overflow-y: scroll;
-    height: 100%;
-    justify-content: flex-start;
-    overflow-x: hidden;
-}
-
-#form > div > div {
     padding: 1rem;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: auto;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-    align-content: center;
+    line-height: 1.3;
+}
+#info div h1 {
+    margin: 0 0 1rem 0;
 }
 
-#form nav {
-    display: flex;
-    width: calc(100% - 2rem);
-    flex-direction: row;
+#ped .scope::before {content: "@"; 
+	cursor:pointer;
+	font-style: italic; font-size: .8rem;color: var(--fg);margin-right: .125rem;opacity: .6;
 }
 
-#freeform textarea {
-    width: 70vw;
-    height: 20vh;
-}
-
-#data > div {
-    font-size: .9rem;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-#data  > div > div {
-    padding: 0 1rem;
-}
-
-#data  > div > div > b {
-    padding: 0 .25rem;
-}
-
-#data  ul {
-    border-left: 1px dashed #ccc;
-    display: block;
-    margin: 0 0 3rem 0;
-    padding: 0 .25rem;
-    list-style-type: none;
-    border-top: 3px solid #ccc;
-}
-
-#data  ul li {
-    border-bottom: 1px dashed #ccc;
-    line-height: 1.2rem;
-    cursor: pointer;
-}
-
-#data  ul li:hover {
-    background-color: var(--highlighted);
-}
-
-h4#greet {
-    font-size: .9rem;
-    font-weight: 600;
-    margin: 0 0 .5rem 0;
-    width: 70vw;
-}
-
-#data h4 {
-    padding: 0 1rem;
-	width: 70vw;
-    margin: 1rem 0
-}
-
+span.dupe { border: 2px solid red !important; }

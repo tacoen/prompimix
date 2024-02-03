@@ -1,122 +1,338 @@
-const debug = false;
-const arv = [ 'data-order','title','class','data-prefix','data-suffix' ]
+document.addEventListener("DOMContentLoaded", function() {
 
-var tips = [
-  "Be specific: Provide clear and specific instructions in your text prompt.",
-  "Include important details: Think about the key elements you want to see in the image and include them in your prompt.",
-  "Use descriptive language: Paint a vivid picture with your words to guide the artist.",
-  "Consider emotions and atmosphere: Describe the mood, lighting, and any other relevant factors that contribute to the desired emotional tone.",
-  "Provide references if available: Include reference images or examples that align with your vision as a guide for the artist.",
-  "Keep it concise: Provide enough detail while keeping your prompt concise and to the point.",
-  "Experiment and iterate: Refine your prompt, adjust the details, or try a different approach until you get the desired outcome.",
-  "Think about composition: Consider the arrangement and placement of elements within the image to create a visually appealing composition.",
-  "Use metaphors or symbols: If there's a deeper meaning or concept you want to convey, consider using metaphors or symbolic elements in your prompt.",
-  "Consider perspective and angles: Specify the perspective or angles you want the image to be drawn from to achieve the desired effect.",
-  "Think about lighting and shadows: Describe the lighting conditions and how they interact with the objects in the image.",
-  "Include dynamic elements: If you want movement or action in the image, describe the specific actions or poses you want the subjects to have.",
-  "Give creative freedom: While providing specific instructions, also allow room for the artist's creative interpretation to bring their unique style and ideas to the image.",
-  "Provide feedback: If the initial results are not what you expected, provide constructive feedback to help the artist refine the image.",
-  "Be appreciative: Remember to show gratitude and appreciation for the artist's efforts and the final image they create."
-];
+	exec_workspace()
 
-function newtips(tips) {
-	// var randomNumber = Math.floor(Math.random() * (tips.length)); 
-	document.querySelector('#form .tips').innerHTML = tips[ Math.floor(Math.random() * (tips.length)) ]
+	if ( Cookies.get('moon') ) {
+		document.querySelector('html.tui').setAttribute('data-theme','dark')
+	}
+
+	document.querySelectorAll('main').forEach( function(e) { e.className='hide'; });
+	
+	var last = 	Cookies.get('last_page');
+	
+	if (typeof last == 'undefined') { last = 'info'; }
+	
+	tp_switch(last)
+
+	
+		
+
+	
+	
+});
+
+var last_scope = Cookies.get('scope');
+
+function tp_scopeflush() {
+	Cookies.remove('scope');
+	document.querySelector('#ped nav .scope').innerHTML = '';
 }
 
-function sw(w) {
-    document.getElementById('smp').className=w;
+function swcolor() {
+	var h = document.querySelector('html.tui')
+	if (h.getAttribute('data-theme') == 'dark') {
+		h.removeAttribute('data-theme')
+		Cookies.remove('moon');
+	} else {
+		h.setAttribute('data-theme','dark')
+		Cookies.set('moon',1);
+	}
 	
-	switch(w) {
-		case 'data':
-			json_dive();
-			break;
-		case 'clip':
-			create_cliplist();
-			break;
-		case 'works':
-			create_spaces();
-			break;
-		case 'set':
-			create_dnd_stack();
-			break;			
-		default:
-			newtips(tips);
+}
+
+function opoiki() {
+	var ck = Cookies.get('lcss');
+	
+	if (typeof ck === 'undefined') {
+		ck = {};
+		ck['bg'] 			='#eee';
+		ck['main-width'] 	='100%';
+		ck['nav-bg'] 		='#ccc';
+		ck['nav-color'] 	='#333';
+		ck['nab-mini-h'] 	="40px";
+		ck['nav-mini-hover']='#111';
+		ck['nav-v-bg'] 		='#222';
+		ck['nav-v-color'] 	='#ddd';
+		ck['nav-v-hover'] 	='#fff';		
+		ck['nav-v-w'] 		='42px';
+		ck['ta-h'] 			='12vh';		
+		
+	}
+
+	var ca = {
+		"bg"			:['main background',   	ck['bg'] 			],
+		"main-width"	:['main width',			ck['main-width'] 	],
+		"nav-bg"		:['nav bg',        		ck['nav-bg'] 		],
+		"nav-color"		:['nav color',  		ck['nav-color'] 	],
+		"nav-mini-h"	:['nav-mini-h',			ck['nab-mini-h'] 	],
+		"nav-mini-hover":['nav-mini-hover',		ck['nav-mini-hover']],
+		"nav-v-bg"		:['nav-v-bg',			ck['nav-v-bg'] 		],
+		"nav-v-color"	:['nav-v-color',		ck['nav-v-color'] 	],
+		"nav-v-hover"	:['nav-v-hover',		ck['nav-v-hover'] 	],
+		"nav-v-w"		:['nav-v-w',			ck['nav-v-w'] 		],
+		"ta-h"			:['ta-h', 				ck['ta-h'] 			],
+	};
+
+
+	Object.keys(ca).forEach( function(c){
+		//document.documentElement.style.setProperty('--your-variable', '#YOURCOLOR');
+		console.log ('--'+c,ca[c][1])
+		document.documentElement.style.setProperty('--'+c, ca[c][1]);
+		
+		
+	})
+
+
+}
+
+async function exec_workspace(forceInit) {
+	
+	let ta = new ta_jsfunc();
+	var ltm = Date.now();
+	
+	var prompts = await load_json('./prompts.json?void='+ltm);
+	var spaces = await load_json('./spaces.json?void='+ltm);
+	var clip = await load_json('./clip.json?void='+ltm);
+
+	ta.ls_init({
+		'spaces': spaces, 
+		'prompts':prompts,
+		'clip':clip
+		}, forceInit);
+
+	workspaces();
+	
+}
+
+
+function workspaces() {
+
+	let ta = new ta_jsfunc();
+	var ltm = new Date();
+
+	var prompts = ta.ls_get('prompts');
+	var spaces = ta.ls_get('spaces');
+
+	var rdat = new Object();
+
+	document.querySelector('#prompt .data').innerHTML="";
+	
+	var last_scope = Cookies.get('scope');
+	
+	if (typeof last_scope !== 'undefined') {
+		document.querySelector('#ped nav .scope').innerHTML = last_scope.replace("_"," ");
+	}
+	
+	var datahtml = document.createElement('div'); datahtml.id = 'data'
+	var tochtml = document.createElement('div'); tochtml.id = 'toc'
+	
+	var toc = document.createElement('ul');
+
+	toc.innerHTML = "<li class='new'><span>New</span><button onclick='tp_addprompt(\"new\")'><i data-feather='edit'></i></button></li>"
+	
+	datahtml.innerHTML = "<div id='filter'><div class='filter'>"+
+		"<input onclick='this.value=\"\";tp_filter()' "+		
+		"autocomplete='off' type='text' class='filter' "+
+		"onkeyup='tp_filter()' placeholder='Filters with at least 3 character...'>"+
+		"<i data-feather='filter'></i></div></div>"
+	
+	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {
+
+		var div = document.createElement('div');
+		div.id = safename(k)
+		
+		if (typeof spaces[k] !== 'undefined') {
+		
+			if (typeof spaces[k]['data-prefix'] !== 'undefined'  ) {
+				div.setAttribute('data-prefix',spaces[k]['data-prefix'])
+			}
+			
+			if (typeof spaces[k]['data-suffix'] !== 'undefined' ) {
+				div.setAttribute('data-suffix',spaces[k]['data-suffix'])
+			}
+		}
+		
+		rdat[k] = new Array();
+		div.classList.add('topic')
+		div.innerHTML = "<div class='rel'><h4 href='"+safename(k)+"'>"+k+"</h4><a href='#filter'><i data-feather='arrow-up'></i></a></div>"
+		toc.innerHTML = toc.innerHTML + "<li class='"+safename(k)+"'><a href='#"+safename(k)+"'>"+k+"</a><button onclick='tp_addprompt(this)'><i data-feather='edit'></i></button></li>"
+		
+		var array = uniquesort ( JSON.parse(prompts[k]) );
+	
+		var list = document.createElement('div');
+		list.className='list';
+		
+		array.forEach( function(w) {
+			var li = document.createElement('span')
+			li.innerHTML = w
+			li.setAttribute('onclick','qcopy(this)')
+			list.append(li);
+			rdat[k].push(w);
+		})
+		
+		rdat[k] = JSON.stringify(rdat[k]);
+		
+		div.append(list)
+		
+		datahtml.append(div);
+		tochtml.append(toc)
+
+	})
+
+		
+	document.querySelector('#prompt .data').append(tochtml)
+	document.querySelector('#prompt .data').append(datahtml)
+
+
+	
+	var lastprompt = Cookies.get('prompt');
+	if ( (typeof lastprompt !== 'undefined') && (lastprompt !== '') ){
+		document.querySelector('#ped textarea').value = lastprompt 
+	}
+
+	var lastmixer = Cookies.get('mixer');
+	if ( (typeof lastmixer !== 'undefined') && (lastmixer !== '') ){
+		document.querySelector('#mixer').value = lastmixer 
 	}
 	
 	feather.replace();
 }
 
-function allowDrop(ev) {
-	ev.preventDefault();
-}
+function findupe() {
+	let ta = new ta_jsfunc();
+	var ltm = new Date();
 
-function dragstart(ev) {
-	ev.dataTransfer.setData("text", ev.target.id);
-	ev.dataTransfer.dropEffect = 'move';
-	ev.target.style.opacity = '0.4';
-}
-
-function dragend(ev) {
-	ev.target.style.opacity = '1';
-}
-
-function drop(ev) {
-
-  ev.preventDefault();
-
-  var data = ev.dataTransfer.getData("text");
-  var parent = ev.toElement.closest('div.dnd-area');
- 
-
-  	if (ev.toElement == parent) {
-  		parent.appendChild(document.getElementById(data));
-  	} else {
-		el = ev.toElement.closest('div.stack');
-		// console.log(el);
-  		parent.insertBefore(document.getElementById(data), el);
-  	}
-
-  	reorder(document.getElementById('stack').querySelectorAll('div.stack'));
-
-}
-
-function mustvalue(what,w,nspaces) {
-	if (w.querySelector("input."+what) !== 'undefined') {
-		var v = w.querySelector("input."+what).value
-		if ((v !== null) && (v !== "")) { return v }
-	} 
-	return false;
-}
-
-function reorder(cn) {
-  
-  document.getElementById('stackcount').innerHTML = cn.length;
-
-  var newspaces = {}
-
-  cn.forEach( function(w,i) {
-
-	var c = w.getAttribute('name');
+	//var cleanhtml = document.querySelector("#setting .settings");
 	
-	w.setAttribute('data-order',i)
-	w.querySelector("input.data-order").value=i;
+	var prompts = ta.ls_get('prompts');
+	var rdat = new Object();
+	
+	var exist = []
+	
+	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {
 
-	newspaces[c]={ 'data-order': i }
+		var div = document.createElement('div');
+		div.id = safename(k)	
+		
+		rdat[k] = new Array();
+		div.classList.add('topic')
+		div.innerHTML = "<div class='rel'><h4 href='"+safename(k)+"'>"+k+"</h4><a href='#filter'><i data-feather='arrow-up'></i></a></div>"
+		
+		var array = uniquesort ( JSON.parse(prompts[k]) );
+	
+		var list = document.createElement('div');
+		list.className='list';
+		
 
-	arv.forEach( function (a) {
-		var v = mustvalue(a,w); if (v){ newspaces[c][a] = v }
-	});
+		var ignore = []
+		
+		array.forEach( function(w) {
+			
+			if ( exist.includes(w) ) {
+				ignore.push(w);
+			} else {
+				var li = document.createElement('span')
+				li.innerHTML = w
+				list.append(li);
+				exist.push(w);
+				//rdat[k].push(w);				
+			}	
+			
+		})
+	
+		console.log(safename(k), ignore);
 
-  });
+		var els = document.querySelectorAll('.data #data div#'+safename(k)+" div.list span")
+		els.forEach( function(el) {
+			if (ignore.includes(el.innerText)) {
+					el.classList.add('dupe')
+					console.log(el);
+			}
+		})
+		
+		//div.append(list)
+		//cleanhtml.append(div);	
+	})
+		
+	// rdat[k] = JSON.stringify(rdat[k]);
+		
 
-  document.getElementById('newspaces').value = JSON.stringify(newspaces).trim();
+		
+	
 }
 
+function qcopy(obj) {
+	
+	if (obj.classList.contains('dupe')) {
+		
+		obj.remove();
+		
+		
+	} else {
+	
+	
+		var prefix ='';
+		var suffix = '';
+		
+		var mixer = document.getElementById('mixer').value;
+	
+		var temp = document.createElement('input')
+		temp.value = ''
+		temp.setAttribute('type','hidden');
+		temp.value = obj.innerText
+		
+		var div = obj.closest('div.topic')
+		
+		var prefix = div.getAttribute('data-prefix') || "";
+		var suffix = div.getAttribute('data-suffix') || "";
+		var txt = document.querySelector('#ped textarea').value;
+	
+		if (last_scope == div.id) {
+			var sep = ''
+			if (suffix != "") {
+				var regex = /\s+[^ ]+$/g;
+				txt = txt.replace(regex,'');
+			}
+			
+			var entry = mixer + temp.value +" "+ suffix;
+	
+		} else {
+			var sep = ", "
+			var entry = prefix +" "+ temp.value +" "+ suffix;
+			last_scope = div.id
+			
+			Cookies.set('scope',div.id);
+			
+			document.querySelector('#ped nav .scope').innerHTML = last_scope.replace("_"," ");
+	
+		}
+		
+		cursorPosition = document.querySelector('#ped textarea').selectionStart;
+		
+		//console.log(cursorPosition)
+		
+		let before = txt.substring(0,cursorPosition);
+		let after = txt.substring(cursorPosition,txt.length);
+		
+		if (txt.length <1) { 
+			document.querySelector('#ped textarea').value = entry
+		} else {
+		
+			if ( cursorPosition >= txt.length) {
+				document.querySelector('#ped textarea').value = txt + sep + entry
+			} else {
+				document.querySelector('#ped textarea').value = before + entry + after
+			}
+		}
+		
+		tp_cookies(document.querySelector('#ped textarea'))
+	}
+	
+}
 
 function create_cliplist() {
-
-  let ta = new ta_jsfunc();
+	
+	let ta = new ta_jsfunc();
 	
   var notes = ta.ls_get('clip');
   
@@ -137,266 +353,7 @@ function create_cliplist() {
 
 	}
 
-	document.getElementById('clipcount').innerHTML =c;
+	// document.getElementById('clipcount').innerHTML =c;
 	document.getElementById('collection').innerHTML = nts
 }
 
-
-
-function create_spaces() {
-	
-	let ta = new ta_jsfunc();	
-	var spaces = ta.ls_get('spaces');	
-	var prompts = ta.ls_get('prompts');
-
-	document.querySelector('#spaces').innerHTML = '';
-	
-	Object.keys(spaces).forEach( function(w,i) {
-	
-		if (Object.keys(prompts).includes(w)) { 
-			array = uniquesort(JSON.parse ( prompts[w] ))
-		} else { 
-			array = []
-		}	
-		
-		var selection = document.createElement('div');
-		selection.setAttribute('class','select')	
-		selection.append( ta.selection(w,array) );
-		
-		var input = document.createElement('div');
-		input.setAttribute('class','input')
-		
-		var textarea = document.createElement('textarea')
-		textarea.setAttribute('class','container__textarea')
-		textarea.setAttribute('onclick','autocomp(this)')
-		textarea.setAttribute('onblur','autocomp_deactive(this)')
-		textarea.setAttribute('onchange','tp_input(this)')
-		textarea.setAttribute('name',w+'_input')
-		
-		input.append(textarea);
-		
-		var nav = document.createElement('nav');
-		nav.innerHTML = "<button class='wtext' onclick='tp_toggle(this)'><i data-feather='toggle-left'></i><i data-feather='toggle-right'></i>"+ 
-			spaces[w]['title'] +"</button>" + "<span>" +
-			"<button onclick='tp_add(this)'><i data-feather='pocket'></i></button>" +
-			"<button onclick='tp_clear(this)'><i data-feather='x'></i></button>" +
-			"</span>"
-
-		attr = Object.assign({'id':w},spaces[w]);
-		
-		ta.create ('#spaces','section', attr, [ nav, input, selection ]);
-	
-	});
-}	
-	
-function stack(spaces) {
-
-	var stacks = [];
-	
-	Object.keys(spaces).forEach( function(w,i) {
-	
-		var div = document.createElement('div')
-		div.id = w+"_stack";
-		div.setAttribute('class','stack');
-		div.setAttribute('name',w);
-		div.setAttribute('data-order',spaces[w]['data-order']);
-		div.setAttribute('draggable',true);
-		div.setAttribute('ondragstart',"dragstart(event)");
-		div.setAttribute('ondragend',"dragend(event)");
-		
-		// console.log(typeof attr, attr);
-
-		txt = "<b>"+w+"</b>";
-		var sospaces = uniquesort(Object.keys(spaces[w]));
-	
-		arv.forEach( function (a) {
-
-			if (! sospaces.includes(a)) {
-				txt = txt + "<input type='text' placeholder='"+a+"'class='"+a+"' name='"+a+"' value=''>"
-			} else {
-				txt = txt + "<input type='text' placeholder='"+a+"'class='"+a+"' name='"+a+"' value='"+spaces[w][a]+"'>"
-			}
-
-		});		
-
-		div.innerHTML = txt;
-
-		stacks.push(div)
-
-	});
-	
-	reorder(stacks);
-
-	return stacks;
-}
-
-function stock(prompts,spaces) {
-
-	var stocks = [];
-	var c = Object.keys(spaces).length;
-	
-	Object.keys(prompts).forEach( function(w,i) {
-
-		if (! Object.keys(spaces).includes(w)) { 
-	
-			c = c +1;
-
-			var div = document.createElement('div')
-		
-			div.id = w+"_stack";
-			div.setAttribute('class','stack');
-			div.setAttribute('name',w);
-			div.setAttribute('data-order',c);	
-			div.setAttribute('draggable',true);
-			div.setAttribute('ondragstart',"dragstart(event)");
-			div.setAttribute('ondragend',"dragend(event)");
-		
-			var txt = "<b>"+w+"</b>"
-			
-			val = [];
-			
-			arv.forEach( function (a) {
-				
-				if(a == 'title') { val[a] = w; }
-				else if (a == 'data-order') { val[a] = c; }
-				else { val[a] = '' }
-				
-				txt = txt + "<input type='text' class='"+a+"' name='"+a+"' value='"+val[a]+"'>";		
-			
-			});
-
-			div.innerHTML = txt;
-			stocks.push(div)
-		}
-	});
-	
-	return stocks;	
-}
-
-function create_dnd_stack() {
-
-	let ta = new ta_jsfunc();
-	var spaces = ta.ls_get('spaces');	
-	var prompts = ta.ls_get('prompts');	
-  	
-	//document.querySelector('#set').innerHTML = '';
-	
-	ta.create ('#set div.area','div',{
-		'id':'stack',
-		'class': 'dnd-area',
-		'ondrop':'drop(event)',
-		'ondragover':'allowDrop(event)'
-		}, stack(spaces)
-	)
-
-	ta.create ('#set div.area','div',{
-		'id':'stock',
-		'class': 'dnd-area',
-		'ondrop':'drop(event)',
-		'ondragover':'allowDrop(event)',
-		'onclick':'tp_addprompt()'
-		}, stock(prompts,spaces)
-	)		
-
-}
-
-
-function json_dive() {
-	
-	let ta = new ta_jsfunc();
-	let prompts = ta.ls_get('prompts');	
-	var rdat = new Object();
-	
-	document.querySelector('#data >div').innerHTML = '';
-	
-	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {	
-
-		var div = document.createElement('div');
-		div.id = k+"_list"
-		rdat[k] = new Array();
-		div.classList.add('topic')
-		div.innerHTML = "<b>"+k+"</b>"
-		var array = uniquesort ( JSON.parse(prompts[k]) );
-	
-		var list = document.createElement('ul');
-		
-		array.forEach( function(w) {
-			var li = document.createElement('li')
-			li.innerHTML = w
-			li.setAttribute('onclick','this.remove()')
-
-			list.append(li);
-			rdat[k].push(w);
-		})
-		
-		rdat[k] = JSON.stringify(rdat[k]);
-		
-		div.append(list)
-		
-		document.querySelector('#data > div').append(div);
-		
-		
-
-	});
-	// var rdata = JSON.stringify(rdat).toLowerCase();
-
-	document.getElementById('promptdata').value = JSON.stringify(rdat).toLowerCase();
-}
-
-
-
-async function exec(forceInit) {
-
-	let ta = new ta_jsfunc();
-
-	var ltm = new Date();
-	var LS = await load_json('./data.json?'+ltm.getDate()+ltm.getMilliseconds());
-
-	ta.ls_init({
-	'spaces':{
-		'type': {
-			'title':'type', 
-			'data-order':1, 
-			'class': 'third'
-		},
-		'main': { 
-			'title':'main prompt and style',
-			'data-order':3,
-			'data-prefix':'(',
-			'data-suffix':')',
-			'class': 'full on_input'
-		},		
-		'background': { 
-			'title':'background',
-			'data-order':4,
-			'class': 'half',
-			'data-prefix':'{ background:',
-			'data-suffix':'}',
-		},		
-	},
-	'prompts':LS,
-	},forceInit);
-
-	//console.log( ta.ls_get('prompt') );
-
-	let spaces = ta.ls_get('spaces');
-	let prompts = ta.ls_get('prompts');
-	
-
-
-
-
-
-
-	
-	feather.replace();
-
-	tips.push("We got "+Object.keys(prompts).length+ " prompts keys.")
-	
-	Object.keys(prompts).forEach( function(t) {
-		tips.push("We had "+ JSON.parse(prompts[t]).length + " prompts under " + t )
-	})
-
-	newtips(tips); 
-	
-}
