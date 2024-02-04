@@ -10,6 +10,7 @@
 	<script src="js/js-cookies.min.js"></script>
 	<script src="js/ta.js"></script>
 	<script src="js/tp.js"></script>
+	<script src="dnd.js"></script>
 	<script src="script.js"></script>
 	<title>Prompimix</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -18,20 +19,22 @@
 
 <nav class="vertical">
 		<div>
-		<button onclick="tp_switch('prompt')"><i data-feather='maximize'></i></button>
-		<button onclick="tp_switch('clip')"><i data-feather='clipboard'></i></button>
-		<button onclick="tp_switch('json')"><i data-feather='database'></i></button>
+			<button title='W' onclick="tp_switch('prompt')"><i data-feather='maximize'></i></button>
+			<button title='Your Prompts' onclick="tp_switch('clip')"><i data-feather='archive'></i></button>
+			<button title='JSON' onclick="tp_switch('json')"><i data-feather='database'></i></button>
+			<button title='Settings' onclick="tp_switch('setting')"><i data-feather='settings'></i></button>
 		</div>
 		<div>
-		<button class='theme' onclick="swcolor()">
+		<button title="theme" class='theme' onclick="swcolor()">
 			<i data-feather='sun'></i>
 			<i data-feather='moon'></i>
 		</button>
-		<button onclick="tp_switch('info')"><i data-feather='info'></i></button>
+		<button title="info" onclick="tp_switch('info')"><i data-feather='info'></i></button>
 		</div>
 </nav>
 
 <main id='setting'>
+	<h1>Settings</h1>
 	<div class='settings'>
 	</div>
 </main>

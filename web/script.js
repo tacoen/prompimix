@@ -15,73 +15,111 @@ document.addEventListener("DOMContentLoaded", function() {
 	tp_switch(last)
 
 	
-		
-
-	
-	
 });
 
 var last_scope = Cookies.get('scope');
 
-function tp_scopeflush() {
-	Cookies.remove('scope');
-	document.querySelector('#ped nav .scope').innerHTML = '';
-}
+function makelist(data,el,str='',attr={},) {
 
-function swcolor() {
-	var h = document.querySelector('html.tui')
-	if (h.getAttribute('data-theme') == 'dark') {
-		h.removeAttribute('data-theme')
-		Cookies.remove('moon');
-	} else {
-		h.setAttribute('data-theme','dark')
-		Cookies.set('moon',1);
-	}
-	
-}
+	var ele = document.createElement(el);
 
-function opoiki() {
-	var ck = Cookies.get('lcss');
-	
-	if (typeof ck === 'undefined') {
-		ck = {};
-		ck['bg'] 			='#eee';
-		ck['main-width'] 	='100%';
-		ck['nav-bg'] 		='#ccc';
-		ck['nav-color'] 	='#333';
-		ck['nab-mini-h'] 	="40px";
-		ck['nav-mini-hover']='#111';
-		ck['nav-v-bg'] 		='#222';
-		ck['nav-v-color'] 	='#ddd';
-		ck['nav-v-hover'] 	='#fff';		
-		ck['nav-v-w'] 		='42px';
-		ck['ta-h'] 			='12vh';		
-		
+	if (attr !== {} ) {
+		Object.keys(attr).forEach( function(a) { 
+			ele.setAttribute(a,attr[a]) 
+		})
 	}
 
-	var ca = {
-		"bg"			:['main background',   	ck['bg'] 			],
-		"main-width"	:['main width',			ck['main-width'] 	],
-		"nav-bg"		:['nav bg',        		ck['nav-bg'] 		],
-		"nav-color"		:['nav color',  		ck['nav-color'] 	],
-		"nav-mini-h"	:['nav-mini-h',			ck['nab-mini-h'] 	],
-		"nav-mini-hover":['nav-mini-hover',		ck['nav-mini-hover']],
-		"nav-v-bg"		:['nav-v-bg',			ck['nav-v-bg'] 		],
-		"nav-v-color"	:['nav-v-color',		ck['nav-v-color'] 	],
-		"nav-v-hover"	:['nav-v-hover',		ck['nav-v-hover'] 	],
-		"nav-v-w"		:['nav-v-w',			ck['nav-v-w'] 		],
-		"ta-h"			:['ta-h', 				ck['ta-h'] 			],
-	};
-
-
-	Object.keys(ca).forEach( function(c){
-		//document.documentElement.style.setProperty('--your-variable', '#YOURCOLOR');
-		console.log ('--'+c,ca[c][1])
-		document.documentElement.style.setProperty('--'+c, ca[c][1]);
+	data.forEach( function(d) { 
+		var li = document.createElement('li');
 		
+		li.setAttribute('draggable',"true")
+		li.setAttribute('ondragstart',"dragstart(event)")
+		li.setAttribute('ondragend',"dragend(event)")
+		li.id = safename(d+"_drg"+str);
 		
+		li.innerHTML = d;
+		ele.append(li);
 	})
+	
 
+	return ele;
+}
+
+function wrapper(what, el, attr={}) {
+
+	var ele = document.createElement(el);
+
+	if (attr !== {} ) {
+		Object.keys(attr).forEach( function(a) { 
+			ele.setAttribute(a,attr[a]) 
+		})
+	}
+
+	ele.append(what);
+
+	return ele;
+}
+
+function htmlEntities(s){
+	return s.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+  		return '&#' + i.charCodeAt(0) + ';';
+	});
+}
+
+function setting_page() {
+
+	let ta = new ta_jsfunc();
+	var ltm = new Date();
+
+	var rgp = Cookies.get('gift')
+
+	if (typeof rgp == 'undefined') {
+		rgp = ['quality','views','photo style','views','models','body type','body features','hair type','pose','pose extend','background','condition','condition','theme','lighting']
+	} else {
+		rgp = rgp.split(','); 
+	}
+
+//	console.log(typeof rgp,rgp);
+	
+	
+	var inp = document.createElement('input');
+	inp.className='gift'
+	inp.setAttribute('name','gift')
+
+	inp.value = rgp.toString();
+
+	var olist = makelist(rgp,'ul','o')
+
+	var prompts = ta.ls_get('prompts');
+
+	var ulist = makelist(Object.keys(prompts),'ul','u')
+	
+	var p = document.querySelector('#setting div.settings');
+	p.innerHTML = '';
+
+	
+	p.append(inp);
+
+	var div = document.createElement('div');
+	div.id = 'gdnd';
+
+	div.append(wrapper(ulist,'div',{
+			'id':'stock',
+			'class':'stock dnd-area',
+			'ondrop':"drop(event)", 
+			'ondragover':"allowDrop(event)"
+		} ));
+	div.append(wrapper(olist,'div',{
+			'id':'stack',
+			'class':'stack dnd-area',
+			'ondrop':"drop(event)", 
+			'ondragover':"allowDrop(event)"
+	} ));
+
+	p.append(div);
+	
+	//inp.value = Cookies.get('gift')
+	
 
 }
 

@@ -1,3 +1,44 @@
+function tp_switch(id) {
+
+	document.querySelectorAll('main').forEach( function(e) { e.className='hide'; });
+	document.querySelector('main#'+id).className='show';
+	
+	switch(id) {
+
+		case 'clip':
+			create_cliplist();
+			break;
+		case 'workspace':
+			workspaces();
+			break;
+		case 'setting':
+			setting_page();
+			break;
+		default:
+	}
+
+	Cookies.set('last_page',id);
+	feather.replace();
+
+}
+
+
+function tp_scopeflush() {
+	Cookies.remove('scope');
+	document.querySelector('#ped nav .scope').innerHTML = '';
+}
+
+function swcolor() {
+	var h = document.querySelector('html.tui')
+	if (h.getAttribute('data-theme') == 'dark') {
+		h.removeAttribute('data-theme')
+		Cookies.remove('moon');
+	} else {
+		h.setAttribute('data-theme','dark')
+		Cookies.set('moon',1);
+	}
+	
+}
 
 function tp_addprompt(obj) {
 
@@ -132,11 +173,24 @@ function tp_gift() {
 
 	var prompts = ta.ls_get('prompts');
 	//var spaces = ta.ls_get('spaces');
+	var rgp = []
+	rgp = Cookies.get('gift');
 	
-	var rgp = ['views','models','body type','body feature','pose','pose extend','mod','background','photo style','camera']
-	var rgp_txt = 'photorealistic with maximum details';
+	// console.log('1',typeof rgp,rgp)
+	
+	if (typeof rgp == 'undefined') {
+		rgp = ['quality','views','photo style','views','models','body type','body features','hair type','pose','pose extend','background','condition','condition','theme','lighting']
+	} else {
+		rgp  = rgp.toString().split(",");
+	}
+
+
+	
+	var rgp_txt = ''
 	
 	// console.log(prompts);
+
+	//console.log('2',typeof rgp,rgp)
 	
 	rgp.forEach( function(p) {
 		
@@ -175,30 +229,6 @@ function tp_jsonDownload(what) {
     link.download = dt+"-"+what+".json";
     link.click();
     URL.revokeObjectURL(link.href);  
-}
-
-function tp_switch(id) {
-
-	document.querySelectorAll('main').forEach( function(e) { e.className='hide'; });
-	document.querySelector('main#'+id).className='show';
-	
-	switch(id) {
-
-		case 'clip':
-			create_cliplist();
-			break;
-		case 'workspace':
-			workspaces();
-			break;
-		case 'setting':
-			settingpage();
-			break;
-		default:
-	}
-
-	Cookies.set('last_page',id);
-	feather.replace();
-
 }
 
 function tp_clear(what) {
