@@ -181,7 +181,7 @@ function tp_gift() {
 	// console.log('1',typeof rgp,rgp)
 	
 	if (typeof rgp == 'undefined') {
-		rgp = ['quality','views','photo style','views','models','body type','body features','hair type','pose','pose extend','background','condition','condition','theme','lighting']
+		rgp = default_rgp
 	} else {
 		rgp  = rgp.toString().split(",");
 	}

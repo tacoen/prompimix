@@ -1,3 +1,5 @@
+var default_rgp = ['fashion theme','views','models','background','quality'];
+
 document.addEventListener("DOMContentLoaded", function() {
 	exec_workspace()
 	if ( Cookies.get('moon') ) {
@@ -47,7 +49,7 @@ function rgp_page() {
 	var ltm = new Date();
 	var rgp = Cookies.get('gift')
 	if (typeof rgp == 'undefined') {
-		rgp = ['quality','views','photo style','views','models','body type','body features','hair type','pose','pose extend','background','condition','condition','theme','lighting']
+		rgp =default_rgp
 	} else {
 		rgp = rgp.split(','); 
 	}
