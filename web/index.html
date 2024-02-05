@@ -1,189 +1,42 @@
-<!doctype html>
-<html lang='en' class='tui' data-theme>
-
+<!DOCTYPE html>
+<html lang="en-US">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
-	<link rel="stylesheet" href="css/normalize.css" type="text/css" media="all">
-	<link rel="stylesheet" href="style.css" type="text/css" media="all">
-	<script src="js/feather.min.js"></script>
-	<script src="js/js-cookies.min.js"></script>
-	<script src="js/ta.js"></script>
-	<script src="js/tp.js"></script>
-	<script src="dnd.js"></script>
-	<script src="script.js"></script>
-	<title>Prompimix</title>
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<link rel='stylesheet' href='style.css' type='text/css' media='all' />
+<script src="script.js"></script>
+<title>Prompimix</title>
+<link rel="icon" type="image/png" sizes="32x32" href="web/favicon-32x32.png">
+<meta name="description" content="Prompimix is a powerful tool that simplifies the creation of text-to-image prompts. Streamline the process and unleash your creativity with this user-friendly platform. Craft engaging prompts effortlessly and inspire stunning visual creations. Explore the Demo and get started with the code. Enhance your text-to-image projects with Prompt Crafter today!">
 </head>
-<body class='wside'>
+<body>
 
-<nav class="vertical">
-		<div>
-			<button title='Workspaces' onclick="tp_switch('prompt')"><i data-feather='maximize'></i></button>
-			<button title='Your Prompts' onclick="tp_switch('craft')"><i data-feather='archive'></i></button>
-			<button title='JSON' onclick="tp_switch('json')"><i data-feather='database'></i></button>
-			<button title='Settings' onclick="tp_switch('setting')"><i data-feather='settings'></i></button>
-		</div>
-		<div>
-		<button title="theme" class='theme' onclick="swcolor()">
-			<i data-feather='sun'></i>
-			<i data-feather='moon'></i>
-		</button>
-		<button title="info" onclick="tp_switch('info')"><i data-feather='info'></i></button>
-		</div>
-</nav>
+<div class='tease'><div></div></div>
 
-<main id='setting'>
-
-	<h1>Setting</h1>
-	
-	<nav class='tab'>
-		<ul>
-		<li class='active'><i data-feather='gift'></i><span>Sample</span></li>
-		</ul>
-	</nav>
-	
-	<div class='tab-content'>
-	<div class='rgp'></div>
-	</div>
-</main>
-
-<main id='prompt'>
-
-	<div id='ped'>
-		<nav class='mini horizontal'>
-		<div>
-			<button title='trim the prompt' onclick='tp_trim()'><i data-feather='align-left'></i></button>
-			<span title='mixer character' class='mix'>Mix: <input autocomplete="off" onchange="tp_cookies(this)" type='text' id='mixer' name='mixer' size='2' value="|"></span>
-			<span title='scope' onclick='tp_scopeflush()' class='scope'></span>
-		</div>
-		<div>
-			<button title='Copy the prompt' onclick="tp_copytxt('#ped textarea')" class='wtext'><i data-feather='copy'></i> copy</button>
-			<button title='Save/clip it' onclick="tp_craftit('#ped textarea')"><i data-feather='clipboard'></i></button>
-			<button title='Surprise me!' onclick="tp_gift()"><i data-feather='gift'></i></button>
-			<button title='Clear' onclick="tp_clear('#ped textarea')"><i data-feather='x-square'></i></button>
-		</div>
-		</nav>
-		<div>
-			<textarea name='prompt' onchange="tp_cookies(this)" ></textarea>
-		</div>
-	</div>
-	
-	<div class='data'>
-	</div>
-	</div>
-
-</main>
-
-<main id='json' class='hide'>
-
-	<div>
-	<h1>JSON</h1>
-	
-	<p>Backup your localstorage:</p>
-	
-	<div class='cards flex'>
-		<button class='card big' onclick="tp_jsonDownload('prompts')">
-		<i data-feather='database'></i>
-		<span><b>Prompts</b><br><small>data.json</small></span>
-		</button>
-		<button class='card big' onclick="tp_jsonDownload('spaces')">
-		<i data-feather='maximize'></i>
-		<span><b>Spaces</b><br><small>spaces.json</small></span>
-		<button class='card big' onclick="tp_jsonDownload('craft')">
-		<i data-feather='clipboard'></i>
-		<span><b>Crafted prompts</b><br><small>craft.json</small></span>
-		</button>
-	</div>
-
-	<p class='msg'><small>Reset your localstorage.</small> <button class='green' onclick='tp_reset("json")'>reset</button></p>
-
-	<p class='msg red'><small>Empty localstorage (Start from zero)</small> <button class='red' onclick='tp_reset("blank")'>blank</button></p>
-	
-	
-	</div>
-
-</main>
-
-<main id='craft' class='hide'>
-	<div>
-	<h1>Your Prompts</h1>
-	<div id='collection'></div>
-	</div>
-</main>
-
-<main id='info' class='hide'>
+<div class='mate'>
 
 <div>
-	<h1>Prompimix</h1>
-	
-	<a href="https://hits.sh/tacoen.github.io/prompimix/web/"><img alt="Hits" src="https://hits.sh/tacoen.github.io/prompimix/web.svg"></a>
-	
-	<p>Prompimix(PromptCrafter/ tp-cooker) is an innovative software application developed using JavaScript, CSS, and HTML, designed to streamline the process of creating text-to-image prompts. This intuitive web-based tool empowers users to effortlessly generate captivating visual prompts for a variety of applications.</p>
-	
-	<p>I ask chat GPT3.5 for the name, since PromptCrafter already exist and tp-cooker not good. He Suggest <b>Prompimix</b>, here is his reason:</p> 
-	<ol>
-	<li>Prompting and Creativity: This name suggests that the software focuses on providing support or assistance in generating creative ideas or prompts. The "mix" element indicates an interesting combination or variation in creating prompts or instructions.</li>
-	<li>Integration and Collaboration: The combination of the words "prompt" and "mix" in "Prompimix" can depict the idea of integrating or combining prompt elements to produce better results. This may indicate that the software enables users to collaborate and merge various ideas to create stronger and more diverse prompts.</li>
-	<li>Speed and Efficiency: The word "prompt" in this name implies quick responses or instant actions. It may indicate that the software is designed to help users quickly and efficiently generate the prompts they need.</li>
-	</ol>
-	
-	<h2>Made with <span style="color:#f33">❤</span> by <a href="https://tacoen.github.io">tacoen</a></h2>
-	
-	<h2>Features:</h2>
-	<ul>
-	<li>Working using browser localstorage. </li>
-	<li>Unlimited, Suit You, design your own workspaces, collect your own favorite prompt and mix.</li>
-	<li>The prompts-data is JSON. Can be shared among others.</li>
-	<li>Auto complete shall make you easily remix your prompt.</li>
-	<li>Use suffix and prefix to make your prompting easier.</li>
-	</ul>
-	<h2>Credits:</h2>
-	<ul>
-		<li><a href="https://feathericons.com/">Feathericons</a>, Simply beautiful open source icons.</li>
-		<li><a href="https://github.com/necolas/normalize.css">normalize.css</a> v8.0.1, MIT License</li>
-		<li><a href="https://github.com/phuocng/mirror-a-text-area">Mirror a textarea</a>, Phước Nguyễn</li>
-	</ul>
-	
+<h1>Prompimix</h1>
+
+
+<p>Let's streamline the process of creating text-to-image prompts. The idea of integrating or combining prompt elements to produce better results.</p>
+<div>
+<button class='button' onclick='fbutton(this)' href='web/'>Demo</button>
+<button class='button' onclick='fbutton(this)' href='https://github.com/tacoen/prompimix'>Code</button>
+</div>
+
+<a href="https://hits.sh/tacoen.github.io/prompimix/web/"><img alt="Hits" src="https://hits.sh/tacoen.github.io/prompimix/web.svg"/></a>
 
 </div>
 
-</main>
-
-<div id='dummy' class='hide'>
-
-</div>
-
-<div id='ddform' class='hide'>
-	
-	<div class='ddform flex fit'>
-	<div>
-		<button class='page' onclick='workspaces()'><i data-feather='arrow-left'></i></button>
-	</div>
-	<div class='flex col fit'>
-	
-	
-	<div class='flex row entry f2col'>
-			<div class='name'><label>Name</label><input autocomplete='off' name='name' type='text' value=''></div>
-			<div>&nbsp</div>
-			<div class='prefix'><label>Prefix</label><input autocomplete="off" name='data-prefix' type='text' value=''></div>
-			<div class='suffix'><label>Suffix</label><input autocomplete="off" name='data-suffix' type='text' value=''></div>
-	</div>
-	
-	<textarea></textarea>
-
-	<p class='msg cya'>
-		<small>Prompt collections Will Be lowercase, accending Sorted and Unique</small>
-		<button class='wtext blue' onclick=''><i data-feather='save'></i> Save</button>
-	</p>
-
-	</div>
-	</div>
-	</div>
 </div>
 
 </body>
 <script>
 
+
+randommate();
+
 </script>
+
 </html>
