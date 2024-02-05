@@ -5,14 +5,14 @@ function tp_switch(id) {
 	
 	switch(id) {
 
-		case 'clip':
-			create_cliplist();
+		case 'craft':
+			create_craftlist();
 			break;
 		case 'workspace':
 			workspaces();
 			break;
 		case 'setting':
-			setting_page();
+			rgp_page();
 			break;
 		default:
 	}
@@ -83,8 +83,8 @@ function tp_addprompt(obj) {
 	div.innerHTML = document.getElementById('ddform').innerHTML;
 	
 	document.querySelector('#prompt .ddform textarea').classList.add(t);	
-	document.querySelector('#prompt .ddform textarea').value = collect.toString().trim();
-	document.querySelector('#prompt .ddform .warn button').setAttribute('onclick',"tp_newp('"+t+"')")	
+	document.querySelector('#prompt .ddform textarea').value = collect.toString() || "";
+	document.querySelector('#prompt .ddform .msg button').setAttribute('onclick',"tp_newp('"+t+"')")	
 
 	document.querySelector("#prompt .ddform input[name='name']").value = ti.trim();
 
@@ -105,7 +105,7 @@ function tp_newp(what) {
 	let ta = new ta_jsfunc();
 	var ltm = new Date();
 
-	var txt = document.querySelector('.data .ddform textarea.'+what).value;
+	var txt = tp_trim(document.querySelector('.data .ddform textarea.'+what).value);
 
 	if (what == 'new') {
 		what = document.querySelector(".data .ddform input[name='name']").value.trim();
@@ -121,8 +121,8 @@ function tp_newp(what) {
 
 	
 	if (typeof spaces[t] == 'undefined') { spaces[t] = {} }
-		
-	if (txt.length > 1) {
+	
+	if ((typeof txt !== 'undefined') &&  (txt.length > 1)) {
 
 		// prompts
 		
@@ -157,6 +157,8 @@ function tp_newp(what) {
 		delete prompts[t];
 		delete spaces[t];
 	}
+	
+
 
 	//console.log(spaces);
 	
@@ -233,21 +235,36 @@ function tp_jsonDownload(what) {
 
 function tp_clear(what) {
     document.querySelector(what).value=''
-	Cookies.remove('prompt')
+	Cookies.remove('prompt');
+	tp_scopeflush();
 }
 
-function tp_resetjson() {
+function tp_reset(what) {
 	
-	let ta = new ta_jsfunc();
-	ta.ls_reset();
-	window.location.reload(); 
+	if (confirm("Are your sure?") == true) {
+	
+	switch(what) {
+		
+		case "blank":
+			exec_workspace('blank');
+			break;
+		default:
+			exec_workspace('json');
+			
+	}
+
+	// window.location.reload(); 
+	
+	}
+	
+	//let ta = new ta_jsfunc();
+	//ta.ls_reset();
+	//window.location.reload(); 
 	
 }
 
 function tp_cookies(obj) {
 	var cname = obj.getAttribute('name')
-	
-	console.log('c',name);
 	
 	//console.log(cname,obj.value.trim());
 	Cookies.set(cname,obj.value.trim());
@@ -261,16 +278,16 @@ function tp_copytxt(what) {
     document.execCommand("copy");
 }
 
-function tp_clipit(what) {
+function tp_craftit(what) {
     var cText = document.querySelector(what).value;
 	
 	let ta = new ta_jsfunc(); 
-	let notes = ta.ls_get('clip');
-
+	let notes = ta.ls_get('craft');
+	console.log(notes);
 	if (typeof notes === 'undefined') { notes = [] }
   
 	notes.push ( cText.trim() )
-	ta.ls_save('clip', JSON.stringify ( notes ) )	
+	ta.ls_save('craft', JSON.stringify ( notes ) )	
 }
 
 
@@ -351,7 +368,7 @@ function tp_trim(q=false) {
 	}
 
 	txt = txt.toLowerCase()
-	
+	txt = txt.replace(/\t/g, " ");
 	txt = txt.replace(/\n|\r/g, ",");
 	
 	txt = txt.replace(/\s+([\},\{,\,\|,\.,\:])/g, "$1");
