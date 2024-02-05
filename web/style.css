@@ -787,3 +787,5 @@ nav.tab span {
 	height: 1.1rem; 
 	line-height: 1.3rem
 }
+
+.helper { background: var(--d-field-hover); color: var(--fg); padding: .25rem; }
