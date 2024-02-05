@@ -734,8 +734,8 @@ main h3.flex {
   margin-top: 0;
 }
 
-textarea.gift,
-input.gift {
+textarea.sample,
+input.sample {
   width: 100%;
   line-height: 2rem;
   outline: 0;
@@ -789,3 +789,10 @@ nav.tab span {
 }
 
 .helper { background: var(--d-field-hover); color: var(--fg); padding: .25rem; }
+
+
+.note {
+  font-size:.8rem; margin-top:.25rem;
+  color: var(--bor4);
+  padding: 0 .25rem 0;
+}

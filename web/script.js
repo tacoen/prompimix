@@ -1,4 +1,4 @@
-var default_rgp = ['fashion theme','views','models','background','quality'];
+var default_rgp = ['[photorealistic sfw]','fashion theme','[close-up:1.5]','models fakename','mods','mods','background','lighting','quality'];
 
 document.addEventListener("DOMContentLoaded", function() {
 	exec_workspace()
@@ -47,7 +47,7 @@ function htmlEntities(s){
 function rgp_page() {
 	let ta = new ta_jsfunc();
 	var ltm = new Date();
-	var rgp = Cookies.get('gift')
+	var rgp = Cookies.get('sample')
 	if (typeof rgp == 'undefined') {
 		rgp =default_rgp
 	} else {
@@ -55,19 +55,36 @@ function rgp_page() {
 	}
 //	console.log(typeof rgp,rgp);
 	var inp = document.createElement('input');
-	inp.className='gift'
-	inp.setAttribute('name','gift')
+	inp.className='sample'
+	inp.setAttribute('name','sample')
+	inp.setAttribute('onchange','tp_rgpkeep(this)')
+	
+	inp.value = rgp.toString();
+	
 	var argp = []
 	var prompts = ta.ls_get('prompts');
 	rgp.forEach ( function(r) {
+		if ( r.substr(0,1)=="[") {
+			argp.push(r);
+		}
 		if ( Object.keys(prompts).includes(r)) { argp.push(r); }
 	})
-	inp.value = argp.toString();
-	var olist = makelist(argp,'ul','o')
-	var ulist = makelist(Object.keys(prompts),'ul','u')
+	
+	//inp.value = argp.toString();
+	
 	var p = document.querySelector('#setting div.rgp');
 	p.innerHTML = '';
 	p.append(inp);
+	
+	var readme =  document.createElement('p');
+	readme.className = 'note'
+	readme.innerHTML="<b>Note:</b> for static prompts: use [ and ], like [photo]."
+	
+	p.append(readme);
+
+	var olist = makelist(argp,'ul','o')
+	var ulist = makelist(uniquesort(Object.keys(prompts)),'ul','u')
+
 	var div = document.createElement('div');
 	div.id = 'gdnd';
 	div.append(wrapper(ulist,'div',{

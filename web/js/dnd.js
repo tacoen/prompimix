@@ -39,13 +39,16 @@ function drop(ev) {
   stack.forEach( function(s) { array.push(s.innerText.trim()) })
   
   if (where.id == 'stack') {
-	Cookies.set('gift', array );
+	Cookies.set('sample', array );
 	var ulist = makelist(array,'ul','u')
-    document.querySelector('#setting input.gift').value = array.toString()
+    document.querySelector('#setting input.sample').value = array.toString()
   } else {
 	var ulist = makelist((uniquesort(array)),'ul','u')
 	document.querySelector('#stock').innerHTML='';
 	document.querySelector('#stock').append(ulist)
+	var sarray = Cookies.get('sample');
+    document.querySelector('#setting input.sample').value = sarray.toString()
+	
   }
   
   
