@@ -108,7 +108,7 @@ function seqpage(w=false) {
 	lead_page.innerHTML=''
 	lead_page.append(seqpage)
 	var tpl = leads[template];
-	if (tpl !== '') {
+	if (tpl[0] !== '')  {
 		lta.value = JSON.parse(tpl).toString();
 	} else {
 		lta.value = tpl;
