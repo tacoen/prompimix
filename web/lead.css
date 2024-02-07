@@ -38,14 +38,14 @@
 
 #lgdnd h3 {
   margin: 1rem 1rem 0 1rem;
-  color: var(--nav-v-bg);
+  color: var(--fg);
 }
 
 #lgdnd > div {
   display: flex;
   width: 50%;
   height: calc(100% - 2rem);
-  background: #fff;
+  background: var(--d-field);
   margin: 0.5rem 0.25rem 1rem 1rem;
   overflow-y: auto;
 }
