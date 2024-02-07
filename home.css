@@ -15,8 +15,8 @@ body {
      flex-wrap: wrap  
 }
 
-.tease {display: flex;width: 50%;align-content: center;justify-content: center;align-items: center;}
-.tease >div {position: relative; width: 80%;}
+.tease {display: flex;width: 50%;align-content: center;justify-content: center;align-items: center;height: 100vh;}
+.tease >div {position: relative;width: 70%;margin: 1rem;}
 .tease >div img { width:100% }
 .tease >div .prompt {
      background: #000c;
@@ -35,8 +35,8 @@ body {
      font-size: .6rem;
 }
 
-.mate {  display: flex; width: 50%; font-size:20px; }
-.mate > div { margin-right: 1rem; }
+.mate {display: flex;width: 50%;font-size:20px;height: 100vh;align-content: center;justify-content: center;}
+.mate > div {margin-right: 1rem;width: 70%;}
 .mate > div > div {margin-bottom: 2rem;}
 .mate h1 {font-size: 48px;margin-bottom 0;color: #fc3;font-weight: 100;}
 .mate p {margin: 1rem 0 2rem 0;}
@@ -56,10 +56,12 @@ button {
      }
 
      .mate, .tease { width: 100%; 
+                    height: auto;
                    align-content: center;
          justify-content: center;
          align-items: center;
                    }
- .tease >div,
-     .mate >div { width: 80%; margin:1rem 0  }
+     .tease >div,
+     .mate >div { 
+           margin:1rem 0  }
 }

@@ -2,8 +2,11 @@ function tp_switch(id) {
 	document.querySelectorAll('main').forEach( function(e) { e.className='hide'; });
 	document.querySelector('main#'+id).className='show';
 	switch(id) {
-		case 'craft':
-			create_craftlist();
+		case 'lead':
+			seqpage();
+			break;
+		case 'crafts':
+			craftslist();
 			break;
 		case 'workspace':
 			workspaces();
@@ -12,6 +15,10 @@ function tp_switch(id) {
 			rgp_page();
 			break;
 		default:
+			var ldp = document.getElementById('landing')
+			ldp.innerHTML="<div><h1>Prompimix</h1><p>You see this pages, because this is the first time we notice you are using <b>Prompimix</b>. Your localstorage is empty, and we need to initially it. Please hit the Load button to doit, if you miss it, you can doit at JSON Page.</p>"+
+			"<p class='msg'><small>Fill your localstorage.</small> <button class='green' onclick='tp_reset(\"json\")'>Load</button></p>" +
+			"</div></div>";
 	}
 	Cookies.set('last_page',id);
 	feather.replace();
@@ -74,7 +81,6 @@ function tp_addprompt(obj) {
 }
 function tp_newp(what) {
 	let ta = new ta_jsfunc();
-	var ltm = new Date();
 	var txt = tp_trim(document.querySelector('.data .ddform textarea.'+what).value);
 	if (what == 'new') {
 		what = document.querySelector(".data .ddform input[name='name']").value.trim();
@@ -116,63 +122,46 @@ function tp_newp(what) {
 	workspaces();
 }
 function tp_rgpkeep(obj) {
-	
 	var txt = obj.value.replace(", ",",").replace(" ,",",");
 	var array = txt.trim().split(',')
 	console.log(array);
 	Cookies.set('sample', array);
-	var ulist = makelist(array,'ul','u')
+	var ulist = make_dropable(array,'ul','u')
     document.querySelector('#setting input.sample').value = array.toString()
 	document.querySelector('#stack').innerHTML='';
 	document.querySelector('#stack').append(ulist)	
 }
-
 function tp_sample() {
 	let ta = new ta_jsfunc();
-	var ltm = new Date();
 	var prompts = ta.ls_get('prompts');
-	//var spaces = ta.ls_get('spaces');
-	var rgp = []
-	rgp = Cookies.get('sample');
-	// console.log('1',typeof rgp,rgp)
+	var leads = ta.ls_get('leads');
+	var template = Cookies.get('template');
+	rgp = JSON.parse( leads[template] )
+	console.log('1',typeof rgp,rgp)
 	if (typeof rgp == 'undefined') {
 		rgp = default_rgp
 	} else {
 		rgp  = rgp.toString().split(",");
 	}
 	var rgp_txt = ''
-
-	
 	var last_p = ''
-			
 	rgp.forEach( function(p) {
-		
 		p = p.replace("  "," ").trim();
-
 		if ( p.substr(0,1) == "[") {
-			
 			var txt = p.replace(/\]/g," ").replace(/\[/g,"");
-		
 		} else if (typeof prompts[p] != 'undefined') {
-			
 			var ar = JSON.parse(prompts[p])
 			var txt = ar[Math.floor(Math.random() * ar.length)];
 			var pref = document.getElementById(safename(p)).getAttribute('data-prefix') || "";
 			var suff = document.getElementById(safename(p)).getAttribute('data-suffix') || "";
-
 			// console.log(p,last_p)
-
 			if ( last_p !== p ) {
 				var txt = pref + " "+ txt+ " " + suff;
-
 			} else {
 				var txt =  txt+ " " + suff;
-				console.log('masuk',p);				
+				// console.log('masuk',p);				
 			}
-			
-			
 		}
-
 		if (rgp_txt.trim() == '') {
 			rgp_txt = txt
 		} else {
@@ -183,22 +172,19 @@ function tp_sample() {
 				rgp_txt = rgp_txt + mixer + txt
 			}
 		}
-			
-		
 		last_p = p;
-		
 	})
 	document.querySelector('#ped textarea').value = tp_trim(rgp_txt);
 	tp_cookies(document.querySelector('#ped textarea'))
 }
 function tp_jsonDownload(what) {
 	let ta = new ta_jsfunc();
-	let lsdata = JSON.stringify( ta.ls_get(what) ).toLowerCase();
+	let lsdata = JSON.stringify( ta.ls_get(what) );
     const link = document.createElement("a");
-    let dt= Date.now();
+    let ltm= Date.now();
     const file = new Blob([lsdata], { type: 'text/plain' });
     link.href = URL.createObjectURL(file);
-    link.download = dt+"-"+what+".json";
+    link.download = ltm+"-"+what+".json";
     link.click();
     URL.revokeObjectURL(link.href);  
 }
@@ -232,14 +218,14 @@ function tp_copytxt(what) {
     cText.select();
     document.execCommand("copy");
 }
-function tp_craftit(what) {
+function tp_craftsit(what) {
     var cText = document.querySelector(what).value;
 	let ta = new ta_jsfunc(); 
-	let notes = ta.ls_get('craft');
+	let notes = ta.ls_get('crafts');
 	console.log(notes);
 	if (typeof notes === 'undefined') { notes = [] }
 	notes.push ( cText.trim() )
-	ta.ls_save('craft', JSON.stringify ( notes ) )	
+	ta.ls_save('crafts', JSON.stringify ( notes ) )	
 }
 function tp_filter() {
 	var words = document.querySelectorAll('#data .topic span');

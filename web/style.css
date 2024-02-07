@@ -3,19 +3,14 @@
   --nav-mini-h: 42px;
   --nav-v-w: 42px;
   --ta-h: 15vh;
-
   --nav-bg: #cccccc;
   --nav-color: #111;
-
   --bg: #dddddd;
   --bg2: #ffffff;
   --fg: #222;
-
   --bor1: #fff;
-
   --bor2: #0003;
   --bor3: #0006;
-
   --bor4: #000c;
   --nav-mini-hover: #000;
   --d-found-1: #fff2;
@@ -31,7 +26,6 @@
   --nav-v-color: #ddd;
   --nav-v-hover: #fff;
 }
-
 [data-theme="dark"] {
   --bg: #333;
   --bg2: #6669;
@@ -56,18 +50,15 @@
   --msg-yel: #cc26;
   --msg-cya: #1896;
 }
-
 [data-theme="dark"] a {
   color: var(--nav-color);
 }
-
 #data,
 #toc,
 #info {
   scrollbar-color: var(--bor3) var(--bor2);
   scrollbar-width: thin;
 }
-
 button.theme .feather-moon {
   display: none;
 }
@@ -75,7 +66,6 @@ button.theme .feather-sun {
   display: inline-flex;
   fill: yellow !important;
 }
-
 [data-theme="dark"] button.theme .feather-sun {
   display: none;
 }
@@ -91,7 +81,6 @@ button.theme .feather-sun {
 .show {
   display: block;
 }
-
 h1,
 h2,
 h3,
@@ -100,7 +89,6 @@ h5,
 h6 {
   margin-top: 0;
 }
-
 .rel {
   position: relative;
 }
@@ -204,24 +192,12 @@ body.wside {
 .tui nav.mini button:hover .feather {
   stroke-width: 2;
 }
-
 main button:hover {
   color: var(--fg);
   border: 1px outset var(--bor4);
 }
-
 main nav button:hover {
   border: 1px solid transparent;
-}
-
-@media only screen and (max-width: 769px) {
-  main {
-    width: 100%;
-  }
-  #toc,
-  #data {
-    width: 50%;
-  }
 }
 #ped > div {
   height: var(--ta-h);
@@ -293,7 +269,6 @@ div.data {
   height: calc(100vh - var(--ta-h) - var(--nav-mini-h));
   width: calc(100vw - var(--nav-v-w));
 }
-
 div#toc {
   overflow-y: overlay;
   width: 20%;
@@ -370,7 +345,6 @@ select {
   background: var(--bg2);
   border: 1px solid;
 }
-
 #toc li {
   position: relative;
 }
@@ -414,19 +388,17 @@ select {
 .flex.col {
   flex-direction: column;
 }
-
+#landing > div,
 #setting > div,
-#craft > div,
+#crafts > div,
 #json > div {
   padding: 1rem;
 }
-
 .cards {
   flex-direction: row;
   justify-content: flex-start;
   width: 100%;
 }
-
 button.card {
   align-items: center;
   border: 1px solid var(--bor3);
@@ -440,7 +412,6 @@ button.card {
   background: var(--d-field);
   margin: 0 1rem 1rem 0;
 }
-
 button.card .feather {
   height: 40%;
   margin: 0.5rem;
@@ -450,7 +421,6 @@ button.card .feather {
 button:hover.card {
   background: var(--d-field);
 }
-
 p.msg {
   align-items: center;
   background: var(--d-field);
@@ -458,11 +428,9 @@ p.msg {
   justify-content: space-between;
   padding: 0.5rem 0.5rem;
 }
-
 .ddform p.msg {
   margin: 0;
 }
-
 p.msg button {
   border: none;
   height: auto;
@@ -495,7 +463,6 @@ p.msg button {
   justify-content: space-between;
   padding: 0.5rem;
 }
-
 .msg.red {
   background: var(--msg-red);
 }
@@ -505,7 +472,6 @@ p.msg button {
 .msg.cya {
   background: var(--msg-cya);
 }
-
 .msg button {
   padding: 0.25rem 1rem 0.25rem 0.5rem;
 }
@@ -519,7 +485,6 @@ button.blue {
   border-width: 1px;
   border-style: solid;
 }
-
 button.blue {
   background: #11c;
   border-color: #009;
@@ -527,13 +492,11 @@ button.blue {
   border-top-color: #00d;
   color: #fffc;
 }
-
 main button:hover.green,
 main button:hover.red,
 main button:hover.blue {
   color: #fff;
 }
-
 button.green {
   background: #3a3;
   border-color: #060;
@@ -561,7 +524,6 @@ button.red {
 .deck button svg {
   height: 20px;
 }
-
 .ddform button.page {
   background: transparent;
   border: none;
@@ -612,7 +574,6 @@ div#filter {
 #collection .note button:hover {
   color: var(--fg);
 }
-
 #collection .note button {
   color: var(--bor3);
   height: 30px;
@@ -644,14 +605,12 @@ div#filter {
 #data.filter div.topic {
   display: none;
 }
-
 #info,
 #json,
-#craft {
+#crafts {
   overflow-y: auto;
   height: 100vh;
 }
-
 #info > div {
   padding: 1rem;
   line-height: 1.5;
@@ -659,7 +618,6 @@ div#filter {
 #info div h1 {
   margin: 0 0 1rem 0;
 }
-
 #ped .scope::before {
   content: "@";
   cursor: pointer;
@@ -669,19 +627,15 @@ div#filter {
   margin-right: 0.125rem;
   opacity: 0.6;
 }
-
 span.dupe {
   border: 2px solid red !important;
 }
-
 div.settiing {
   width: 50%;
 }
-
 .rgp > div {
   display: flex;
 }
-
 .rgp > div > div {
   width: 50%;
   background: var(--bor1);
@@ -689,51 +643,6 @@ div.settiing {
   display: flex;
   justify-content: flex-start;
 }
-
-.stock {
-  border-right: 1rem solid var(--bg);
-}
-
-.stack li,
-.stock li {
-  cursor: pointer;
-  padding: 0.25rem;
-  border: 1px solid var(--bor3);
-  margin: 0.25rem;
-  width: calc(20% - 0.5rem);
-  font-size: 0.8rem;
-}
-
-.stock ul,
-.stack ul {
-  width: 100%;
-  min-height: 30vh;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  min-width: 88px;
-  padding: 0.5rem;
-  margin: 0;
-  align-items: flex-start;
-}
-
-.stock ul {
-  list-style-type: none;
-  align-content: flex-end;
-}
-.stack li {
-  list-style-position: inside;
-  list-style-type: decimal;
-}
-
-main h3.flex {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  font-weight: 200;
-  margin-top: 0;
-}
-
 textarea.sample,
 input.sample {
   width: 100%;
@@ -742,14 +651,12 @@ input.sample {
   border: none;
   padding: 0.25rem;
 }
-
 #setting h1 {
   margin: 0;
   background: var(--nav-bg);
   padding: 1rem 1rem 0 1rem;
   height: 32px;
 }
-
 nav.tab {
   min-height: 32px;
   border-bottom: 2px solid var(--bg2);
@@ -764,9 +671,8 @@ nav.tab ul {
   justify-content: space-around;
   align-items: flex-end;
 }
-
 nav.tab ul li {
-  padding: .5rem;
+  padding: 0.5rem;
   border: 1px solid var(--bor2);
   margin: 0 0.25rem -1px 0;
   border-bottom: none;
@@ -776,23 +682,44 @@ nav.tab ul li {
 nav.tab ul li.active {
   background: var(--bg2);
 }
-
 nav.tab .feather {
   margin-right: 0.5rem;
   stroke-width: 1;
   height: 20px;
   width: 20px;
 }
-nav.tab span { 
-	height: 1.1rem; 
-	line-height: 1.3rem
+nav.tab span {
+  height: 1.1rem;
+  line-height: 1.3rem;
 }
-
-.helper { background: var(--d-field-hover); color: var(--fg); padding: .25rem; }
-
-
-.note {
-  font-size:.8rem; margin-top:.25rem;
-  color: var(--bor4);
-  padding: 0 .25rem 0;
+.helper {
+  background: var(--d-field-hover);
+  color: var(--fg);
+  padding: 0.25rem;
+}
+@media only screen and (max-width: 769px) {
+  main {
+    width: 100%;
+  }
+  .tui #toc {
+    width: 43%;
+  }
+  .tui #data {
+    width: 67%;
+  }
+  .tui nav.mini button span {
+    display: none;
+  }
+  .tui nav.mini button {
+    margin: 0;
+  }
+  .tab-content {
+    height: calc(100vh - 5rem);
+  }
+  .stack li,
+  .stock li {
+    margin: 0.125rem;
+    width: calc(50% - 0.5rem);
+    font-size: 0.8rem;
+  }
 }

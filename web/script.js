@@ -1,5 +1,4 @@
-var default_rgp = ['[photorealistic sfw]','fashion theme','[close-up:1.5]','models fakename','mods','mods','background','lighting','quality'];
-
+var default_rgp = ['[photorealistic]','fashion theme','[close-up:1.5]','models fakename','mods','mods','background','lighting','quality'];
 document.addEventListener("DOMContentLoaded", function() {
 	exec_workspace()
 	if ( Cookies.get('moon') ) {
@@ -7,133 +6,52 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	document.querySelectorAll('main').forEach( function(e) { e.className='hide'; });
 	var last = 	Cookies.get('last_page');
-	if (typeof last == 'undefined') { last = 'info'; }
+	if (typeof last == 'undefined') { last = 'landing'; }
 	tp_switch(last)
 });
 var last_scope = Cookies.get('scope');
-function makelist(data,el,str='',attr={},) {
-	var ele = document.createElement(el);
-	if (attr !== {} ) {
-		Object.keys(attr).forEach( function(a) { 
-			ele.setAttribute(a,attr[a]) 
-		})
-	}
-	data.forEach( function(d) { 
-		var li = document.createElement('li');
-		li.setAttribute('draggable',"true")
-		li.setAttribute('ondragstart',"dragstart(event)")
-		li.setAttribute('ondragend',"dragend(event)")
-		li.id = safename(d+"_drg"+str);
-		li.innerHTML = d;
-		ele.append(li);
-	})
-	return ele;
-}
-function wrapper(what, el, attr={}) {
-	var ele = document.createElement(el);
-	if (attr !== {} ) {
-		Object.keys(attr).forEach( function(a) { 
-			ele.setAttribute(a,attr[a]) 
-		})
-	}
-	ele.append(what);
-	return ele;
-}
 function htmlEntities(s){
 	return s.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
   		return '&#' + i.charCodeAt(0) + ';';
 	});
 }
-function rgp_page() {
-	let ta = new ta_jsfunc();
-	var ltm = new Date();
-	var rgp = Cookies.get('sample')
-	if (typeof rgp == 'undefined') {
-		rgp =default_rgp
-	} else {
-		rgp = rgp.split(','); 
-	}
-//	console.log(typeof rgp,rgp);
-	var inp = document.createElement('input');
-	inp.className='sample'
-	inp.setAttribute('name','sample')
-	inp.setAttribute('onchange','tp_rgpkeep(this)')
-	
-	inp.value = rgp.toString();
-	
-	var argp = []
-	var prompts = ta.ls_get('prompts');
-	rgp.forEach ( function(r) {
-		if ( r.substr(0,1)=="[") {
-			argp.push(r);
-		}
-		if ( Object.keys(prompts).includes(r)) { argp.push(r); }
-	})
-	
-	//inp.value = argp.toString();
-	
-	var p = document.querySelector('#setting div.rgp');
-	p.innerHTML = '';
-	p.append(inp);
-	
-	var readme =  document.createElement('p');
-	readme.className = 'note'
-	readme.innerHTML="<b>Note:</b> for static prompts: use [ and ], like [photo]."
-	
-	p.append(readme);
-
-	var olist = makelist(argp,'ul','o')
-	var ulist = makelist(uniquesort(Object.keys(prompts)),'ul','u')
-
-	var div = document.createElement('div');
-	div.id = 'gdnd';
-	div.append(wrapper(ulist,'div',{
-			'id':'stock',
-			'class':'stock dnd-area',
-			'ondrop':"drop(event)", 
-			'ondragover':"allowDrop(event)"
-		} ));
-	div.append(wrapper(olist,'div',{
-			'id':'stack',
-			'class':'stack dnd-area',
-			'ondrop':"drop(event)", 
-			'ondragover':"allowDrop(event)"
-	} ));
-	p.append(div);
-}
 async function exec_workspace(forceInit) {
 	let ta = new ta_jsfunc();
 	var ltm = Date.now();
+	let lead_def = { "default": JSON.stringify(default_rgp) }
 	switch(forceInit) {
 		case('blank'):
 			console.log('blank:')		
 			ta.ls_reset();
-			var prompts = { "image type" : "[\"3d render\",\"anime\",\"digital-art\",\"photo\"]" }
+			var prompts = { "art style" : "[\"3d render\",\"anime\",\"digital-art\",\"photo\"]" }
 			var spaces = {}
-			var craft = []		
+			var crafts = []		
+			var leads = lead_def	
 			break;
 		case('json'):
 			console.log('json:')
 			ta.ls_reset();
-			var prompts = await load_json('./prompts.json?void='+ltm);
-			var spaces = await load_json('./spaces.json?void='+ltm);
-			var craft = await load_json('./craft.json?void='+ltm);
+			var prompts = await load_json('./data/prompts.json?void='+ltm);
+			var spaces = await load_json('./data/spaces.json?void='+ltm);
+			var crafts = await load_json('./data/crafts.json?void='+ltm);
+			var leads = await load_json('./data/leads.json?void='+ltm);
 			break;
 		default:
 			var prompts = {}
 			var spaces = {}
-			var craft = {}	
+			var crafts = []	
+			var leads = JSON.stringify(lead_def)	
 	}
 	ta.ls_init({
 		'spaces': spaces, 
 		'prompts':prompts,
-		'craft':craft
+		'crafts':crafts,
+		'leads':leads
 		}, forceInit);
 	workspaces();
 }
 function workspaces() {
 	let ta = new ta_jsfunc();
-	var ltm = new Date();
 	var prompts = ta.ls_get('prompts');
 	var spaces = ta.ls_get('spaces');
 	var rdat = new Object();
@@ -193,47 +111,6 @@ function workspaces() {
 	}
 	feather.replace();
 }
-function finddupe() {
-	let ta = new ta_jsfunc();
-	var ltm = new Date();
-	//var cleanhtml = document.querySelector("#setting .rgp");
-	var prompts = ta.ls_get('prompts');
-	var rdat = new Object();
-	var exist = []
-	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {
-		var div = document.createElement('div');
-		div.id = safename(k)	
-		rdat[k] = new Array();
-		div.classList.add('topic')
-		div.innerHTML = "<div class='rel'><h4 href='"+safename(k)+"'>"+k+"</h4><a href='#filter'><i data-feather='arrow-up'></i></a></div>"
-		var array = uniquesort ( JSON.parse(prompts[k]) );
-		var list = document.createElement('div');
-		list.className='list';
-		var ignore = []
-		array.forEach( function(w) {
-			if ( exist.includes(w) ) {
-				ignore.push(w);
-			} else {
-				var li = document.createElement('span')
-				li.innerHTML = w
-				list.append(li);
-				exist.push(w);
-				//rdat[k].push(w);				
-			}	
-		})
-		//console.log(safename(k), ignore);
-		var els = document.querySelectorAll('.data #data div#'+safename(k)+" div.list span")
-		els.forEach( function(el) {
-			if (ignore.includes(el.innerText)) {
-					el.classList.add('dupe')
-					console.log(el);
-			}
-		})
-		//div.append(list)
-		//cleanhtml.append(div);	
-	})
-	// rdat[k] = JSON.stringify(rdat[k]);
-}
 function qcopy(obj) {
 	if (obj.classList.contains('dupe')) {		
 		obj.remove();
@@ -283,9 +160,9 @@ function qcopy(obj) {
 		tp_cookies(document.querySelector('#ped textarea'))
 	}
 }
-function create_craftlist() {
+function craftslist() {
 	let ta = new ta_jsfunc();
-  var notes = ta.ls_get('craft');
+  var notes = ta.ls_get('crafts');
   //console.log(typeof notes, notes.length);
   var nts = ''; var c = 0;
   if ((typeof notes !== 'undefined') && (typeof notes.length !== 'undefined') ) {
@@ -296,24 +173,18 @@ function create_craftlist() {
 		c = c + 1;
 	});
 	}
-	// document.getElementById('craftcount').innerHTML =c;
+	// document.getElementById('craftscount').innerHTML =c;
 	document.getElementById('collection').innerHTML = nts
 }
-
 function tp_help() {
-
 	var hlp = document.querySelector('main.show').id
-	
 	wiki = {
 		'info':'https://github.com/tacoen/prompimix/wiki',
 		'prompt':'https://github.com/tacoen/prompimix/wiki/prompt',
-		'craft':'https://github.com/tacoen/prompimix/wiki/craft',
+		'crafts':'https://github.com/tacoen/prompimix/wiki/crafts',
 		'json':'https://github.com/tacoen/prompimix/wiki/json',
 		'setting':'https://github.com/tacoen/prompimix/wiki/setting'
 	}
-	
 	if (typeof wiki[hlp] == 'undefined') { wiki[hlp] = 'https://github.com/tacoen/prompimix/wiki/'+hlp }
 	window.open(wiki[hlp],'_prompimix_help')
-		
-	
 }
