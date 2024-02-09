@@ -13,7 +13,6 @@
 	<script src="js/dnd.js"></script>
 	<script src="script.js"></script>
 	<script src="util.js"></script>
-	<link rel="stylesheet" href="lead.css" type="text/css" media="all">
 	<script src="lead.js"></script>
 	<title>Prompimix</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -22,39 +21,39 @@
 
 <nav class="vertical">
 		<div>
-			<button title='Workspaces' onclick="tp_switch('prompt')"><i data-feather='sidebar'></i></button>
-			<button title='Your Prompts' onclick="tp_switch('crafts')"><i data-feather='archive'></i></button>
-			<button title='template' onclick="tp_switch('lead')"><i data-feather='box'></i></button>
-			<button title='JSON' onclick="tp_switch('json')"><i data-feather='database'></i></button>
+			<button title='Workspaces' data-page='prompts' onclick="tp_switch(this)"><i data-feather='book-open'></i></button>
+			<button title='Template' data-page='leads' onclick="tp_switch(this)"><i data-feather='box'></i></button>
+			<button title='Collection' data-page='crafts' onclick="tp_switch(this)"><i data-feather='archive'></i></button>
+			<button title='JSON' data-page='json' onclick="tp_switch(this)"><i data-feather='database'></i></button>
 		</div>
 		<div>
 		<button title="theme" class='theme' onclick="swcolor()">
 			<i data-feather='sun'></i>
 			<i data-feather='moon'></i>
 		</button>
-		<button title="info" onclick="tp_switch('info')"><i data-feather='info'></i></button>
-		<button title='Wiki' onclick="tp_help()"><i data-feather='help-circle'></i></button>
+		<button title="info" data-page='info' onclick="tp_switch(this)"><i data-feather='info'></i></button>
+		<button title='Wiki' data-page='help' onclick="tp_help()"><i data-feather='help-circle'></i></button>
 		</div>
 </nav>
 
-<main id='lead' class='hide'>
+<main id='leads' class='hide'>
 
 </main>
 
-<main id='prompt' class='hide'>
+<main id='prompts' class='hide'>
 
 	<div id='ped'>
 		<nav class='mini horizontal'>
 		<div>
+			<button title='Clear' onclick="tp_clear('#ped textarea')"><i data-feather='x-square'></i></button>
 			<button help='trim' title='trim the prompt' onclick='tp_trim()'><i data-feather='align-left'></i></button>
-			<span title='mixer character' class='mix'>Mix: <input autocomplete="off" onchange="tp_cookies(this)" type='text' id='mixer' name='mixer' size='2' value="|"></span>
+			<span title='mixer character' class='mix'>Mix: <input autocomplete="off" onchange="tp_cookies(this)" type='text' id='mixer' name='mixer' size='2' value=" "></span>
 			<span help='scope' title='scope' onclick='tp_scopeflush()' class='scope'></span>
 		</div>
 		<div>
-			<button title='Copy the prompt' onclick="tp_copytxt('#ped textarea')" class='wtext'><i data-feather='copy'></i><span>copy</span></button>
-			<button title='Save/clip it' onclick="tp_craftsit('#ped textarea')"><i data-feather='clipboard'></i></button>
 			<button title='Surprise me!' onclick="tp_sample()"><i data-feather='gift'></i></button>
-			<button title='Clear' onclick="tp_clear('#ped textarea')"><i data-feather='x-square'></i></button>
+			<button title='Copy the prompt' onclick="tp_copytxt('#ped textarea')" class='wtext'><i data-feather='copy'></i><span>copy</span></button>
+			<button id='clipit' title='Save/clip it' onclick="tp_craftsit('#ped textarea')"><i data-feather='save'></i></button>
 		</div>
 		</nav>
 		<div>

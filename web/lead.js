@@ -64,22 +64,24 @@ function seqpage(w=false) {
 	let ta = new ta_jsfunc();
 	var prompts = ta.ls_get('prompts');	
 	var leads = ta.ls_get('leads');	
-	//var rgp = default_rgp;
+	//var rgp = template_default;
 	//var rgplist = ['sample1','sample2','sample3']
 	//console.log(typeof rgp);
 	var stock_list = make_dropable(uniquesort(Object.keys(prompts)),'ul');
 	var stack_list = make_dropable([],'ul')
-	var template = Cookies.get('template');
+	var template = Cookies.get('template') || "default";
 	var lta = document.createElement('textarea'); 
 	lta.id = 'lead_view';
 	lta.setAttribute('data-lead',template);
 	lta.setAttribute('onchange','update_leads(false)');
 	var lnav = document.createElement('nav'); ta.class = 'tab';
 	var ndiv1 = document.createElement('div');
-	ndiv1.innerHTML = "<span class='note'><b>Note:</b> for static prompts: use [ and ], like [photo].</span>"+
+	ndiv1.innerHTML = 
+	"<span class='note'><b>Note:</b> for static prompts: use [ and ], like [photo].</span>"+
 	"<button id='lead_save_button' onclick='tp_leadsave(true)'><i data-feather='save'></i></button>"
 	var ndiv2 = document.createElement('div');
-	ndiv2.innerHTML="<button onclick='tp_addlead()'><i data-feather='plus'></i></button>";
+	ndiv2.innerHTML="<button onclick='tp_addlead()'><i data-feather='plus'></i></button>"+
+	"<button title='Clear' onclick='tp_clear(\"#leads_view\")'><i data-feather='x-square'></i></button>"
 	var selection = makeselection(uniquesort(Object.keys(leads)),{
 		'id':'leads_select',
 		'onchange':'tp_leadsSelect(this)'
@@ -100,7 +102,7 @@ function seqpage(w=false) {
 			'class':'stack dnd-area',
 		})
 	);	
-	var lead_page = document.getElementById('lead');
+	var lead_page = document.getElementById('leads');
 	var seqpage = document.createElement('div');
 	[lnav,lta,dnd].forEach( function(e) {
 		seqpage.append(e)
@@ -108,10 +110,13 @@ function seqpage(w=false) {
 	lead_page.innerHTML=''
 	lead_page.append(seqpage)
 	var tpl = leads[template];
-	if (tpl[0] !== '')  {
-		lta.value = JSON.parse(tpl).toString();
+	
+	console.log(typeof tpl, tpl, template)
+	
+	if (typeof tpl === 'undefined')  { 
+		lta.value = ""; 
 	} else {
-		lta.value = tpl;
+		lta.value = JSON.parse(tpl).toString();
 	}
 	var h3 = document.createElement('h3')
 	h3.classname = 'lead_name'
@@ -136,7 +141,7 @@ function tp_addlead() {
 function update_leads(cname=false) {
 	if (!cname) {
 		tp_leadsave();
-		name = document.getElementById('lead_view').getAttribute('data-lead')
+		name = document.getElementById('lead_view').getAttribute('data-lead') || "default"
 	} else {
 		name = cname;
 	}
@@ -166,8 +171,13 @@ function tp_leadsave(notice) {
 	var leads = ta.ls_get('leads')
 	let th = document.getElementById('lead_view')
 	let name = th.getAttribute('data-lead')
-	txt = th.value.replace("[","\[").replace("]","\]").replace(", ",",").replace(" ,",",")
-	leads[name] = JSON.stringify( txt.split(',') );
+	if (th.value == '') {
+		delete leads[name];
+		Cookies.remove('template');
+	} else {
+		txt = th.value.replace("[","\[").replace("]","\]").replace(", ",",").replace(" ,",",")
+		leads[name] = JSON.stringify( txt.split(',') );
+	}
 	// console.log( JSON.stringify(leads) );
 	ta.ls_save('leads',JSON.stringify(leads));
 	if (notice) {

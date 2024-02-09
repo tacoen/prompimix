@@ -1,5 +1,5 @@
 function resetcookies() {
-	var c = ['scope','last_page','sample','moon']; 
+	var c = ['scope','last_page','template','moon']; 
 	c.forEach ( function(t) { 
 		Cookies.remove(t)
 	});

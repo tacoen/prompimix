@@ -1,8 +1,19 @@
-function tp_switch(id) {
+function tp_switch(obj) {
+	var alla = document.querySelectorAll('button.active');
+	alla.forEach( function(e) { e.classList.remove('active'); });
+	if (typeof obj !== 'string') {
+		var id = obj.getAttribute('data-page')
+		obj.classList.add('active');
+	} else {
+		//console.log(typeof obj,obj)
+		var id = obj
+		var btn = document.querySelector("button[data-page=\'"+id+"\']")  || document.querySelector("button[data-page=\'info\']");
+		btn.classList.add('active');
+	}
 	document.querySelectorAll('main').forEach( function(e) { e.className='hide'; });
 	document.querySelector('main#'+id).className='show';
 	switch(id) {
-		case 'lead':
+		case 'leads':
 			seqpage();
 			break;
 		case 'crafts':
@@ -16,7 +27,7 @@ function tp_switch(id) {
 			break;
 		default:
 			var ldp = document.getElementById('landing')
-			ldp.innerHTML="<div><h1>Prompimix</h1><p>You see this pages, because this is the first time we notice you are using <b>Prompimix</b>. Your localstorage is empty, and we need to initially it. Please hit the Load button to doit, if you miss it, you can doit at JSON Page.</p>"+
+			ldp.innerHTML="<div><h1>Prompimix</h1><p>You see this pages, because this is the first time we notice you are using <b>Prompimix</b>. Your localstorage is empty, and we need to initially it. Please hit the Load button to doit, if you miss this step, you latter can doit at JSON Page.</p>"+
 			"<p class='msg'><small>Fill your localstorage.</small> <button class='green' onclick='tp_reset(\"json\")'>Load</button></p>" +
 			"</div></div>";
 	}
@@ -64,19 +75,19 @@ function tp_addprompt(obj) {
 		});
 	}
 	// filling
-	var div = document.querySelector('#prompt div.data')
+	var div = document.querySelector('#prompts div.data')
 	div.innerHTML = document.getElementById('ddform').innerHTML;
-	document.querySelector('#prompt .ddform textarea').classList.add(t);	
-	document.querySelector('#prompt .ddform textarea').value = collect.toString() || "";
-	document.querySelector('#prompt .ddform .msg button').setAttribute('onclick',"tp_newp('"+t+"')")	
-	document.querySelector("#prompt .ddform input[name='name']").value = ti.trim();
+	document.querySelector('#prompts .ddform textarea').classList.add(t);	
+	document.querySelector('#prompts .ddform textarea').value = collect.toString() || "";
+	document.querySelector('#prompts .ddform .msg button').setAttribute('onclick',"tp_newp('"+t+"')")	
+	document.querySelector("#prompts .ddform input[name='name']").value = ti.trim();
 	/*
 	if (obj !== 'new') {
-		document.querySelector("#prompt .ddform input[name='name']").setAttribute('readonly',true);
+		document.querySelector("#prompts .ddform input[name='name']").setAttribute('readonly',true);
 	}
 	*/
 	kar.forEach( function(k) {
-		document.querySelector("#prompt .ddform input[name='"+k+"']").value = vkar[k]
+		document.querySelector("#prompts .ddform input[name='"+k+"']").value = vkar[k]
 	});	
 }
 function tp_newp(what) {
@@ -121,7 +132,7 @@ function tp_newp(what) {
 	ta.ls_save('prompts',JSON.stringify(prompts));
 	workspaces();
 }
-function tp_rgpkeep(obj) {
+function xxtp_rgpkeep(obj) {
 	var txt = obj.value.replace(", ",",").replace(" ,",",");
 	var array = txt.trim().split(',')
 	console.log(array);
@@ -131,15 +142,21 @@ function tp_rgpkeep(obj) {
 	document.querySelector('#stack').innerHTML='';
 	document.querySelector('#stack').append(ulist)	
 }
+function tp_arcopy(obj) {
+	var copytext = obj.closest('div.note').querySelector('.txt');
+	console.log(copytext);
+    copytext.select();
+    document.execCommand("copy");
+}
 function tp_sample() {
 	let ta = new ta_jsfunc();
 	var prompts = ta.ls_get('prompts');
 	var leads = ta.ls_get('leads');
-	var template = Cookies.get('template');
+	var template = Cookies.get('template') || "default";
 	rgp = JSON.parse( leads[template] )
 	console.log('1',typeof rgp,rgp)
 	if (typeof rgp == 'undefined') {
-		rgp = default_rgp
+		rgp = template_default
 	} else {
 		rgp  = rgp.toString().split(",");
 	}

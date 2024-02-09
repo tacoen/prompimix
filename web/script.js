@@ -1,13 +1,34 @@
-var default_rgp = ['[photorealistic]','fashion theme','[close-up:1.5]','models fakename','mods','mods','background','lighting','quality'];
+var template_default = ['media','models','facial features','art style','art artist'];
 document.addEventListener("DOMContentLoaded", function() {
 	exec_workspace()
 	if ( Cookies.get('moon') ) {
 		document.querySelector('html.tui').setAttribute('data-theme','dark')
 	}
 	document.querySelectorAll('main').forEach( function(e) { e.className='hide'; });
-	var last = 	Cookies.get('last_page');
-	if (typeof last == 'undefined') { last = 'landing'; }
+	var last = 	Cookies.get('last_page') || 'landing';
 	tp_switch(last)
+	
+	
+ddata = document.getElementById('data');
+ddata.addEventListener('scroll',(e)=> {
+	var t = ddata.scrollTop
+	var fi = document.getElementById('filter');
+	if (t > 41) {
+
+		fi.style.width = fi.offsetWidth +"px"
+		fi.style.height = fi.offsetHeight +"px"
+		fi.style.top = fi.offsetTop +"px"
+		fi.style.left = fi.offsetLeft +"px"
+	}
+	
+	if (t > 42) {
+		fi.classList.add('fixed') 
+	} else {
+		fi.classList.remove('fixed') 
+	}
+});
+
+	
 });
 var last_scope = Cookies.get('scope');
 function htmlEntities(s){
@@ -18,15 +39,14 @@ function htmlEntities(s){
 async function exec_workspace(forceInit) {
 	let ta = new ta_jsfunc();
 	var ltm = Date.now();
-	let lead_def = { "default": JSON.stringify(default_rgp) }
+	let template = { "default": JSON.stringify(template_default) }
 	switch(forceInit) {
-		case('blank'):
-			console.log('blank:')		
+		case('blank'):	
 			ta.ls_reset();
 			var prompts = { "art style" : "[\"3d render\",\"anime\",\"digital-art\",\"photo\"]" }
 			var spaces = {}
 			var crafts = []		
-			var leads = lead_def	
+			var leads = template	
 			break;
 		case('json'):
 			console.log('json:')
@@ -40,7 +60,7 @@ async function exec_workspace(forceInit) {
 			var prompts = {}
 			var spaces = {}
 			var crafts = []	
-			var leads = JSON.stringify(lead_def)	
+			var leads = template	
 	}
 	ta.ls_init({
 		'spaces': spaces, 
@@ -55,13 +75,14 @@ function workspaces() {
 	var prompts = ta.ls_get('prompts');
 	var spaces = ta.ls_get('spaces');
 	var rdat = new Object();
-	document.querySelector('#prompt .data').innerHTML="";
+	document.querySelector('#prompts .data').innerHTML="";
 	var last_scope = Cookies.get('scope');
 	if (typeof last_scope !== 'undefined') {
 		document.querySelector('#ped nav .scope').innerHTML = last_scope.replace("_"," ");
 	}
 	var datahtml = document.createElement('div'); datahtml.id = 'data'
 	var tochtml = document.createElement('div'); tochtml.id = 'toc'
+	
 	var toc = document.createElement('ul');
 	toc.innerHTML = "<li class='new'><span>New</span><button onclick='tp_addprompt(\"new\")'><i data-feather='edit'></i></button></li>"
 	datahtml.innerHTML = "<div id='filter'><div class='filter'>"+
@@ -69,6 +90,9 @@ function workspaces() {
 		"autocomplete='off' type='text' class='filter' "+
 		"onkeyup='tp_filter()' placeholder='Filters with at least 3 character...'>"+
 		"<i data-feather='filter'></i></div></div>"
+		
+	var tocndx=''
+
 	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {
 		var div = document.createElement('div');
 		div.id = safename(k)
@@ -83,7 +107,7 @@ function workspaces() {
 		rdat[k] = new Array();
 		div.classList.add('topic')
 		div.innerHTML = "<div class='rel'><h4 href='"+safename(k)+"'>"+k+"</h4><a href='#filter'><i data-feather='arrow-up'></i></a></div>"
-		toc.innerHTML = toc.innerHTML + "<li class='"+safename(k)+"'><a href='#"+safename(k)+"'>"+k+"</a><button onclick='tp_addprompt(this)'><i data-feather='edit'></i></button></li>"
+		tocndx = tocndx + "<li class='"+safename(k)+"'><a href='#"+safename(k)+"'>"+k+"</a><button onclick='tp_addprompt(this)'><i data-feather='edit'></i></button></li>"
 		var array = uniquesort ( JSON.parse(prompts[k]) );
 		var list = document.createElement('div');
 		list.className='list';
@@ -97,10 +121,13 @@ function workspaces() {
 		rdat[k] = JSON.stringify(rdat[k]);
 		div.append(list)
 		datahtml.append(div);
-		tochtml.append(toc)
+		
 	})
-	document.querySelector('#prompt .data').append(tochtml)
-	document.querySelector('#prompt .data').append(datahtml)
+	toc.innerHTML = toc.innerHTML +tocndx; 
+	tochtml.append(toc);
+	document.querySelector('#prompts .data').append(tochtml)
+	document.querySelector('#prompts .data').append(datahtml)
+	
 	var lastprompt = Cookies.get('prompt');
 	if ( (typeof lastprompt !== 'undefined') && (lastprompt !== '') ){
 		document.querySelector('#ped textarea').value = lastprompt 
@@ -110,7 +137,11 @@ function workspaces() {
 		document.querySelector('#mixer').value = lastmixer 
 	}
 	feather.replace();
+	
+
+
 }
+
 function qcopy(obj) {
 	if (obj.classList.contains('dupe')) {		
 		obj.remove();
@@ -188,3 +219,5 @@ function tp_help() {
 	if (typeof wiki[hlp] == 'undefined') { wiki[hlp] = 'https://github.com/tacoen/prompimix/wiki/'+hlp }
 	window.open(wiki[hlp],'_prompimix_help')
 }
+
+
