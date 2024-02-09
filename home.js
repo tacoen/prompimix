@@ -13,9 +13,7 @@ const pic = [
 	['pic/6.jpg','medium shot, afrofuturism, ross tran style, girl wearing batik, playful pose, strong facial expression, pirate ship, beautiful morning sunlight, day glo, intense emotional atmosphere, canon ef 16-35mm f/2.8l iii usm lens','leonardo.ai'],
 	['pic/7.jpg','medium shot, girl with shy expression, running in alleyway, dreamspace atmosphere, shot with fujifilm xf 56mm f/1.2 r lens, melancholic emotional tone, photo by david lachapelle. from bellow, motion blur wind swepts','seaart.ai'],
 	['pic/8.jpg','3d render, tokutsatsu, giant robot, action pose','seaart.ai'],
-	['pic/9.jpg','propoganda-poster, gta5 art, style of fujiko f. fujio, 2 girl wear military outfit, strong facial expression','seaart.ai'],
-	['pic/b.jpg','photorealistic, glitter, close-up:1.5, hitomi punjabi, nostalgic atmosphere, golden hour, {background:theatre}, naive lighting, clarity enhancement'],
-	['pic/a.jpg','8k retro cartoon, 1970s spy-fiction, drawn by butch hartman, close up, happy blond girl, striking elegant power poses, foreboding emotional tone, {background:futuristic street}, difraction spikes, hires, impeccable quality']
+	['pic/9.jpg','propoganda-poster, gta5 art, style of fujiko f. fujio, 2 girl wear military outfit, strong facial expression','seaart.ai']
 ]
 
 

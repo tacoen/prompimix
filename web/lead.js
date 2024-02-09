@@ -1,15 +1,15 @@
 function make_dropable(data,el,attr={}) {
 	var ele = document.createElement(el);
-	ele.setAttribute('ondrop',"drop(event)") 
+	ele.setAttribute('ondrop',"drop(event)")
 	ele.setAttribute('ondragover',"allowDrop(event)")
 	if (attr !== {} ) {
-		Object.keys(attr).forEach( function(a) { 
-			ele.setAttribute(a,attr[a]) 
+		Object.keys(attr).forEach( function(a) {
+			ele.setAttribute(a,attr[a])
 		})
 	}
 	if  (data[0] !== '')  {
 		//console.log(typeof data, data);
-		data.forEach( function(d) { 
+		data.forEach( function(d) {
 			var randomNumber = Math.floor(Math.random() * 900) + 100;
 			var li = document.createElement('li');
 			li.setAttribute('draggable',"true")
@@ -26,8 +26,8 @@ function make_dropable(data,el,attr={}) {
 function wrapper(what, el, attr={}) {
 	var ele = document.createElement(el);
 	if (attr !== {} ) {
-		Object.keys(attr).forEach( function(a) { 
-			ele.setAttribute(a,attr[a]) 
+		Object.keys(attr).forEach( function(a) {
+			ele.setAttribute(a,attr[a])
 		})
 	}
 	ele.append(what);
@@ -36,11 +36,11 @@ function wrapper(what, el, attr={}) {
 function makeselection(data,attr={},selected=false) {
 	var ele = document.createElement('select');
 	if (attr !== {} ) {
-		Object.keys(attr).forEach( function(a) { 
-			ele.setAttribute(a,attr[a]) 
+		Object.keys(attr).forEach( function(a) {
+			ele.setAttribute(a,attr[a])
 		})
 	}
-	data.forEach( function(d) { 
+	data.forEach( function(d) {
 		var opt = document.createElement('option');
 		opt.value = d
 		opt.innerText=d
@@ -62,21 +62,21 @@ function rgp_process(gp=[]) {
 }
 function seqpage(w=false) {
 	let ta = new ta_jsfunc();
-	var prompts = ta.ls_get('prompts');	
-	var leads = ta.ls_get('leads');	
+	var prompts = ta.ls_get('prompts');
+	var leads = ta.ls_get('leads');
 	//var rgp = template_default;
 	//var rgplist = ['sample1','sample2','sample3']
 	//console.log(typeof rgp);
 	var stock_list = make_dropable(uniquesort(Object.keys(prompts)),'ul');
 	var stack_list = make_dropable([],'ul')
 	var template = Cookies.get('template') || "default";
-	var lta = document.createElement('textarea'); 
+	var lta = document.createElement('textarea');
 	lta.id = 'lead_view';
 	lta.setAttribute('data-lead',template);
 	lta.setAttribute('onchange','update_leads(false)');
 	var lnav = document.createElement('nav'); ta.class = 'tab';
 	var ndiv1 = document.createElement('div');
-	ndiv1.innerHTML = 
+	ndiv1.innerHTML =
 	"<span class='note'><b>Note:</b> for static prompts: use [ and ], like [photo].</span>"+
 	"<button id='lead_save_button' onclick='tp_leadsave(true)'><i data-feather='save'></i></button>"
 	var ndiv2 = document.createElement('div');
@@ -96,12 +96,12 @@ function seqpage(w=false) {
 			'id':'lstock',
 			'class':'stock dnd-area',
 		})
-	);	
+	);
 	dnd.append(wrapper(stack_list,'div',{
 			'id':'lstack',
 			'class':'stack dnd-area',
 		})
-	);	
+	);
 	var lead_page = document.getElementById('leads');
 	var seqpage = document.createElement('div');
 	[lnav,lta,dnd].forEach( function(e) {
@@ -110,11 +110,11 @@ function seqpage(w=false) {
 	lead_page.innerHTML=''
 	lead_page.append(seqpage)
 	var tpl = leads[template];
-	
-	console.log(typeof tpl, tpl, template)
-	
-	if (typeof tpl === 'undefined')  { 
-		lta.value = ""; 
+
+//	console.log(typeof tpl, tpl, template)
+
+	if (typeof tpl === 'undefined')  {
+		lta.value = "";
 	} else {
 		lta.value = JSON.parse(tpl).toString();
 	}
@@ -140,11 +140,13 @@ function tp_addlead() {
 }
 function update_leads(cname=false) {
 	if (!cname) {
-		tp_leadsave();
 		name = document.getElementById('lead_view').getAttribute('data-lead') || "default"
 	} else {
 		name = cname;
 	}
+
+
+
 	let ta = new ta_jsfunc();
 	var leads = ta.ls_get('leads')
 	var selection = makeselection(uniquesort(Object.keys(leads)),{
@@ -165,6 +167,8 @@ function update_leads(cname=false) {
 	lstack.innerHTML="<h3 clas='lead_name'>"+name+"</h3>";
 	var stack_list = make_dropable(pa.toString().split(','),'ul')
 	lstack.append(stack_list)
+
+	// tp_leadsave();
 }
 function tp_leadsave(notice) {
 	let ta = new ta_jsfunc();

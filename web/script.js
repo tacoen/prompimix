@@ -1,6 +1,18 @@
+
 var template_default = ['media','models','facial features','art style','art artist'];
+
 document.addEventListener("DOMContentLoaded", function() {
+
+	var prot = window.location.protocol;
+			
+			
+	if (prot == 'file:') {
+		console.log('Protocol:'+prot)
+		load_json_asvar();
+	} 
+	
 	exec_workspace()
+	
 	if ( Cookies.get('moon') ) {
 		document.querySelector('html.tui').setAttribute('data-theme','dark')
 	}
@@ -8,25 +20,25 @@ document.addEventListener("DOMContentLoaded", function() {
 	var last = 	Cookies.get('last_page') || 'landing';
 	tp_switch(last)
 	
-	
-ddata = document.getElementById('data');
-ddata.addEventListener('scroll',(e)=> {
-	var t = ddata.scrollTop
-	var fi = document.getElementById('filter');
-	if (t > 41) {
-
-		fi.style.width = fi.offsetWidth +"px"
-		fi.style.height = "calc("+ fi.offsetHeight +"px + 1 rem)"
-		fi.style.top = fi.offsetTop +"px"
-		fi.style.left = fi.offsetLeft +"px"
-	}
-	
-	if (t > 42) {
-		fi.classList.add('fixed') 
-	} else {
-		fi.classList.remove('fixed') 
-	}
-});
+	ddata = document.getElementById('data');
+	ddata.addEventListener('scroll',(e)=> {
+		var t = ddata.scrollTop
+		var fi = document.getElementById('filter');
+		if (t > 41) {
+		
+			fi.style.width = fi.offsetWidth +"px"
+			fi.style.height = "calc("+ fi.offsetHeight +"px + 1 rem)"
+			fi.style.top = fi.offsetTop +"px"
+			fi.style.left = fi.offsetLeft +"px"
+		}
+		
+		if (t > 42) {
+			fi.classList.add('fixed') 
+		} else {
+			fi.classList.remove('fixed') 
+		}
+		
+	});
 
 	
 });
@@ -38,6 +50,7 @@ function htmlEntities(s){
 }
 async function exec_workspace(forceInit) {
 	let ta = new ta_jsfunc();
+	let Cookies = new ta_lscookie();
 	var ltm = Date.now();
 	let template = { "default": JSON.stringify(template_default) }
 	switch(forceInit) {
@@ -72,6 +85,7 @@ async function exec_workspace(forceInit) {
 }
 function workspaces() {
 	let ta = new ta_jsfunc();
+	let Cookies = new ta_lscookie();
 	var prompts = ta.ls_get('prompts');
 	var spaces = ta.ls_get('spaces');
 	var rdat = new Object();
@@ -211,7 +225,7 @@ function tp_help() {
 	var hlp = document.querySelector('main.show').id
 	wiki = {
 		'info':'https://github.com/tacoen/prompimix/wiki',
-		'prompt':'https://github.com/tacoen/prompimix/wiki/Workspaces',
+		'prompts':'https://github.com/tacoen/prompimix/wiki/Workspaces',
 		'leads':'https://github.com/tacoen/prompimix/wiki/Template',
 		'crafts':'https://github.com/tacoen/prompimix/wiki/Crafted',
 		'json':'https://github.com/tacoen/prompimix/wiki/json',

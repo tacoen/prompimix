@@ -1,13 +1,54 @@
 function resetcookies() {
-	var c = ['scope','last_page','template','moon']; 
-	c.forEach ( function(t) { 
+	var c = ['scope','last_page','template','moon'];
+	c.forEach ( function(t) {
 		Cookies.remove(t)
 	});
 	console.log('Cookies reset...');
 }
+function build_jsbak() {
+	let ta = new ta_jsfunc();
+	return ta.ls_jsbak()
+}
+function do_json_asvar_restore() {
+	console.log(jsbak);
+	let ta = new ta_jsfunc();
+	ta.ls_reset();
+	ta.ls_init({
+		'spaces':jsbak['spaces'],
+		'prompts':jsbak['prompts'],
+		'crafts':jsbak['crafts'],
+		'leads':jsbak['leads']
+		}, 1);
+}
+
+function load_json_asvar() {
+	let ta = new ta_jsfunc();
+	if (ta.ls_check()) {
+		console.log('Already Populated')
+	} else {
+		console.log('using: json-var.js');
+		loadScript("./data/json-var.js", do_json_asvar_restore);
+	}
+}
+
+function loadScript(url, callback) {
+    // Adding the script tag to the head as suggested before
+    var head = document.head;
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+
+    // Fire the loading
+    head.appendChild(script);
+}
 function fixprompts() {
 	let ta = new ta_jsfunc();
-	var prompts = ta.ls_get('prompts');	
+	var prompts = ta.ls_get('prompts');
 	var spaces = ta.ls_get('spaces');
 	console.log('before',prompt);
 	var nprompts = {}
@@ -21,7 +62,7 @@ function fixprompts() {
 }
 function fixspace() {
 	let ta = new ta_jsfunc();
-	var prompts = ta.ls_get('prompts');	
+	var prompts = ta.ls_get('prompts');
 	var spaces = ta.ls_get('spaces');
 	console.log(spaces);
 	var nspaces = {}
@@ -43,7 +84,7 @@ function finddupe() {
 	var exist = []
 	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {
 		var div = document.createElement('div');
-		div.id = safename(k)	
+		div.id = safename(k)
 		rdat[k] = new Array();
 		div.classList.add('topic')
 		div.innerHTML = "<div class='rel'><h4 href='"+safename(k)+"'>"+k+"</h4><a href='#filter'><i data-feather='arrow-up'></i></a></div>"
@@ -59,8 +100,8 @@ function finddupe() {
 				li.innerHTML = w
 				list.append(li);
 				exist.push(w);
-				//rdat[k].push(w);				
-			}	
+				//rdat[k].push(w);
+			}
 		})
 		//console.log(safename(k), ignore);
 		var els = document.querySelectorAll('.data #data div#'+safename(k)+" div.list span")
@@ -71,7 +112,7 @@ function finddupe() {
 			}
 		})
 		//div.append(list)
-		//cleanhtml.append(div);	
+		//cleanhtml.append(div);
 	})
 	// rdat[k] = JSON.stringify(rdat[k]);
 }

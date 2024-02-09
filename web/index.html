@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang='en' class='tui' data-theme>
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
 	<link rel="stylesheet" href="css/normalize.css" type="text/css" media="all">
 	<link rel="stylesheet" href="style.css" type="text/css" media="all">
 	<script src="js/feather.min.js"></script>
-	<script src="js/js-cookies.min.js"></script>
+
 	<script src="js/ta.js"></script>
 	<script src="js/tp.js"></script>
 	<script src="js/dnd.js"></script>
@@ -17,6 +18,7 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 </head>
 <body class='wside'>
+
 <nav class="vertical">
 		<div>
 			<button title='Workspaces' data-page='prompts' onclick="tp_switch(this)"><i data-feather='book-open'></i></button>
@@ -33,9 +35,13 @@
 		<button title='Wiki' data-page='help' onclick="tp_help()"><i data-feather='help-circle'></i></button>
 		</div>
 </nav>
+
 <main id='leads' class='hide'>
+
 </main>
+
 <main id='prompts' class='hide'>
+
 	<div id='ped'>
 		<nav class='mini horizontal'>
 		<div>
@@ -54,14 +60,19 @@
 			<textarea name='prompt' onchange="tp_cookies(this)" ></textarea>
 		</div>
 	</div>
+	
 	<div class='data'>
 	</div>
 	</div>
+
 </main>
 <main id='json' class='hide'>
+
 	<div>
 	<h1>JSON</h1>
+	
 	<p>Backup your localstorage:</p>
+	
 	<div class='cards flex'>
 		<button class='card big' onclick="tp_jsonDownload('prompts')">
 			<i data-feather='database'></i>
@@ -79,35 +90,52 @@
 			<span><b>template</b><br><small>leads.json</small></span>
 		</button>		
 	</div>
+
 	<p>Backup your localstorage as variable:</p>
+	
 	<div class='cards flex'>
 		<button class='card big' onclick="tp_downloadbak()">
 			<i data-feather='code'></i>
 			<span><b>Prompts</b><br><small>json-var.js</small></span>
 		</button>
+	
 	</div>
+
 	<p class='msg'><small>Reset your localstorage.</small> <button class='green' onclick='tp_reset("json")'>reset</button></p>
+
 	<p class='msg red'><small>Empty localstorage (Start from zero)</small> <button class='red' onclick='tp_reset("blank")'>blank</button></p>
+	
+	
 	</div>
+
 </main>
+
+
 <main id='crafts' class='hide'>
 	<div>
 	<h1>Your Prompts</h1>
 	<div id='collection'></div>
 	</div>
 </main>
+
 <main id='info' class='hide'>
+
 <div>
 	<h1>Prompimix</h1>
+	
 	<a href="https://hits.sh/tacoen.github.io/prompimix/web/"><img alt="Hits" src="https://hits.sh/tacoen.github.io/prompimix/web.svg"></a>
+	
 	<p>Prompimix(Promptcraftser/ tp-cooker) is an innovative software application developed using JavaScript, CSS, and HTML, designed to streamline the process of creating text-to-image prompts. This intuitive web-based tool empowers users to effortlessly generate captivating visual prompts for a variety of applications.</p>
+	
 	<p>I ask chat GPT3.5 for the name, since Promptcraftser already exist and tp-cooker not good. He Suggest <b>Prompimix</b>, here is his reason:</p> 
 	<ol>
 	<li>Prompting and Creativity: This name suggests that the software focuses on providing support or assistance in generating creative ideas or prompts. The "mix" element indicates an interesting combination or variation in creating prompts or instructions.</li>
 	<li>Integration and Collaboration: The combination of the words "prompt" and "mix" in "Prompimix" can depict the idea of integrating or combining prompt elements to produce better results. This may indicate that the software enables users to collaborate and merge various ideas to create stronger and more diverse prompts.</li>
 	<li>Speed and Efficiency: The word "prompt" in this name implies quick responses or instant actions. It may indicate that the software is designed to help users quickly and efficiently generate the prompts they need.</li>
 	</ol>
+	
 	<h2>Made with <span style="color:#f33">❤</span> by <a href="https://tacoen.github.io">tacoen</a></h2>
+	
 	<h2>Features:</h2>
 	<ul>
 	<li>Working using browser localstorage. </li>
@@ -122,34 +150,50 @@
 		<li><a href="https://github.com/necolas/normalize.css">normalize.css</a> v8.0.1, MIT License</li>
 		<li><a href="https://github.com/phuocng/mirror-a-text-area">Mirror a textarea</a>, Phước Nguyễn</li>
 	</ul>
+	
+
 </div>
+
 </main>
+
 <main id='landing'>
 </main>
+
 <div id='dummy' class='hide'>
+
 </div>
+
 <div id='ddform' class='hide'>
+	
 	<div class='ddform flex fit'>
 	<div>
 		<button class='page' onclick='workspaces()'><i data-feather='arrow-left'></i></button>
 	</div>
 	<div class='flex col fit'>
+	
+	
 	<div class='flex row entry f2col'>
 			<div class='name'><label>Name</label><input autocomplete='off' name='name' type='text' value=''></div>
 			<div>&nbsp</div>
 			<div class='prefix'><label>Prefix</label><input autocomplete="off" name='data-prefix' type='text' value=''></div>
 			<div class='suffix'><label>Suffix</label><input autocomplete="off" name='data-suffix' type='text' value=''></div>
 	</div>
+	
 	<textarea></textarea>
+
 	<p class='msg cya'>
 		<small>Prompt collections Will Be lowercase, accending Sorted and Unique</small>
 		<button class='wtext blue' onclick=''><i data-feather='save'></i> Save</button>
 	</p>
+
 	</div>
 	</div>
 	</div>
 </div>
+
 </body>
 <script>
+
+
 </script>
 </html>

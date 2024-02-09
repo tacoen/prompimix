@@ -25,7 +25,7 @@ function drop(ev) {
 	}
 	content = ul.querySelectorAll('li');
 	var array = [];
-	content.forEach( function(s) { array.push(s.innerText.trim()) })	
+	content.forEach( function(s) { array.push(s.innerText.trim()) })
 	var where = ul.closest('div').id
 	if (where == 'lstock') {
 		var ulist = make_dropable((uniquesort(array)),'ul')
@@ -34,6 +34,8 @@ function drop(ev) {
 		var sarray = document.querySelector('#lstack ul').querySelectorAll('li')
 		var array = [];
 		sarray.forEach( function(s) { array.push(s.innerText.trim()) })
+
 	}
-	document.getElementById('lead_view').value = array.toString()
+	document.getElementById('lead_view').value = array.toString();
+	tp_leadsave();
 }
