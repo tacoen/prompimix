@@ -211,10 +211,10 @@ function tp_help() {
 	var hlp = document.querySelector('main.show').id
 	wiki = {
 		'info':'https://github.com/tacoen/prompimix/wiki',
-		'prompt':'https://github.com/tacoen/prompimix/wiki/prompt',
-		'crafts':'https://github.com/tacoen/prompimix/wiki/crafts',
+		'prompt':'https://github.com/tacoen/prompimix/wiki/Workspaces',
+		'leads':'https://github.com/tacoen/prompimix/wiki/Template',
+		'crafts':'https://github.com/tacoen/prompimix/wiki/Crafted',
 		'json':'https://github.com/tacoen/prompimix/wiki/json',
-		'setting':'https://github.com/tacoen/prompimix/wiki/setting'
 	}
 	if (typeof wiki[hlp] == 'undefined') { wiki[hlp] = 'https://github.com/tacoen/prompimix/wiki/'+hlp }
 	window.open(wiki[hlp],'_prompimix_help')

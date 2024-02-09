@@ -387,7 +387,6 @@ select {
   flex-direction: column;
 }
 #landing > div,
-#setting > div,
 #crafts > div,
 #json > div {
   padding: 1rem;
@@ -653,12 +652,6 @@ input.sample {
   outline: 0;
   border: none;
   padding: 0.25rem;
-}
-#setting h1 {
-  margin: 0;
-  background: var(--nav-bg);
-  padding: 1rem 1rem 0 1rem;
-  height: 32px;
 }
 nav.tab {
   min-height: 32px;
