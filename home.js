@@ -19,7 +19,6 @@ const pic = [
 	['pic/c.jpg','illustration, anime art by eric vale, 1980 retro color palette, papua new guinean|dark skin|distinctive facial tattoos, solid dynamic color background, hyperrealism painting, vector graphics','sexy.ai']
 ]
 
-
 function randommate() {
 	var img = document.createElement('img')
 
