@@ -16,7 +16,7 @@ ddata.addEventListener('scroll',(e)=> {
 	if (t > 41) {
 
 		fi.style.width = fi.offsetWidth +"px"
-		fi.style.height = fi.offsetHeight +"px"
+		fi.style.height = "calc("+ fi.offsetHeight +"px + 1 rem)"
 		fi.style.top = fi.offsetTop +"px"
 		fi.style.left = fi.offsetLeft +"px"
 	}
