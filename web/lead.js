@@ -73,7 +73,8 @@ function seqpage(w=false) {
 	var lta = document.createElement('textarea'); 
 	lta.id = 'lead_view';
 	lta.setAttribute('data-lead',template);
-	lta.setAttribute('onchange','update_leads(false)');
+	// sini
+	lta.setAttribute('onchange','update_stack(false)');
 	var lnav = document.createElement('nav'); ta.class = 'tab';
 	var ndiv1 = document.createElement('div');
 	ndiv1.innerHTML = 
@@ -121,7 +122,8 @@ function seqpage(w=false) {
 	var h3 = document.createElement('h3')
 	h3.classname = 'lead_name'
 	document.querySelector('#lstack').prepend(h3);
-	update_leads();
+	//update_leads();
+	update_stack()
 }
 function tp_leadsSelect(obj) {
 	let name = obj.value
@@ -141,6 +143,7 @@ function tp_addlead() {
 function update_leads(cname=false) {
 	if (!cname) {
 		name = document.getElementById('lead_view').getAttribute('data-lead') || "default"
+		update_stack(name);
 	} else {
 		name = cname;
 	}
@@ -168,6 +171,19 @@ function update_leads(cname=false) {
 	// sini buggy
 	tp_leadsave();
 }
+
+function update_stack(name) {
+	console.log('update_stack');
+	if (!name) {
+		name = document.getElementById('lead_view').getAttribute('data-lead') || "default"
+	}
+	let lstack = document.querySelector('#lstack');
+	var pa = document.getElementById('lead_view').value
+	lstack.innerHTML="<h3 clas='lead_name'>"+name+"</h3>";	
+	var stack_list = make_dropable(pa.split(','),'ul')
+	lstack.append(stack_list)	
+}
+
 function tp_leadsave(notice) {
 	let ta = new ta_jsfunc();
 	var leads = ta.ls_get('leads')
@@ -175,7 +191,7 @@ function tp_leadsave(notice) {
 	let name = th.getAttribute('data-lead')
 	if (th.value == '') {
 		delete leads[name];
-		Cookies.remove('template');
+		// Cookies.remove('template');
 	} else {
 		txt = th.value.replace("[","\[").replace("]","\]").replace(", ",",").replace(" ,",",")
 		leads[name] = JSON.stringify( txt.split(',') );
