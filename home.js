@@ -16,6 +16,7 @@ const pic = [
 	['pic/9.jpg','propoganda-poster, gta5 art, style of fujiko f. fujio, 2 girl wear military outfit, strong facial expression','seaart.ai'],
 	['pic/b.jpg','photorealistic, glitter, close-up:1.5, hitomi punjabi, nostalgic atmosphere, golden hour, {background:theatre}, naive lighting, clarity enhancement','sexy.ai'],
 	['pic/a.jpg','8k retro cartoon, 1970s spy-fiction, drawn by butch hartman, close up, happy blond girl, striking elegant power poses, foreboding emotional tone, {background:futuristic street}, difraction spikes, hires, impeccable quality','sexy.ai'],
+ 	['pic/d.jpg','((cosmopolitan magazine cover)), authentic colors color palette, medium close up:1.5, iranian|hijab|modest charm, female with seductive provocative pose, protruding nose, raw provocation, {background:magical kingdom}, photo taken by tamron 10-24mm f/3.5-4.5 di ii vc hld len, photo-by steve mccurry','leonardo.ai'],
 	['pic/c.jpg','illustration, anime art by eric vale, 1980 retro color palette, papua new guinean|dark skin|distinctive facial tattoos, solid dynamic color background, hyperrealism painting, vector graphics','sexy.ai']
 ]
 

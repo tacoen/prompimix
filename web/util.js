@@ -1,6 +1,6 @@
 function resetcookies() {
-	var c = ['scope','last_page','template','moon'];
-	c.forEach ( function(t) {
+	var c = ['scope','last_page','template','moon']; 
+	c.forEach ( function(t) { 
 		Cookies.remove(t)
 	});
 	console.log('Cookies reset...');
@@ -14,14 +14,14 @@ function do_json_asvar_restore() {
 	let ta = new ta_jsfunc();
 	ta.ls_reset();
 	ta.ls_init({
-		'spaces':jsbak['spaces'],
+		'spaces':jsbak['spaces'], 
 		'prompts':jsbak['prompts'],
 		'crafts':jsbak['crafts'],
 		'leads':jsbak['leads']
-		}, 1);
+		}, 1);	
 }
 
-function load_json_asvar() {
+function load_json_asvar() {	
 	let ta = new ta_jsfunc();
 	if (ta.ls_check()) {
 		console.log('Already Populated')
@@ -48,7 +48,7 @@ function loadScript(url, callback) {
 }
 function fixprompts() {
 	let ta = new ta_jsfunc();
-	var prompts = ta.ls_get('prompts');
+	var prompts = ta.ls_get('prompts');	
 	var spaces = ta.ls_get('spaces');
 	console.log('before',prompt);
 	var nprompts = {}
@@ -62,7 +62,7 @@ function fixprompts() {
 }
 function fixspace() {
 	let ta = new ta_jsfunc();
-	var prompts = ta.ls_get('prompts');
+	var prompts = ta.ls_get('prompts');	
 	var spaces = ta.ls_get('spaces');
 	console.log(spaces);
 	var nspaces = {}
@@ -84,7 +84,7 @@ function finddupe() {
 	var exist = []
 	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {
 		var div = document.createElement('div');
-		div.id = safename(k)
+		div.id = safename(k)	
 		rdat[k] = new Array();
 		div.classList.add('topic')
 		div.innerHTML = "<div class='rel'><h4 href='"+safename(k)+"'>"+k+"</h4><a href='#filter'><i data-feather='arrow-up'></i></a></div>"
@@ -100,8 +100,8 @@ function finddupe() {
 				li.innerHTML = w
 				list.append(li);
 				exist.push(w);
-				//rdat[k].push(w);
-			}
+				//rdat[k].push(w);				
+			}	
 		})
 		//console.log(safename(k), ignore);
 		var els = document.querySelectorAll('.data #data div#'+safename(k)+" div.list span")
@@ -112,7 +112,7 @@ function finddupe() {
 			}
 		})
 		//div.append(list)
-		//cleanhtml.append(div);
+		//cleanhtml.append(div);	
 	})
 	// rdat[k] = JSON.stringify(rdat[k]);
 }

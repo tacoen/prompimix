@@ -43,7 +43,9 @@ function ta_jsfunc() {
 		});
 	},
 	this.ls_check = function() {
+		
 		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+		
 		if ((typeof localStorage.getItem(host) === 'undefined') ||
 			(localStorage.getItem(host) === null) ) {
 			console.log('no data');
@@ -52,6 +54,7 @@ function ta_jsfunc() {
 			return true;
 		}
 	},
+	
 	this.ls_reset = function () {
 		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
 		localStorage.removeItem(host);
@@ -75,17 +78,17 @@ function ta_jsfunc() {
 	this.ls_save = function(what,data) {
 		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
 		// console.log(host,what,data)
-		var sdata = JSON.parse(localStorage.getItem(host));
+		var sdata = JSON.parse(localStorage.getItem(host));	
 //		what2 = '\"'+what+'\"'
 		sdata[what]=JSON.parse(data);
 		localStorage.setItem(host,JSON.stringify(sdata));
-		var data = JSON.parse(localStorage.getItem(host));
+		var data = JSON.parse(localStorage.getItem(host));	
 		console.log('ls_save:'+what);
 	}
 	this.ls_jsbak = function() {
 		var da = {}
-		da['prompts'] = this.ls_get('prompts');
-		da['spaces'] = this.ls_get('spaces');
+		da['prompts'] = this.ls_get('prompts');	
+		da['spaces'] = this.ls_get('spaces');	
 		da['leads'] = this.ls_get('leads');
 		da['crafts'] = this.ls_get('crafts');
 		return jsbak = "var jsbak =" + JSON.stringify(da) +"\n\n"+"// prompimix m4.0"

@@ -25,7 +25,7 @@ function drop(ev) {
 	}
 	content = ul.querySelectorAll('li');
 	var array = [];
-	content.forEach( function(s) { array.push(s.innerText.trim()) })
+	content.forEach( function(s) { array.push(s.innerText.trim()) })	
 	var where = ul.closest('div').id
 	if (where == 'lstock') {
 		var ulist = make_dropable((uniquesort(array)),'ul')

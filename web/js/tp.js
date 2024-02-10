@@ -7,7 +7,7 @@ function tp_downloadbak() {
     link.href = URL.createObjectURL(file);
     link.download = ltm+"-json-var.js";
     link.click();
-    URL.revokeObjectURL(link.href);
+    URL.revokeObjectURL(link.href);  
 }
 function tp_switch(obj) {
 	var alla = document.querySelectorAll('button.active');
@@ -39,7 +39,7 @@ function tp_switch(obj) {
 	}
 
 	Cookies.set('last_page',id);
-
+	
 	feather.replace();
 }
 function tp_scopeflush() {
@@ -66,9 +66,9 @@ function tp_addprompt(obj) {
 		var indata = Array.from(document.querySelector('.data #data #'+t+' div.list').children);
 		//console.log(indata)
 		var collect =[]
-		Array.from(indata).forEach( function (s) {
-			collect.push(s.innerText)
-		});
+		Array.from(indata).forEach( function (s) { 
+			collect.push(s.innerText) 
+		}); 
 		kar.forEach( function(k) {
 			vkar[k] = document.getElementById(safename(t)).getAttribute(k)
 			// console.log ( vkar[k] );
@@ -85,9 +85,9 @@ function tp_addprompt(obj) {
 	// filling
 	var div = document.querySelector('#prompts div.data')
 	div.innerHTML = document.getElementById('ddform').innerHTML;
-	document.querySelector('#prompts .ddform textarea').classList.add(t);
+	document.querySelector('#prompts .ddform textarea').classList.add(t);	
 	document.querySelector('#prompts .ddform textarea').value = collect.toString() || "";
-	document.querySelector('#prompts .ddform .msg button').setAttribute('onclick',"tp_newp('"+t+"')")
+	document.querySelector('#prompts .ddform .msg button').setAttribute('onclick',"tp_newp('"+t+"')")	
 	document.querySelector("#prompts .ddform input[name='name']").value = ti.trim();
 	/*
 	if (obj !== 'new') {
@@ -96,7 +96,7 @@ function tp_addprompt(obj) {
 	*/
 	kar.forEach( function(k) {
 		document.querySelector("#prompts .ddform input[name='"+k+"']").value = vkar[k]
-	});
+	});	
 }
 function tp_newp(what) {
 	let ta = new ta_jsfunc();
@@ -110,7 +110,7 @@ function tp_newp(what) {
 		var t = what.replace("_"," ").toLowerCase();
 	}
 	var prompts = ta.ls_get('prompts');
-	var spaces = ta.ls_get('spaces');
+	var spaces = ta.ls_get('spaces');	
 	if (typeof spaces[t] == 'undefined') { spaces[t] = {} }
 	if ((typeof txt !== 'undefined') &&  (txt.length > 1)) {
 		// prompts
@@ -148,7 +148,7 @@ function xxtp_rgpkeep(obj) {
 	var ulist = make_dropable(array,'ul','u')
     document.querySelector('#setting input.sample').value = array.toString()
 	document.querySelector('#stack').innerHTML='';
-	document.querySelector('#stack').append(ulist)
+	document.querySelector('#stack').append(ulist)	
 }
 function tp_arcopy(obj) {
 	var copytext = obj.closest('div.note').querySelector('.txt');
@@ -184,7 +184,7 @@ function tp_sample() {
 				var txt = pref + " "+ txt+ " " + suff;
 			} else {
 				var txt =  txt+ " " + suff;
-				// console.log('masuk',p);
+				// console.log('masuk',p);				
 			}
 		}
 		if (rgp_txt.trim() == '') {
@@ -211,7 +211,7 @@ function tp_jsonDownload(what) {
     link.href = URL.createObjectURL(file);
     link.download = ltm+"-"+what+".json";
     link.click();
-    URL.revokeObjectURL(link.href);
+    URL.revokeObjectURL(link.href);  
 }
 function tp_clear(what) {
     document.querySelector(what).value=''
@@ -227,11 +227,11 @@ function tp_reset(what) {
 		default:
 			exec_workspace('json');
 	}
-	// window.location.reload();
+	// window.location.reload(); 
 	}
 	//let ta = new ta_jsfunc();
 	//ta.ls_reset();
-	//window.location.reload();
+	//window.location.reload(); 
 }
 function tp_cookies(obj) {
 	var cname = obj.getAttribute('name')
@@ -245,18 +245,18 @@ function tp_copytxt(what) {
 }
 function tp_craftsit(what) {
     var cText = document.querySelector(what).value;
-	let ta = new ta_jsfunc();
+	let ta = new ta_jsfunc(); 
 	let notes = ta.ls_get('crafts');
 	console.log(notes);
 	if (typeof notes === 'undefined') { notes = [] }
 	notes.push ( cText.trim() )
-	ta.ls_save('crafts', JSON.stringify ( notes ) )
+	ta.ls_save('crafts', JSON.stringify ( notes ) )	
 }
 function tp_filter() {
 	var words = document.querySelectorAll('#data .topic span');
 	var query = document.querySelector('#data input.filter').value.toLowerCase();
 	var toc = document.getElementById('toc');
-	var data = document.getElementById('data');
+	var data = document.getElementById('data');	
 	if (query.length < 3) {
 		toc.classList.remove('filter')
 		data.classList.remove('filter')
@@ -296,7 +296,7 @@ function tp_filter() {
 			if ( div.id.includes( query.toLowerCase() )) {
 				div.setAttribute('found',1)
 			}
-		})
+		})		
 	}
 }
 function tp_trim(q=false) {
