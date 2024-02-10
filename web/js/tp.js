@@ -201,6 +201,7 @@ function tp_sample() {
 	})
 	document.querySelector('#ped textarea').value = tp_trim(rgp_txt);
 	tp_cookies(document.querySelector('#ped textarea'))
+	button_notice(document.querySelector('button[title="Surprise me!"]'))	
 }
 function tp_jsonDownload(what) {
 	let ta = new ta_jsfunc();
@@ -243,7 +244,7 @@ function tp_copytxt(what) {
     cText.select();
     document.execCommand("copy");
 }
-function tp_craftsit(what) {
+function tp_saveit(what) {
     var cText = document.querySelector(what).value;
 	let ta = new ta_jsfunc(); 
 	let notes = ta.ls_get('crafts');
@@ -251,6 +252,7 @@ function tp_craftsit(what) {
 	if (typeof notes === 'undefined') { notes = [] }
 	notes.push ( cText.trim() )
 	ta.ls_save('crafts', JSON.stringify ( notes ) )	
+	button_notice(document.getElementById('clipit'));
 }
 function tp_filter() {
 	var words = document.querySelectorAll('#data .topic span');

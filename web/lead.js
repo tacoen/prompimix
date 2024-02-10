@@ -199,9 +199,14 @@ function tp_leadsave(notice) {
 	// console.log( JSON.stringify(leads) );
 	ta.ls_save('leads',JSON.stringify(leads));
 	if (notice) {
-		document.getElementById('lead_save_button').classList.add('notice');
-		setTimeout(() => {
-			document.getElementById('lead_save_button').classList.remove('notice');
-		}, "1100");
+		button_notice(document.getElementById('lead_save_button'))
 	}
 }
+
+function button_notice(ele) {
+	ele.classList.add('notice');
+	setTimeout(() => {
+			ele.classList.remove('notice');
+	}, "1100");
+}
+	
