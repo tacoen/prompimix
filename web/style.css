@@ -751,12 +751,15 @@ nav.tab span {
   height: calc(100vh - (var(--ta-h) / 2) - 4rem);
 }
 #lgdnd div li {
-  cursor: pointer;
+  cursor: grab;
   padding: 0.25rem;
   border: 1px solid var(--bor3);
   margin: 0.25rem 0.5rem;
-  min-width: calc(100% / 3 - 1rem);
+  width: calc(100% / 4 - 1rem);
   font-size: 0.8rem;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  overflow: hidden;
 }
 .stock ul,
 .stack ul {
@@ -831,12 +834,12 @@ li.drop-fx {
   .tab-content {
     height: calc(100vh - 5rem);
   }
-  .stack li,
-  .stock li {
-    margin: 0.125rem;
-    width: calc(50% - 0.5rem);
-    font-size: 0.8rem;
+ 
+  #lgdnd div li {
+	width: calc(100% / 2 - 1rem);
   }
+  
+  
 }
 
 button.active .feather { stroke-width:2; color:var(--d-field-hover); }
