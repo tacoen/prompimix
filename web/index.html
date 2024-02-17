@@ -101,13 +101,24 @@
 	
 	</div>
 
-	<p class='msg'><small>Reset your localstorage.</small> <button class='green' onclick='tp_reset("json")'>reset</button></p>
+	<p>Import JSON Files:</p>
 
-	<p class='msg red'><small>Empty localstorage (Start from zero)</small> <button class='red' onclick='tp_reset("blank")'>blank</button></p>
-	
-	
+	<div class='import'>
+
+	<div class="flex">
+	<button id="import"><i data-feather="upload"></i>  Import</button>
+	<input name='import' type="file" id="selectFiles" value="Import" />
 	</div>
+	</div>
+	
+	<div id='import-report'></div>
 
+	<p class='msg'><small>Reset your localstorage.</small>
+	<button class='green' onclick='tp_reset("json")'><i data-feather="rewind"></i>reset</button></p>
+
+	<p class='msg red'><small>Empty localstorage (Start from zero)</small>
+	<button class='red' onclick='tp_reset("blank")'><i data-feather="loader"></i>blank</button></p>
+	
 </main>
 
 
@@ -173,13 +184,13 @@
 	
 	
 	<div class='flex row entry f2col'>
-			<div class='name'><label>Name</label><input autocomplete='off' name='name' type='text' value=''></div>
+			<div class='name'><b for='name'>Name</b><input autocomplete='off' name='name' type='text' value=''></div>
 			<div>&nbsp</div>
-			<div class='prefix'><label>Prefix</label><input autocomplete="off" name='data-prefix' type='text' value=''></div>
-			<div class='suffix'><label>Suffix</label><input autocomplete="off" name='data-suffix' type='text' value=''></div>
+			<div class='prefix'><b for='data-prefix'>Prefix</b><input autocomplete="off" name='data-prefix' type='text' value=''></div>
+			<div class='suffix'><b for='data-suffix'>Suffix</b><input autocomplete="off" name='data-suffix' name='data-suffix' type='text' value=''></div>
 	</div>
 	
-	<textarea></textarea>
+	<textarea name='prompt_entries'></textarea>
 
 	<p class='msg cya'>
 		<small>Prompt collections Will Be lowercase, accending Sorted and Unique</small>

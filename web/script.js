@@ -1,53 +1,57 @@
-
 var template_default = ['media','models','facial features','art style','art artist'];
-
 document.addEventListener("DOMContentLoaded", function() {
-
 	var prot = window.location.protocol;
-			
-			
 	if (prot == 'file:') {
 		console.log('Protocol:'+prot)
 		load_json_asvar();
 	} 
-	
 	exec_workspace()
-	
 	if ( Cookies.get('moon') ) {
 		document.querySelector('html.tui').setAttribute('data-theme','dark')
 	}
 	document.querySelectorAll('main').forEach( function(e) { e.className='hide'; });
 	var last = 	Cookies.get('last_page') || 'landing';
 	tp_switch(last)
-	
 	ddata = document.getElementById('data');
 	ddata.addEventListener('scroll',(e)=> {
 		var t = ddata.scrollTop
 		var fi = document.getElementById('filter');
 		if (t > 41) {
-		
 			fi.style.width = fi.offsetWidth +"px"
 			fi.style.height = "calc("+ fi.offsetHeight +"px + 1 rem)"
 			fi.style.top = fi.offsetTop +"px"
 			fi.style.left = fi.offsetLeft +"px"
 		}
-		
 		if (t > 42) {
 			fi.classList.add('fixed') 
 		} else {
 			fi.classList.remove('fixed') 
 		}
-		
 	});
-
-	
+	const formupload = document.getElementById('import');
+	formupload.addEventListener('click', handleuploadSubmit);
 });
+function handleuploadSubmit() {
+    var files = document.getElementById('selectFiles').files;
+  console.log(files);
+  if (files.length <= 0) {
+    return false;
+  }
+	var fr = new FileReader();
+	let ta = new ta_jsfunc();
+	var p1 = ta.ls_get('prompts');		
+  fr.onload = function(e) { 
+  // console.log(e);
+    var result = JSON.parse(e.target.result);
+	var nprompts = __mergeJSON(p1,result)
+	// console.log(Object.keys(p1).length, Object.keys(result).length, Object.keys(nprompts).length);
+    //var formatted = JSON.stringify(nprompts, null, 2);
+    //document.getElementById('result').value = formatted;
+	ta.ls_save('prompts',JSON.stringify(nprompts));	
+  }
+  fr.readAsText(files.item(0));
+};
 var last_scope = Cookies.get('scope');
-function htmlEntities(s){
-	return s.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
-  		return '&#' + i.charCodeAt(0) + ';';
-	});
-}
 async function exec_workspace(forceInit) {
 	let ta = new ta_jsfunc();
 	let Cookies = new ta_lscookie();
@@ -96,7 +100,6 @@ function workspaces() {
 	}
 	var datahtml = document.createElement('div'); datahtml.id = 'data'
 	var tochtml = document.createElement('div'); tochtml.id = 'toc'
-	
 	var toc = document.createElement('ul');
 	toc.innerHTML = "<li class='new'><span>New</span><button onclick='tp_addprompt(\"new\")'><i data-feather='edit'></i></button></li>"
 	datahtml.innerHTML = "<div id='filter'><div class='filter'>"+
@@ -104,9 +107,7 @@ function workspaces() {
 		"autocomplete='off' type='text' class='filter' "+
 		"onkeyup='tp_filter()' placeholder='Filters with at least 3 character...'>"+
 		"<i data-feather='filter'></i></div></div>"
-		
 	var tocndx=''
-
 	uniquesort ( Object.keys(prompts) ).forEach( function(k,i) {
 		var div = document.createElement('div');
 		div.id = safename(k)
@@ -135,13 +136,11 @@ function workspaces() {
 		rdat[k] = JSON.stringify(rdat[k]);
 		div.append(list)
 		datahtml.append(div);
-		
 	})
 	toc.innerHTML = toc.innerHTML +tocndx; 
 	tochtml.append(toc);
 	document.querySelector('#prompts .data').append(tochtml)
 	document.querySelector('#prompts .data').append(datahtml)
-	
 	var lastprompt = Cookies.get('prompt');
 	if ( (typeof lastprompt !== 'undefined') && (lastprompt !== '') ){
 		document.querySelector('#ped textarea').value = lastprompt 
@@ -151,11 +150,7 @@ function workspaces() {
 		document.querySelector('#mixer').value = lastmixer 
 	}
 	feather.replace();
-	
-
-
 }
-
 function qcopy(obj) {
 	if (obj.classList.contains('dupe')) {		
 		obj.remove();
@@ -233,5 +228,3 @@ function tp_help() {
 	if (typeof wiki[hlp] == 'undefined') { wiki[hlp] = 'https://github.com/tacoen/prompimix/wiki/'+hlp }
 	window.open(wiki[hlp],'_prompimix_help')
 }
-
-

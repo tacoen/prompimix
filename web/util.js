@@ -1,3 +1,94 @@
+function __mergeJSON(json1, json2) {
+  const mergedJSON = { ...json1 };
+
+  for (let key in json2) {
+	  
+	if ( ! Object.keys(json1).includes(key) ) {
+			console.log('+',key);
+	}		
+	 
+    if (json2.hasOwnProperty(key)) {
+      if (mergedJSON.hasOwnProperty(key) && typeof mergedJSON[key] === 'object' && typeof json2[key] === 'object') {
+        mergedJSON[key] = mergeJSON(mergedJSON[key], json2[key]);
+
+      } else {
+        mergedJSON[key] = json2[key];
+
+      }
+    }
+  }
+
+  return mergedJSON;
+}
+
+
+
+function findprompt(value) {
+	var vfinds = []
+	var kfinds = []
+	let ta = new ta_jsfunc();
+	var p1 = ta.ls_get('prompts');	
+	Object.keys(p1).forEach( function(k) { 
+		if (k.includes(value)) { kfinds.push(k) }
+		if (p1[k].includes(value)) { vfinds.push(k) }
+	})
+	return { 'key':kfinds,'val':vfinds }
+}
+function packJSON(what) {
+	let ta = new ta_jsfunc();
+	var p1 = ta.ls_get('prompts');	
+	var finds = findprompt(what);
+	var data = {}; data['prompts'] = {}
+	console.log(finds);
+	finds['key'].forEach ( function(k) {
+		data['prompts'][k] = p1[k]
+	})
+	
+	qdownload(JSON.stringify( data ),what+".json")
+}
+
+function json_pack(obj) {
+	let ta = new ta_jsfunc();
+	var p1 = ta.ls_get('prompts');	
+	var lstack = obj.closest('div.stack')
+	var list = lstack.querySelector('ul').querySelectorAll('li:not(.static)')
+	var what = lstack.querySelector('h3').innerText
+	var array = []
+	var data = {}; 
+	list.forEach( function(lk) {
+		array.push(lk.innerText)
+	});
+	console.log(array);
+	array.forEach ( function(k) {
+		data[k] = p1[k]
+	})
+	
+	qdownload(JSON.stringify( data ),what+".json")	
+}
+
+function pkremove(what) {
+	let ta = new ta_jsfunc();
+	var p1 = ta.ls_get('prompts');	
+	
+	const removeKey = (key, {[key]: _, ...rest}) => rest;
+	
+	var nprompts = removeKey(what, p1);
+	
+	console.log(nprompts)
+	ta.ls_save('prompts',JSON.stringify(nprompts));
+}
+
+async function mergeJSON2LS(file) {
+
+	let ta = new ta_jsfunc();
+	var p1 = ta.ls_get('prompts');	
+	var p2 = await load_json(file);
+	var nprompts = __mergeJSON(p1,p2)
+	console.log(Object.keys(p1).length, Object.keys(p2).length, Object.keys(nprompts).length);
+	ta.ls_save('prompts',JSON.stringify(nprompts));
+
+}
+
 function resetcookies() {
 	var c = ['scope','last_page','template','moon']; 
 	c.forEach ( function(t) { 

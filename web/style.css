@@ -192,7 +192,7 @@ body.wside {
 }
 main button:hover {
   color: var(--fg);
-  border: 1px outset var(--bor4);
+  border: 1px solid var(--bor4);
 }
 main nav button:hover {
   border: 1px solid transparent;
@@ -423,17 +423,12 @@ p.msg {
   background: var(--d-field);
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem 1rem;
 }
 .ddform p.msg {
   margin: 0;
 }
-p.msg button {
-  border: none;
-  height: auto;
-  padding: 0.25rem 1rem;
-  width: auto;
-}
+
 .f2col > div {
   margin-bottom: 0.5rem;
   width: 50%;
@@ -442,7 +437,7 @@ p.msg button {
   flex-direction: row;
   flex-wrap: wrap;
 }
-.f2col > div label {
+.f2col > div b {
   display: inline-block;
   font-weight: 500;
   width: 40%;
@@ -618,7 +613,7 @@ div#filter {
   margin: 0 0 1rem 0;
 }
 #ped .scope {
-	margin-right:1rem;
+  margin-right:1rem;
 }
 #ped .scope::before {
   content: "@";
@@ -726,10 +721,37 @@ nav.tab span {
   box-shadow: 0px -1px 3px var(--bor2);
   margin-top: 1rem;
 }
+
 #lgdnd h3 {
-  margin: 1rem 1rem 0 1rem;
-  color: var(--fg);
+  color: var(--fg); margin:0;
 }
+
+#lgdnd .packing {
+  margin: 1rem 1rem 0 1rem;
+  justify-content: space-between;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  width: calc(100% - 2rem);
+}
+
+#lgdnd .packing button svg {
+  height: 16px;
+  margin-right: .25rem;
+}
+
+#lgdnd .packing button:hover {
+color: var(--fg);
+}
+
+#lgdnd .packing button  {
+  border: none; color: var(--bor3);
+}
+#lgdnd .packing span  {
+  text-transform:capitalize
+}
+
+
 #lgdnd > div {
   display: flex;
   width: 50%;
@@ -836,7 +858,7 @@ li.drop-fx {
   }
  
   #lgdnd div li {
-	width: calc(100% / 2 - 1rem);
+  width: calc(100% / 2 - 1rem);
   }
   
   
@@ -849,4 +871,39 @@ button.active .feather { stroke-width:2; color:var(--d-field-hover); }
   box-shadow: 0 0.25rem 1rem var(--bor3);background: var(--bg);
   padding: 1rem;
   z-index:10
+}
+
+#selectFiles {
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  line-height: 2rem;
+  padding: .25rem 1rem;
+}
+
+#selectFiles::-webkit-file-upload-button {
+  display:none;
+}
+
+.import { background: var(--bg);   border: 1px dashed var(--bor3); }
+.import #import { margin: .25rem; }
+.import #import svg { height: 16px; }
+
+#import-report {
+  padding: .25rem;
+  font-size: .8rem;
+}
+
+button#Import,
+p.msg button {
+  border: none;
+  height: auto;
+  padding: 0.25rem 1rem .25rem .5rem;
+  width: auto;
+}
+
+button#Import svg,
+p.msg button svg {
+  margin-right: .5rem;
 }
