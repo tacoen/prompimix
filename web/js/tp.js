@@ -6,7 +6,7 @@ function safename(e){return e.replace(" ","_").replace(/\W/g,"")}
 
 function qdownload(t,e){
 	r=document.createElement("a"),a=Date.now(),o=new Blob([t],{type:"text/plain"});
-	r.href=URL.createObjectURL(o),r.download=a+"-"+e+".json",r.click(),URL.revokeObjectURL(r.href)
+	r.href=URL.createObjectURL(o),r.download=a+"-"+e,r.click(),URL.revokeObjectURL(r.href)
 }
 
 function tp_downloadbak(){var e=new ta_jsfunc().ls_jsbak();let t=document.createElement("a"),r=Date.now(),a=new Blob([e],{type:"text/plain"});t.href=URL.createObjectURL(a),t.download=r+"-json-var.js",t.click(),URL.revokeObjectURL(t.href)}
