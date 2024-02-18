@@ -4,6 +4,11 @@ function onlyUnique(e,n,r){return r.indexOf(e)===n}
 function uniquesort(e){return e.sort((e,n)=>e.localeCompare(n)),e.filter(onlyUnique)}
 function safename(e){return e.replace(" ","_").replace(/\W/g,"")}
 
+function qdownload(t,e){
+	r=document.createElement("a"),a=Date.now(),o=new Blob([t],{type:"text/plain"});
+	r.href=URL.createObjectURL(o),r.download=a+"-"+e+".json",r.click(),URL.revokeObjectURL(r.href)
+}
+
 function tp_downloadbak(){var e=new ta_jsfunc().ls_jsbak();let t=document.createElement("a"),r=Date.now(),a=new Blob([e],{type:"text/plain"});t.href=URL.createObjectURL(a),t.download=r+"-json-var.js",t.click(),URL.revokeObjectURL(t.href)}
 function tp_switch(e){if(document.querySelectorAll("button.active").forEach(function(e){e.classList.remove("active")}),"string"!=typeof e){var t=e.getAttribute("data-page");e.classList.add("active")}else{var t=e;(document.querySelector("button[data-page='"+t+"']")||document.querySelector("button[data-page='info']")).classList.add("active")}switch(document.querySelectorAll("main").forEach(function(e){e.className="hide"}),document.querySelector("main#"+t).className="show",t){case"leads":seqpage();break;case"crafts":craftslist();break;default:document.getElementById("landing").innerHTML="<div><h1>Prompimix</h1><p>You see this pages, because this is the first time we notice you are using <b>Prompimix</b>. Your localstorage is empty, and we need to initially it. Please hit the Load button to doit, if you miss this step, you latter can doit at JSON Page.</p><p class='msg'><small>Fill your localstorage.</small> <button class='green' onclick='tp_reset(\"json\")'>Load</button></p></div></div>"}Cookies.set("last_page",t),feather.replace()}
 function tp_scopeflush(){Cookies.remove("scope"),document.querySelector("#ped nav .scope").innerHTML=""}
