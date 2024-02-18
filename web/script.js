@@ -1,5 +1,7 @@
+var vers = "m6.1"
 var template_default = ['media','models','facial features','art style','art artist'];
 document.addEventListener("DOMContentLoaded", function() {
+
 	var prot = window.location.protocol;
 	if (prot == 'file:') {
 		console.log('Protocol:'+prot)
@@ -30,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 	const formupload = document.getElementById('import');
 	formupload.addEventListener('click', handleuploadSubmit);
+	
+	document.getElementById('versioned').innerText= vers;
 });
 function handleuploadSubmit() {
     var files = document.getElementById('selectFiles').files;

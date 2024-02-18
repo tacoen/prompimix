@@ -192,7 +192,7 @@ body.wside {
 }
 main button:hover {
   color: var(--fg);
-  border: 1px solid var(--bor4);
+  /* border: 1px solid var(--bor4); */
 }
 main nav button:hover {
   border: 1px solid transparent;
@@ -213,6 +213,7 @@ main nav button:hover {
   line-height: 1.5rem;
   color: var(--fg);
   padding: 0.5rem;
+  font-size: .9rem;
 }
 div#filter div {
   align-items: center;
@@ -256,7 +257,7 @@ nav.vertical div {
   width: var(--nav-v-w);
 }
 nav.vertical button {
-  margin: 1rem 0;
+  margin: .5em 0;
   width: var(--nav-v-w);
 }
 div.data {
@@ -715,6 +716,8 @@ nav.tab span {
   width: calc(100% - 2rem);
   border: 1px solid var(--bor1);
   height: calc(var(--ta-h) / 2);
+  line-height: 1.5rem;
+  font-size: .9rem;
 }
 #lgdnd {
   display: flex;
@@ -907,3 +910,5 @@ button#Import svg,
 p.msg button svg {
   margin-right: .5rem;
 }
+
+.px16 svg { height: 1rem; width: 1rem; }

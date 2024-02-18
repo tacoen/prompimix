@@ -1,4 +1,41 @@
-function allowDrop(e){e.preventDefault(),e.target.classList.add("drop-fx")}
-function dragstart(e){e.dataTransfer.setData("text",e.target.id),e.dataTransfer.dropEffect="move",e.target.style.opacity="0.4"}
-function dragend(e){e.target.style.opacity="1"}
-function drop(e){e.preventDefault();var t=e.dataTransfer.getData("text"),r=e.target.closest("ul");document.querySelectorAll(".dnd-area .drop-fx").forEach(function(e){e.classList.remove("drop-fx")}),e.target==r?r.appendChild(document.getElementById(t)):(nli=e.toElement.closest("li"),r.insertBefore(document.getElementById(t),nli));var a=[];if((content=r.querySelectorAll("li")).forEach(function(e){a.push(e.innerText.trim())}),"lstock"==r.closest("div").id){var l=make_dropable(uniquesort(a),"ul");document.querySelector("#lstock").innerHTML="",document.querySelector("#lstock").append(l);var o=document.querySelector("#lstack ul").querySelectorAll("li"),a=[];o.forEach(function(e){a.push(e.innerText.trim())})}document.getElementById("lead_view").value=a.toString().replace(/\,/g,", "),tp_leadsave()}
+function allowDrop(ev) {
+	ev.preventDefault();
+	ev.target.classList.add('drop-fx');
+}
+function dragstart(ev) {
+	ev.dataTransfer.setData("text", ev.target.id);
+	ev.dataTransfer.dropEffect = 'move';
+	ev.target.style.opacity = '0.4';
+}
+function dragend(ev) {
+	ev.target.style.opacity = '1';
+}
+function drop(ev) {
+	ev.preventDefault();
+	var data = ev.dataTransfer.getData("text");
+	var ul =  ev.target.closest('ul');
+	document.querySelectorAll('.dnd-area .drop-fx').forEach( function(e) {
+		e.classList.remove('drop-fx');
+	});
+	if (ev.target == ul) {
+		ul.appendChild(document.getElementById(data));
+	} else {
+		nli = ev.toElement.closest('li');
+  		ul.insertBefore(document.getElementById(data), nli);
+	}
+	content = ul.querySelectorAll('li');
+	var array = [];
+	content.forEach( function(s) { array.push(s.innerText.trim()) })	
+	var where = ul.closest('div').id
+	if (where == 'lstock') {
+		var ulist = make_dropable((uniquesort(array)),'ul')
+		document.querySelector('#lstock').innerHTML="";
+		document.querySelector('#lstock').append(ulist);
+		var sarray = document.querySelector('#lstack ul').querySelectorAll('li')
+		var array = [];
+		sarray.forEach( function(s) { array.push(s.innerText.trim()) })
+
+	}
+	document.getElementById('lead_view').value = array.toString();
+	tp_leadsave();
+}

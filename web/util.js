@@ -1,3 +1,10 @@
+function komadeal(obj) {
+	var txta = obj.closest('div.ddform').querySelector('textarea[name=prompt_entries]');
+	console.log(txta)
+	var txtnya = txta.value;
+	txta.value = txtnya.replace(/\,/gi,'\n')
+}
+	
 function __mergeJSON(json1, json2) {
   const mergedJSON = { ...json1 };
 

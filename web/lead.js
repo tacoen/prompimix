@@ -7,3 +7,37 @@ function update_lta(e,t){var a=new ta_jsfunc().ls_get("leads");null==e&&(e=docum
 function update_stack(e=!1){e||(e=document.getElementById("lead_view").getAttribute("data-lead")||"default");let t=document.querySelector("#lstack");var a=document.getElementById("lead_view").value;t.innerHTML="";var n=document.createElement("h3");n.classname="lead_name",n.innerHTML=e;var l=document.createElement("button");l.setAttribute("onclick","json_pack(this)"),l.innerHTML="<i data-feather='download'></i><span>Json</span>";var d=document.createElement("div");d.className="flex packing",d.append(n),d.append(l);var r=make_dropable(a.split(","),"ul");t.append(d),t.append(r),feather.replace()}
 function update_leads(e=!1){e?name=e:update_stack(name=document.getElementById("lead_view").getAttribute("data-lead")||"default");var t=new ta_jsfunc().ls_get("leads"),a=makeselection(uniquesort(Object.keys(t)),{id:"leads_select",onchange:"tp_leadsSelect(this)"},name);document.getElementById("lead_ctl").innerHTML="",document.getElementById("lead_ctl").append(a);let n="";""!=t[name]&&(n=JSON.parse(t[name])),e&&(document.getElementById("lead_view").value=n),document.getElementById("lead_view").setAttribute("data-lead",name),update_stack(name)}
 function button_notice(e){e.classList.add("notice"),setTimeout(()=>{e.classList.remove("notice")},"1100")}
+
+function tp_leadsSelect(obj) {
+	let name = obj.value
+	update_leads(name)
+	Cookies.set('template',name);
+}
+function tp_addlead() {
+	var name = prompt('Enter the new name:')
+	if (name) {
+		let ta = new ta_jsfunc();
+		var leads = ta.ls_get('leads')
+		leads[name]='';
+		ta.ls_save('leads',JSON.stringify(leads));
+		update_leads(name);
+	}
+}
+function tp_leadsave(notice) {
+	let ta = new ta_jsfunc();
+	var leads = ta.ls_get('leads')
+	let th = document.getElementById('lead_view')
+	let name = th.getAttribute('data-lead')
+	if (th.value == '') {
+		delete leads[name];
+		// Cookies.remove('template');
+	} else {
+		txt = th.value.replace("[","\[").replace("]","\]").replace(", ",",").replace(" ,",",")
+		leads[name] = JSON.stringify( txt.split(',') );
+	}
+	// console.log( JSON.stringify(leads) );
+	ta.ls_save('leads',JSON.stringify(leads));
+	if (notice) {
+		button_notice(document.getElementById('lead_save_button'))
+	}
+}

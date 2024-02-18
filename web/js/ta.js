@@ -1,8 +1,4 @@
-function htmlEntities(s){
-	return s.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
-  		return '&#' + i.charCodeAt(0) + ';';
-	});
-}
+let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
 
 function ta_lscookie() {
 	let hc = window.location.pathname.toLowerCase().replace(/\W/g,"");
@@ -50,7 +46,7 @@ function ta_jsfunc() {
 	},
 	this.ls_check = function() {
 		
-		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+//		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
 		
 		if ((typeof localStorage.getItem(host) === 'undefined') ||
 			(localStorage.getItem(host) === null) ) {
@@ -62,12 +58,12 @@ function ta_jsfunc() {
 	},
 	
 	this.ls_reset = function () {
-		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+//		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
 		localStorage.removeItem(host);
 		console.log("ls_reset",host);
 	}
 	this.ls_init = function(data={},forced=false) {
-		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+//		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
 		if (forced) {
 			localStorage.setItem(host,JSON.stringify(data));
 			console.log("ls_init: (forced)",host)
@@ -82,7 +78,7 @@ function ta_jsfunc() {
 		}
 	},
 	this.ls_save = function(what,data) {
-		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+//		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
 		// console.log(host,what,data)
 		var sdata = JSON.parse(localStorage.getItem(host));	
 //		what2 = '\"'+what+'\"'
@@ -100,7 +96,7 @@ function ta_jsfunc() {
 		return jsbak = "var jsbak =" + JSON.stringify(da) +"\n\n"+"// prompimix m4.0"
 	},
 	this.ls_get = function(k,w=false) {
-		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+		
 		var data = JSON.parse(localStorage.getItem(host));
 		if (!w) { return data[k]; } else { return data[k][w]; }
 	},
