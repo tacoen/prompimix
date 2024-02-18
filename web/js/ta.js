@@ -117,23 +117,3 @@ function ta_jsfunc() {
 		return selectList;
 	}
 }
-function onlyUnique(value, index, self) {
-	return self.indexOf(value) === index;
-}
-function uniquesort(retArray) {
-	retArray.sort((b, a) => b.localeCompare(a));
-	return retArray.filter(onlyUnique);
-}
-function safename(k) {
-	return k.replace(' ',"_").replace(/\W/g,"");
-}
-async function load_json(w) {
-	try {
-		console.log('load json: '+w);
-		var ls = await fetch(w)
-		var lsdata = await ls.json();
-		return lsdata;
-	} catch (error) {
-        console.log('Error fetching and parsing data', error);
-    }
-}
