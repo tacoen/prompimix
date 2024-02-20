@@ -91,7 +91,7 @@ function ta_jsfunc() {
 		var da = {}
 		da['prompts'] = this.ls_get('prompts');	
 		da['spaces'] = this.ls_get('spaces');	
-		da['leads'] = this.ls_get('leads');
+		da['pattern'] = this.ls_get('pattern');
 		da['crafts'] = this.ls_get('crafts');
 		return jsbak = "var jsbak =" + JSON.stringify(da) +"\n\n"+"// prompimix m4.0"
 	},

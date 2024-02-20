@@ -14,10 +14,10 @@
 	</head>
 	<body class='wside'>
 		<nav class="vertical">
-			<div><button title='Workspaces' data-page='prompts' onclick="tp_switch(this)"><i data-feather='book-open'></i></button><button title='Template' data-page='leads' onclick="tp_switch(this)"><i data-feather='box'></i></button><button title='Collection' data-page='crafts' onclick="tp_switch(this)"><i data-feather='archive'></i></button><button title='JSON' data-page='json' onclick="tp_switch(this)"><i data-feather='database'></i></button></div>
+			<div><button title='Workspaces' data-page='prompts' onclick="tp_switch(this)"><i data-feather='book-open'></i></button><button title='Pattern' data-page='pattern' onclick="tp_switch(this)"><i data-feather='wind'></i></button><button title='Collection' data-page='crafts' onclick="tp_switch(this)"><i data-feather='archive'></i></button><button title='JSON' data-page='json' onclick="tp_switch(this)"><i data-feather='database'></i></button></div>
 			<div><button title="theme" class='theme' onclick="swcolor()"><i data-feather='sun'></i><i data-feather='moon'></i></button><button title="info" data-page='info' onclick="tp_switch(this)"><i data-feather='info'></i></button><button title='Wiki' data-page='help' onclick="tp_help()"><i data-feather='help-circle'></i></button></div>
 		</nav>
-		<main id='leads' class='hide'></main>
+		<main id='pattern' class='hide'></main>
 		<main id='prompts' class='hide'>
 			<div id='ped'>
 				<nav class='mini horizontal'>
@@ -33,7 +33,11 @@
 			<div>
 				<h1>JSON</h1>
 				<p>Backup your localstorage:</p>
-				<div class='cards flex'><button class='card big' onclick="tp_jsonDownload('prompts')"><i data-feather='database'></i><span><b>Prompts</b><br><small>prompts.json</small></span></button><button class='card big' onclick="tp_jsonDownload('spaces')"><i data-feather='sidebar'></i><span><b>Spaces</b><br><small>spaces.json</small></span><button class='card big' onclick="tp_jsonDownload('crafts')"><i data-feather='archive'></i><span><b>crafted</b><br><small>crafts.json</small></span></button><button class='card big' onclick="tp_jsonDownload('leads')"><i data-feather='box'></i><span><b>template</b><br><small>leads.json</small></span></button></div>
+				<div class='cards flex'>
+				<button class='card big' onclick="tp_jsonDownload('prompts')"><i data-feather='database'></i><span><b>Prompts</b><br><small>prompts.json</small></span></button>
+				<button class='card big' onclick="tp_jsonDownload('spaces')"><i data-feather='sidebar'></i><span><b>Spaces</b><br><small>spaces.json</small></span>
+				<button class='card big' onclick="tp_jsonDownload('crafts')"><i data-feather='archive'></i><span><b>Collections</b><br><small>crafts.json</small></span></button>
+				<button class='card big' onclick="tp_jsonDownload('pattern')"><i data-feather='wind'></i><span><b>Pattern</b><br><small>pattern.json</small></span></button></div>
 				<p>Backup your localstorage as variable:</p>
 				<div class='cards flex'><button class='card big' onclick="tp_downloadbak()"><i data-feather='code'></i><span><b>Prompts</b><br><small>json-var.js</small></span></button></div>
 				<p>Import JSON Files:</p>

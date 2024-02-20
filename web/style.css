@@ -698,7 +698,7 @@ nav.tab span {
   color: var(--fg);
   padding: 0.25rem;
 }
-#leads > div {
+#pattern > div {
   background: var(--nav-bg);
 }
 .note {
@@ -706,21 +706,21 @@ nav.tab span {
   color: var(--bor4);
   padding: 0 0.25rem 0;
 }
-#leads > div nav {
+#pattern > div nav {
   padding: 0.5rem 1rem;
   justify-content: space-between;
   display: flex;
   align-content: center;
 }
-#leads > div nav div {
+#pattern > div nav div {
   display: flex;
   align-items: center;
 }
-#leads > div nav select {
+#pattern > div nav select {
   border: 1px solid var(--bor1);
   min-width: 128px;
 }
-#leads > div textarea {
+#pattern > div textarea {
   margin: 0 1rem;
   width: calc(100% - 2rem);
   border: 1px solid var(--bor1);
@@ -816,7 +816,7 @@ color: var(--fg);
   list-style-position: inside;
   list-style-type: decimal;
 }
-#leads_ctl {
+#pattern_ctl {
   margin: 0;
   padding: 0;
   display: inline-flex;
@@ -923,6 +923,11 @@ p.msg button svg {
 
 .px16 svg { height: 1rem; width: 1rem; }
 
-#wtemp { color: var(--bor3);
-    font-size: .8rem; 
-	}
+nav.vertical button[title='JSON'] {
+  margin-top: 2rem;
+}
+
+#wtemp { 
+  color: var(--bor3);
+  font-size: .8rem;
+}

@@ -84,7 +84,7 @@ async function exec_workspace(forceInit) {
 			var prompts = prompts_default;
 			var spaces = {}
 			var crafts = []		
-			var leads = template	
+			var pattern = template	
 			break;
 		case('json'):
 			console.log('json:')
@@ -92,19 +92,19 @@ async function exec_workspace(forceInit) {
 			var prompts = await load_json('./data/prompts.json?void='+ltm);
 			var spaces = await load_json('./data/spaces.json?void='+ltm);
 			var crafts = await load_json('./data/crafts.json?void='+ltm);
-			var leads = await load_json('./data/leads.json?void='+ltm);
+			var pattern = await load_json('./data/pattern.json?void='+ltm);
 			break;
 		default:
 			var prompts = {}
 			var spaces = {}
 			var crafts = []	
-			var leads = template	
+			var pattern = template	
 	}
 	ta.ls_init({
 		'spaces': spaces, 
 		'prompts':prompts,
 		'crafts':crafts,
-		'leads':leads
+		'pattern':pattern
 		}, forceInit);
 	workspaces();
 }
@@ -115,7 +115,7 @@ function tp_help() {
 	wiki = {
 		'info':'https://github.com/tacoen/prompimix/wiki',
 		'prompts':'https://github.com/tacoen/prompimix/wiki/Workspaces',
-		'leads':'https://github.com/tacoen/prompimix/wiki/Template',
+		'pattern':'https://github.com/tacoen/prompimix/wiki/Template',
 		'crafts':'https://github.com/tacoen/prompimix/wiki/Crafted',
 		'json':'https://github.com/tacoen/prompimix/wiki/json',
 	}
