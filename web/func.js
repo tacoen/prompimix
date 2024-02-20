@@ -5,15 +5,18 @@ function tp_trim(q=false) {
 	} else {
 		var txt = q;
 	}
+	//console.log(txt);
 	txt = txt.toLowerCase()
 	txt = txt.replace(/\t/g, " ");
 	txt = txt.replace(/\n|\r/g, ",");
+	txt = txt.replace(/\;/g, ",");	
+	txt = txt.replace(/\+\+,/g, "").replace(/,\+\+/g, "")
+	txt = txt.replace(/\+\+ ,/g, "").replace(/, \+\+/g, "")
 	txt = txt.replace(/\s+([\},\),\{,\,\|,\.,\:])/g, "$1");
 	txt = txt.replace(/([\},\(,\{,\,\|,\.,\:])\s+/g, "$1");
 	txt = txt.replace(/\[.*?\]/g, " ")
 	txt = txt.replace(/\s+/g, " ").replace(/,,/g, ",")
 	txt = txt.replace(/\,$|^\,/g, "")
-	txt = txt.replace(/\+\+,/g, "")
 	txt = txt.replace(/,/g, ", ");
 	txt = txt.trim()
 	if (!q) {
@@ -43,6 +46,8 @@ function handleuploadSubmit() {
 		ta.ls_save('prompts',JSON.stringify(nprompts));	
 	}
 	fr.readAsText(files.item(0));
+	
+	location.reload();
 };
 
 
@@ -76,7 +81,7 @@ async function exec_workspace(forceInit) {
 	switch(forceInit) {
 		case('blank'):	
 			ta.ls_reset();
-			var prompts = { "art style" : "[\"3d render\",\"anime\",\"digital-art\",\"photo\"]" }
+			var prompts = prompts_default;
 			var spaces = {}
 			var crafts = []		
 			var leads = template	

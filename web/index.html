@@ -22,7 +22,7 @@
 			<div id='ped'>
 				<nav class='mini horizontal'>
 					<div><button title='Clear' onclick="tp_clear('#ped textarea')"><i data-feather='x-square'></i></button><button help='trim' title='trim the prompt' onclick='tp_trim()'><i data-feather='align-left'></i></button><span title='mixer character' class='mix'>Mix: <input autocomplete="off" onchange="tp_cookies(this)" type='text' id='mixer' name='mixer' size='2' value=" "></span><span help='scope' title='scope' onclick='tp_scopeflush()' class='scope'></span></div>
-					<div><button title='Surprise me!' onclick="tp_sample()"><i data-feather='gift'></i></button><button title='Copy the prompt' onclick="tp_copytxt('#ped textarea')" class='wtext'><i data-feather='copy'></i><span>copy</span></button><button id='clipit' title='Save/clip it' onclick="tp_saveit('#ped textarea')"><i data-feather='save'></i></button></div>
+					<div><span id='wtemp'>apa</span><button id='sample' title='Inspire me!' onclick="tp_sample()"><i data-feather='wind'></i></button><button title='Copy the prompt' onclick="tp_copytxt('#ped textarea')" class='wtext'><i data-feather='copy'></i><span>copy</span></button><button id='clipit' title='Save/clip it' onclick="tp_saveit('#ped textarea')"><i data-feather='save'></i></button></div>
 				</nav>
 				<div><textarea name='prompt' onchange="tp_cookies(this)"></textarea></div>
 			</div>
