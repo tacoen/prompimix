@@ -550,21 +550,17 @@ div#filter {
 }
 #collection {
   align-content: flex-start;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
   padding-right: 1rem;
   width: 100%;
 }
+
 #collection .note {
-  height: 27vh;
   margin: 0 1rem 1rem 0;
   position: relative;
-  width: calc(33% - 1rem);
   font-size: 0.9rem;
   background: var(--d-field-1);
 }
+
 #collection .note textarea {
   height: 100%;
   padding: 0.5rem 0.5rem 0.5rem 3rem;
@@ -573,20 +569,27 @@ div#filter {
   border: none;
   resize: vertical;
 }
-#collection .note button:hover {
+#collection .note nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: transparent;
+  justify-content:space-between;
+}
+
+#collection .note nav button:hover {
   color: var(--fg);
 }
-#collection .note button {
-  color: var(--bor3);
+
+#collection .note nav button {
+  color: var(--bor4);
   height: 30px;
   left: 6px;
-  position: absolute;
-  top: 4px;
   width: 30px;
-  background: transparent;
   outline: none;
-  border: none;
+  border: none; margin:0;
 }
+
 #toc.filter ul li[found="1"],
 #toc.filter ul li.new {
   background: var(--d-found);
@@ -931,3 +934,5 @@ nav.vertical button[title='JSON'] {
   color: var(--bor3);
   font-size: .8rem;
 }
+
+#collection .note nav button.erase { color:#c009; margin-right: 2px; }

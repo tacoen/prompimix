@@ -1,3 +1,13 @@
+function tp_ardelete(rec) {
+	var t=new ta_jsfunc();
+	var e = t.ls_get("crafts");
+	delete e[rec];
+	var e = e.filter(i => { return i !== null; });
+	t.ls_save("crafts",JSON.stringify(e));
+	tp_switch('crafts')	
+}
+
+function tp_updatewtemp() {	l=Cookies.get("template") || "default" ,document.querySelector("#sample").setAttribute('title',l),document.querySelector("#wtemp").innerText=l }	
 
 function tp_trim(q=false) {
 	if (!q) {
