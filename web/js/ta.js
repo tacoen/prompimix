@@ -1,3 +1,5 @@
+let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+
 function ta_lscookie() {
 	let hc = window.location.pathname.toLowerCase().replace(/\W/g,"");
 	let k = '_cookies_'
@@ -44,7 +46,7 @@ function ta_jsfunc() {
 	},
 	this.ls_check = function() {
 		
-		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+//		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
 		
 		if ((typeof localStorage.getItem(host) === 'undefined') ||
 			(localStorage.getItem(host) === null) ) {
@@ -56,12 +58,12 @@ function ta_jsfunc() {
 	},
 	
 	this.ls_reset = function () {
-		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+//		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
 		localStorage.removeItem(host);
 		console.log("ls_reset",host);
 	}
 	this.ls_init = function(data={},forced=false) {
-		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+//		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
 		if (forced) {
 			localStorage.setItem(host,JSON.stringify(data));
 			console.log("ls_init: (forced)",host)
@@ -76,7 +78,7 @@ function ta_jsfunc() {
 		}
 	},
 	this.ls_save = function(what,data) {
-		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+//		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
 		// console.log(host,what,data)
 		var sdata = JSON.parse(localStorage.getItem(host));	
 //		what2 = '\"'+what+'\"'
@@ -89,12 +91,12 @@ function ta_jsfunc() {
 		var da = {}
 		da['prompts'] = this.ls_get('prompts');	
 		da['spaces'] = this.ls_get('spaces');	
-		da['leads'] = this.ls_get('leads');
+		da['pattern'] = this.ls_get('pattern');
 		da['crafts'] = this.ls_get('crafts');
 		return jsbak = "var jsbak =" + JSON.stringify(da) +"\n\n"+"// prompimix m4.0"
 	},
 	this.ls_get = function(k,w=false) {
-		let host = window.location.pathname.toLowerCase().replace(/\W/g,"");
+		
 		var data = JSON.parse(localStorage.getItem(host));
 		if (!w) { return data[k]; } else { return data[k][w]; }
 	},
@@ -114,24 +116,4 @@ function ta_jsfunc() {
 		}
 		return selectList;
 	}
-}
-function onlyUnique(value, index, self) {
-	return self.indexOf(value) === index;
-}
-function uniquesort(retArray) {
-	retArray.sort((b, a) => b.localeCompare(a));
-	return retArray.filter(onlyUnique);
-}
-function safename(k) {
-	return k.replace(' ',"_").replace(/\W/g,"");
-}
-async function load_json(w) {
-	try {
-		console.log('load json: '+w);
-		var ls = await fetch(w)
-		var lsdata = await ls.json();
-		return lsdata;
-	} catch (error) {
-        console.log('Error fetching and parsing data', error);
-    }
 }

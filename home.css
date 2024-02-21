@@ -1,67 +1,114 @@
-* { margin:0; padding: 0 }
-body { font-family: sans-serif; background: #111; color: #cccc; }
-
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: sans-serif;
+  background: #111;
+  color: #cccc;
+  line-height: 1.6rem;
+}
 
 body {
-     display: flex;
-     flex-wrap: wrap;
-     align-content: center;
-     align-items: center;
-     }
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+}
 
 .mate,
 .tease {
-     display: flex;
-     flex-wrap: wrap  
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.tease {display: flex;width: 50%;align-content: center;justify-content: center;align-items: center;height: 100vh;}
-.tease >div {position: relative;width: 70%;margin: 1rem;}
-.tease >div img { width:100% }
-.tease >div .prompt {
-     background: #000c;
-     padding: .5rem;
-     position: absolute;
-     bottom: calc(8px + .5rem); 
-     left: 8px;
-     font-size: .8rem;
-     color: #ccc;
-     width: calc(100% - 16px - 1rem); 
+.tease {
+  display: flex;
+  width: 50%;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-.tease >div .prompt::before {
-     content: 'prompt:';
-     display: block;
-     color: #0c0;
-     font-size: .6rem;
+.tease > div {
+  position: relative;
+  width: 70%;
+  margin: 1rem;
+}
+.tease > div img {
+  width: 100%;
+}
+.tease > div .prompt {
+  background: #000c;
+  padding: 0.5rem;
+  position: absolute;
+  bottom: calc(8px + 0.5rem);
+  left: 8px;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  color: #ccc;
+  width: calc(100% - 16px - 1rem);
+}
+.tease > div .prompt::before {
+  content: "prompt:";
+  display: block;
+  color: #0c0;
+  font-size: 0.6rem;
 }
 
-.mate {display: flex;width: 50%;font-size:20px;height: 100vh;align-content: center;justify-content: center;}
-.mate > div {margin-right: 1rem;width: 70%;}
-.mate > div > div {margin-bottom: 2rem;}
-.mate h1 {font-size: 48px;margin-bottom 0;color: #fc3;font-weight: 100;}
-.mate p {margin: 1rem 0 2rem 0;}
+.mate {
+  display: flex;
+  width: 50%;
+  font-size: 20px;
+  height: 100vh;
+  align-content: center;
+  justify-content: center;
+}
+.mate > div {
+  margin-right: 1rem;
+  width: 70%;
+}
+.mate > div > div {
+  margin-bottom: 2rem;
+}
+.mate h1 {
+  margin-bottom: 0;
+  font-size: 48px;
+  color: #fc3;
+  font-weight: 100;
+}
+.mate p {
+  margin: 1rem 0 2rem 0;
+}
 
 button {
-     font-size: 24px;
-	border-radius: .5rem;
-     padding: .5rem 1rem;
-     font-weight: 200;
-	 margin-right: 1rem;
+  font-size: 24px;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: 200;
+  background-color: #ddd;
+  margin-right: 1rem;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #333;
+  border-right: 1px solid #333;
 }
 
 @media only screen and (max-width: 769px) {
+  body {
+    flex-direction: column-reverse;
+  }
 
-     body {
-          flex-direction: column-reverse;
-     }
-
-     .mate, .tease { width: 100%; 
-                    height: auto;
-                   align-content: center;
-         justify-content: center;
-         align-items: center;
-                   }
-     .tease >div,
-     .mate >div { 
-           margin:1rem 0  }
+  .mate,
+  .tease {
+    width: 100%;
+    height: auto;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+  }
+  .tease > div,
+  .mate > div {
+    margin: 1rem 0;
+  }
 }
