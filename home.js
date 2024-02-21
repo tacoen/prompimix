@@ -5,7 +5,7 @@ function fbutton(obj) {
 }
 
 const pic = [
-	['pic/1.jpg','medium shot, afrofuturism, ross tran style, girl wearing batik, playful pose, strong facial expression, pirate ship, beautiful morning sunlight, day glo, intense emotional atmosphere, canon ef 16-35mm f/2.8l iii usm lens','leonardo.ai'],
+	['pic/1.jpg','batik, playful pose, strong facial expression, pirate ship, beautiful morning sunlight, day glo, intense emotional atmosphere, canon ef 16-35mm f/2.8l iii usm lens','leonardo.ai'],
 	['pic/2.jpg','3d render, a girl wearing animal-costume, serene pose in amusement park, style of akira toriyama','leonardo.ai'],
 	['pic/3.jpg','photo, medium shot, a pretty girl wearing wide sleeveless animal-costume, serene pose in amusement park, side view, posing with one-arm raised, photo by ellen von unwerth, glimmering light effects','leonardo.ai'],
 	['pic/4.jpg','photo, medium shot, male in red mobile-suit, serene pose in outer space, front view, action pose, foreboding emotional tone, photo photo by steve mccurry','leonardo.ai'],
@@ -21,10 +21,8 @@ const pic = [
  	['pic/f.jpg','retro cartoon, haitian|dark skin|radiant smile, anime art by kazue kato','cyberealistic'],
  	['pic/g.jpg','anime concept, irish|pale skin|freckles, cynical smile, side view, illustrated with william morris style','cyberealistic'],
 	['pic/c.jpg','illustration, anime art by eric vale, 1980 retro color palette, papua new guinean|dark skin|distinctive facial tattoos, solid dynamic color background, hyperrealism painting, vector graphics','sexy.ai']
-
-
-
 ]
+
 
 function randommate() {
 	var img = document.createElement('img')
