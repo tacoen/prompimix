@@ -141,6 +141,7 @@ body {
   cursor: pointer;
   display: inline-flex;
   color: var(--fg);
+  background: transparent;
 }
 .tui nav.mini {
   height: var(--nav-mini-h);
@@ -922,6 +923,7 @@ p.msg button {
 button#Import svg,
 p.msg button svg {
   margin-right: .5rem;
+  background: transparent;
 }
 
 .px16 svg { height: 1rem; width: 1rem; }
